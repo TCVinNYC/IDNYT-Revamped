@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "74aba1abbae36ee0984766b33bea1cb127c837ed931df074dfa0120e58e5e63d"
+build_start_time: [1672424132, 543956995]
+build_end_time: [1672424144, 416149139]
+inputs:
+  "/Users/prince/development/ora/macos/Flutter/GeneratedPluginRegistrant.swift": [1672424081, 825139522]
+  "/Users/prince/development/ora/macos/Runner/AppDelegate.swift": [1657744753, 0]
+  "/Users/prince/development/ora/macos/Runner/MainFlutterWindow.swift": [1657744753, 0]
