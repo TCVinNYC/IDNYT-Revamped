@@ -14,6 +14,12 @@ final lottieTitleList = [
   'lottie_title_three'.tr(),
 ];
 
+final lottieSubtitleList = [
+  'lottie_subtitle_one'.tr(),
+  'lottie_subtitle_two'.tr(),
+  'lottie_subtitle_three'.tr(),
+];
+
 final lottiePositionProvider = StateProvider<int>((ref) {
   return 0;
 });
@@ -23,14 +29,17 @@ final lottieSignUpListProvider = Provider<List>((ref) {
     LottieTextModel(
       lottieLocation: lottieImageList[0],
       titleText: lottieTitleList[0],
+      subtitleText: lottieSubtitleList[0],
     ),
     LottieTextModel(
       lottieLocation: lottieImageList[1],
       titleText: lottieTitleList[1],
+      subtitleText: lottieSubtitleList[1],
     ),
     LottieTextModel(
       lottieLocation: lottieImageList[2],
       titleText: lottieTitleList[2],
+      subtitleText: lottieSubtitleList[2],
     ),
   ];
 });

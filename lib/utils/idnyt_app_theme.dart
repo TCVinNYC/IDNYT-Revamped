@@ -63,8 +63,9 @@ ThemeData idnytLightTheme = ThemeData(
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
-          backgroundColor: const Color.fromARGB(255, 27, 39, 90)),
+        foregroundColor: Colors.white,
+        backgroundColor: const Color(0xffef9b00),
+      ),
     ));
 
 ThemeData idnytDarkTheme = ThemeData(
