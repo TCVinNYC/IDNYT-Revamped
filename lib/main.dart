@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -6,10 +7,30 @@ import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt/constants/locales.dart';
-import 'package:idnyt/routing/router.dart';
+import 'package:idnyt/routing/app_router.dart';
 import 'package:idnyt/utils/idnyt_app_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_app_check/firebase_app_check.dart';
 
-void main() async {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // await FirebaseAppCheck.instance.activate(
+  //   webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+  //   androidProvider: AndroidProvider.playIntegrity,
+  //   appleProvider: AppleProvider.appAttest,
+  // );
+
+  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+
+  debugPrint("Firebase initialized");
+
   await Hive.initFlutter();
   debugPrint("Hive initialized");
 
@@ -64,8 +85,17 @@ class IDNYTAppState extends ConsumerState<IDNYTApp>
     }
   }
 
+  // late StreamSubscription<User?> _user;
+  // final _navigatorKey = GlobalKey<NavigatorState>();
+
   Future<void> initApp() async {
     WidgetsBinding.instance.addObserver(this);
+
+    // _user = FirebaseAuth.instance.userChanges().listen((event) {
+    //   _navigatorKey.currentState!.pushReplacementNamed(
+    //     event != null ? 'home' : 'login',
+    //   );
+    // });
   }
 
   @override
@@ -77,13 +107,14 @@ class IDNYTAppState extends ConsumerState<IDNYTApp>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    // _user.cancel();
     super.dispose();
   }
 
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    var router = ref.watch(appRouterProvider);
-
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
@@ -98,8 +129,11 @@ class IDNYTAppState extends ConsumerState<IDNYTApp>
             themeMode: ThemeMode.system,
             darkTheme: idnytDarkTheme,
             theme: idnytLightTheme,
-            routeInformationParser: router.defaultRouteParser(),
-            routerDelegate: router.delegate(),
+            routerConfig: _appRouter.config(),
+            // routeInformationParser: router.defaultRouteParser(),
+            // routerDelegate: router.delegate(
+            //   navigatorObservers: () => [TabNavigationObserver(ref: ref)],
+            // ),
           ),
           // const IDNYTLoadingOverlay(),
           // const VersionAnnouncementOverlay(),

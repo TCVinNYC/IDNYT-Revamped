@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt/routing/router.dart';
+import 'package:idnyt/routing/app_router.gr.dart';
 
+@RoutePage(name: "SplashScreenPage")
 class SplashScreenPage extends HookConsumerWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
 
@@ -12,7 +13,7 @@ class SplashScreenPage extends HookConsumerWidget {
     // AutoRouter.of(context).push(Route());
 
     //normal flow
-    AutoRouter.of(context).push(const LoginRoute());
+    AutoRouter.of(context).push(LoginPage());
     return Scaffold(
       body: Center(
         child: Column(

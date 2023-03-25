@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "961719847209",
+    "project_id": "idnyt-revamped-2023",
+    "storage_bucket": "idnyt-revamped-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961719847209:android:7bb5141ed08fae8ac8cf38",
+        "android_client_info": {
+          "package_name": "com.stevenson.idnyt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961719847209-13h5qv3mu5f1lor4b2fag8di45isv540.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8jJWtXdMain5xS60WsJu2dTYTTMzmyow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "961719847209-13h5qv3mu5f1lor4b2fag8di45isv540.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "961719847209-kq6gvbmg5dtgvrvbvcn0iuqarjvh42qd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ora"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

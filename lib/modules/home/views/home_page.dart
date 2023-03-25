@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+@RoutePage(name: 'HomePage')
 class HomePage extends HookConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
