@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt/routing/app_router.gr.dart';
+import 'package:idnyt_revamped/modules/shared/providers/auth.provider.dart';
+import 'package:idnyt_revamped/routing/app_router.gr.dart';
 
 @RoutePage(name: "SplashScreenPage")
 class SplashScreenPage extends HookConsumerWidget {
@@ -11,9 +12,14 @@ class SplashScreenPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //for testing
     // AutoRouter.of(context).push(Route());
+    final firebaseAuth = ref.watch(firebaseAuthProvider);
 
-    //normal flow
-    AutoRouter.of(context).push(LoginPage());
+    if (firebaseAuth.currentUser == null) {
+      AutoRouter.of(context).push(LoginPage());
+    } else {
+      AutoRouter.of(context).push(const HomePage());
+    }
+
     return Scaffold(
       body: Center(
         child: Column(

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.stevenson.idnyt">
+    package="com.stevenson.idnytRevamped">
    <application
-        android:label="ora"
+        android:label="IDNYT"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

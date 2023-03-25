@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt/modules/login/models/lottie_with_text_model.dart';
+import 'package:idnyt_revamped/modules/login/models/lottie_with_text_model.dart';
 
 final lottieImageList = [
   'assets/lottie/girl-studying-on-laptop.json',

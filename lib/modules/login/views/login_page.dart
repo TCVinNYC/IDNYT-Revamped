@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_view_indicator/flutter_page_view_indicator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt/modules/login/providers/lottie_provider.dart';
-import 'package:idnyt/modules/shared/widgets/regular_button_widget.dart';
-import 'package:idnyt/routing/app_router.gr.dart';
+import 'package:idnyt_revamped/modules/login/providers/lottie_provider.dart';
+import 'package:idnyt_revamped/modules/shared/providers/auth.provider.dart';
+import 'package:idnyt_revamped/modules/shared/widgets/regular_button_widget.dart';
 
 @RoutePage(name: "LoginPage")
 class LoginPage extends HookConsumerWidget {
@@ -56,9 +55,7 @@ class LoginPage extends HookConsumerWidget {
             ),
             RegularButtonWidget(
               text: "Get Started",
-              onPressed: () {
-                AutoRouter.of(context).push(HomePage());
-              },
+              onPressed: () => ref.read(authServiceProvider).signInWithGoogle(),
             )
           ],
         ),

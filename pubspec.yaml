@@ -1,6 +1,5 @@
-name: idnyt
+name: idnyt_revamped
 description: A new Flutter project.
-
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -20,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=2.19.3 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -51,6 +50,7 @@ dependencies:
 dev_dependencies:
   auto_route_generator: ^6.0.0
   build_runner:
+  change_app_package_name: ^1.1.0
   flutter_test:
     sdk: flutter
 
@@ -87,7 +87,7 @@ flutter:
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
+  # list giving the asset and other descriptors for the font.
   fonts:
     - family: Nunito Sans
       fonts:
@@ -107,6 +107,6 @@ flutter:
     - family: IDNYTIconSet
       fonts:
         - asset: fonts/IDNYTIconSet.ttf
-  #
+        
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

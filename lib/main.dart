@@ -6,13 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt/constants/locales.dart';
-import 'package:idnyt/routing/app_router.dart';
-import 'package:idnyt/utils/idnyt_app_theme.dart';
+import 'package:idnyt_revamped/constants/locales.dart';
+import 'package:idnyt_revamped/routing/app_router.dart';
+import 'package:idnyt_revamped/utils/idnyt_app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_app_check/firebase_app_check.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,12 +19,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  // await FirebaseAppCheck.instance.activate(
-  //   webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-  //   androidProvider: AndroidProvider.playIntegrity,
-  //   appleProvider: AppleProvider.appAttest,
-  // );
 
   await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 
@@ -85,17 +78,8 @@ class IDNYTAppState extends ConsumerState<IDNYTApp>
     }
   }
 
-  // late StreamSubscription<User?> _user;
-  // final _navigatorKey = GlobalKey<NavigatorState>();
-
   Future<void> initApp() async {
     WidgetsBinding.instance.addObserver(this);
-
-    // _user = FirebaseAuth.instance.userChanges().listen((event) {
-    //   _navigatorKey.currentState!.pushReplacementNamed(
-    //     event != null ? 'home' : 'login',
-    //   );
-    // });
   }
 
   @override
@@ -107,7 +91,6 @@ class IDNYTAppState extends ConsumerState<IDNYTApp>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    // _user.cancel();
     super.dispose();
   }
 
@@ -130,10 +113,6 @@ class IDNYTAppState extends ConsumerState<IDNYTApp>
             darkTheme: idnytDarkTheme,
             theme: idnytLightTheme,
             routerConfig: _appRouter.config(),
-            // routeInformationParser: router.defaultRouteParser(),
-            // routerDelegate: router.delegate(
-            //   navigatorObservers: () => [TabNavigationObserver(ref: ref)],
-            // ),
           ),
           // const IDNYTLoadingOverlay(),
           // const VersionAnnouncementOverlay(),

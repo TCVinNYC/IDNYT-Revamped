@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>961719847209-kq6gvbmg5dtgvrvbvcn0iuqarjvh42qd.apps.googleusercontent.com</string>
+	<string>961719847209-t3d1q65oj64eogo9t8kmonm697nst5iu.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.961719847209-kq6gvbmg5dtgvrvbvcn0iuqarjvh42qd</string>
+	<string>com.googleusercontent.apps.961719847209-t3d1q65oj64eogo9t8kmonm697nst5iu</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>961719847209-76bnkfrrpf0hoa194vs0hdeasc9qihtv.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDM7IGoiajW5OlJ4gIRYV5dl8yzmUcmE2A</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.ora</string>
+	<string>com.example.idnytRevamped</string>
 	<key>PROJECT_ID</key>
 	<string>idnyt-revamped-2023</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:961719847209:ios:9fdf42e4fbc150a3c8cf38</string>
+	<string>1:961719847209:ios:5fd3bfa71adc0099c8cf38</string>
 </dict>
 </plist>

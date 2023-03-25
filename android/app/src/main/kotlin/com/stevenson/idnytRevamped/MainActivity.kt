@@ -1,4 +1,4 @@
-package com.stevenson.idnyt
+package com.stevenson.idnytRevamped
 
 import io.flutter.embedding.android.FlutterActivity
 

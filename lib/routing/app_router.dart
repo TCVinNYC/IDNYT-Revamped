@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:idnyt/routing/app_router.gr.dart';
-import 'package:idnyt/routing/auth_guard.dart';
+import 'package:idnyt_revamped/routing/app_router.gr.dart';
 
 // RUN AUTO ROUTER COMMAND
 // flutter packages pub run build_runner build
 
-// part 'app_router.gr.dart';
+// part 'app_router.gr.dart'; * not working for now *
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends $AppRouter {
@@ -17,6 +15,3 @@ class AppRouter extends $AppRouter {
     AutoRoute(path: '/home', page: HomePage.page),
   ];
 }
-
-// final appRouterProvider = Provider((ref) => AppRouter(ref.watch(
-//     isAuthenticatedProvider as AlwaysAliveProviderListenable<AuthService>)));

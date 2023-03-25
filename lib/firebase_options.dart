@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,19 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCSh2rIBK2Z6PfxEMo4tB9F02YqHcsLt9A',
-    appId: '1:961719847209:web:1b47f7035a359d24c8cf38',
-    messagingSenderId: '961719847209',
-    projectId: 'idnyt-revamped-2023',
-    authDomain: 'idnyt-revamped-2023.firebaseapp.com',
-    storageBucket: 'idnyt-revamped-2023.appspot.com',
-    measurementId: 'G-K7WWWTNZCW',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA8jJWtXdMain5xS60WsJu2dTYTTMzmyow',
-    appId: '1:961719847209:android:7bb5141ed08fae8ac8cf38',
+    appId: '1:961719847209:android:39de39ac330eb964c8cf38',
     messagingSenderId: '961719847209',
     projectId: 'idnyt-revamped-2023',
     storageBucket: 'idnyt-revamped-2023.appspot.com',
@@ -66,11 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDM7IGoiajW5OlJ4gIRYV5dl8yzmUcmE2A',
-    appId: '1:961719847209:ios:4fd011eea1ae0b3cc8cf38',
+    appId: '1:961719847209:ios:adc99b839fd5c1ccc8cf38',
     messagingSenderId: '961719847209',
     projectId: 'idnyt-revamped-2023',
     storageBucket: 'idnyt-revamped-2023.appspot.com',
-    iosClientId: '961719847209-3pmujucbcuga7uas6120t3v3l5ks2n0h.apps.googleusercontent.com',
-    iosBundleId: 'com.stevenson.idnyt',
+    androidClientId: '961719847209-76bnkfrrpf0hoa194vs0hdeasc9qihtv.apps.googleusercontent.com',
+    iosClientId: '961719847209-r8p6c7aqnia9d3vfqi1hiqpbb2lmjm11.apps.googleusercontent.com',
+    iosBundleId: 'com.stevenson.idnytRevamped',
   );
 }
