@@ -12,12 +12,12 @@ class SplashScreenPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //for testing
     // AutoRouter.of(context).push(Route());
-    final firebaseAuth = ref.watch(firebaseAuthProvider);
+    final authState = ref.watch(authStateProvider);
 
-    if (firebaseAuth.currentUser == null) {
-      AutoRouter.of(context).push(LoginPage());
-    } else {
+    if (authState.value != null) {
       AutoRouter.of(context).push(const HomePage());
+    } else {
+      AutoRouter.of(context).push(LoginPage());
     }
 
     return Scaffold(

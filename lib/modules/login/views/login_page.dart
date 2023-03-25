@@ -16,6 +16,9 @@ class LoginPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final lottieSignUpList = ref.read(lottieSignUpListProvider);
     final lottiePosition = ref.watch(lottiePositionProvider);
+
+    final auth = ref.watch(authServiceProvider);
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -55,7 +58,7 @@ class LoginPage extends HookConsumerWidget {
             ),
             RegularButtonWidget(
               text: "Get Started",
-              onPressed: () => ref.read(authServiceProvider).signInWithGoogle(),
+              onPressed: () => auth.signInWithGoogle(),
             )
           ],
         ),

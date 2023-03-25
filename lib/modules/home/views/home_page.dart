@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:idnyt_revamped/modules/shared/providers/auth.provider.dart';
+import 'package:idnyt_revamped/modules/shared/widgets/regular_button_widget.dart';
 
 @RoutePage(name: 'HomePage')
 class HomePage extends HookConsumerWidget {
@@ -8,6 +10,7 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final auth = ref.watch(authServiceProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,
@@ -17,8 +20,12 @@ class HomePage extends HookConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Text('Hey you signed in!'),
+            children: [
+              const Text('Hey you signed in!'),
+              RegularButtonWidget(
+                text: "Sign Out",
+                onPressed: () => auth.signOut(),
+              )
             ],
           ),
         ),

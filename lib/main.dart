@@ -11,16 +11,14 @@ import 'package:idnyt_revamped/routing/app_router.dart';
 import 'package:idnyt_revamped/utils/idnyt_app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
+    name: 'idnyt-revamped-v2',
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 
   debugPrint("Firebase initialized");
 

@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/shared/services/auth.service.dart';
 
-final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
-  return FirebaseAuth.instance;
-});
-
 final authServiceProvider = Provider<AuthService>((ref) {
-  return AuthService(ref.watch(firebaseAuthProvider));
+  return AuthService();
 });
 
-final authStateChangesProvider = StreamProvider.autoDispose<User?>((ref) {
-  return ref.watch(authServiceProvider).authStateChanges();
+final authStateProvider = StreamProvider<User?>((ref) {
+  return ref.read(authServiceProvider).authStateChanges;
+});
+
+final authRefreshProvider = Provider((ref) {
+  return ref.read(authServiceProvider).refreshAuth;
 });
