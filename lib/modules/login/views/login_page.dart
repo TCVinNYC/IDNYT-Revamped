@@ -25,7 +25,7 @@ class LoginPage extends HookConsumerWidget {
               RegularButtonWidget(
                 text: "Get Started",
                 onPressed: () {
-                  AutoRouter.of(context).push(const HomeRoute());
+                  AutoRouter.of(context).push(const SignInUpRoute());
                 },
               )
             ],

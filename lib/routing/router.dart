@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt/modules/home/views/home_page.dart';
 import 'package:idnyt/modules/login/views/login_page.dart';
 import 'package:idnyt/modules/shared/views/splash_screen.dart';
+import 'package:idnyt/modules/signinup/views/signinup_page.dart';
 
 part 'router.gr.dart';
 
@@ -16,6 +17,7 @@ part 'router.gr.dart';
     AutoRoute(page: SplashScreenPage, initial: true),
     AutoRoute(page: LoginPage),
     AutoRoute(page: HomePage),
+    AutoRoute(page: SignInUpPage)
   ],
 )
 class AppRouter extends _$AppRouter {
