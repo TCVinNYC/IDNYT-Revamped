@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_page_view_indicator/flutter_page_view_indicator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/login/providers/lottie_provider.dart';
-import 'package:idnyt_revamped/modules/shared/providers/auth.provider.dart';
-import 'package:idnyt_revamped/modules/shared/widgets/regular_button_widget.dart';
+import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
+import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
 
 @RoutePage(name: "LoginPage")
 class LoginPage extends HookConsumerWidget {

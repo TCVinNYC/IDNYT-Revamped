@@ -12,7 +12,7 @@ import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i5;
 import 'package:idnyt_revamped/modules/home/views/home_page.dart' as _i1;
 import 'package:idnyt_revamped/modules/login/views/login_page.dart' as _i3;
-import 'package:idnyt_revamped/modules/shared/views/splash_screen.dart' as _i2;
+import 'package:idnyt_revamped/shared/views/splash_screen.dart' as _i2;
 
 abstract class $AppRouter extends _i4.RootStackRouter {
   $AppRouter([_i5.GlobalKey<_i5.NavigatorState>? navigatorKey])

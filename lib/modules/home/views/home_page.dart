@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt_revamped/modules/shared/providers/auth.provider.dart';
-import 'package:idnyt_revamped/modules/shared/widgets/regular_button_widget.dart';
+import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
+import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
 
 @RoutePage(name: 'HomePage')
 class HomePage extends HookConsumerWidget {

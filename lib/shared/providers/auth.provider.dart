@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt_revamped/modules/shared/services/auth.service.dart';
+import 'package:idnyt_revamped/shared/services/auth.service.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) {
   return AuthService();

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt_revamped/modules/shared/providers/auth.provider.dart';
+import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
 
 @RoutePage(name: "SplashScreenPage")

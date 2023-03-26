@@ -46,6 +46,7 @@ dependencies:
   firebase_auth: ^4.2.2
   firebase_app_check: ^0.1.1+13
   google_sign_in: ^6.0.2
+  cloud_firestore: ^4.4.5
 
 dev_dependencies:
   auto_route_generator: ^6.0.0
