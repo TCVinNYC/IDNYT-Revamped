@@ -15,7 +15,15 @@ class SplashScreenPage extends HookConsumerWidget {
     final authState = ref.watch(authStateProvider);
 
     if (authState.value != null) {
-      AutoRouter.of(context).push(const HomePage());
+      if (ref
+          .read(authServiceProvider)
+          .currentUser!
+          .email!
+          .endsWith("@nyit.edu")) {
+        AutoRouter.of(context).push(const HomePage());
+      } else {
+        AutoRouter.of(context).push(const ErrorPage());
+      }
     } else {
       AutoRouter.of(context).push(LoginPage());
     }
