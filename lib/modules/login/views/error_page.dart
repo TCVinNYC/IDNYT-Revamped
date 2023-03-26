@@ -28,10 +28,10 @@ class ErrorPage extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('Hey smth is wrong with your account!'),
+              const Text('Hey something is wrong with your account!'),
               RegularButtonWidget(
-                text: "Sign Out",
-                onPressed: () => auth.signOut(),
+                text: "Return to Login Page",
+                onPressed: () => auth.deleteUser(),
               )
             ],
           ),

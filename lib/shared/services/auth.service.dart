@@ -51,4 +51,13 @@ class AuthService {
       debugPrint(e.toString());
     }
   }
+
+  Future<void> deleteUser() async {
+    try {
+      debugPrint('Signing You Out');
+      await _auth.currentUser!.delete();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 }
