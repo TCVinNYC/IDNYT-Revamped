@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_page_view_indicator/flutter_page_view_indicator.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/login/providers/lottie_provider.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
@@ -15,7 +15,6 @@ class LoginPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lottieSignUpList = ref.read(lottieSignUpListProvider);
-    final lottiePosition = ref.watch(lottiePositionProvider);
 
     final auth = ref.watch(authServiceProvider);
 
@@ -25,11 +24,11 @@ class LoginPage extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
-              child: Text(
-                'IDNYT Logo Placeholder',
-                style: TextStyle(fontSize: 25),
+            Container(
+              width: MediaQuery.of(context).size.width / 2,
+              padding: const EdgeInsets.fromLTRB(10, 30, 10, 5),
+              child: const Image(
+                image: AssetImage('assets/images/IDNYTColor.png'),
               ),
             ),
             Expanded(
@@ -48,12 +47,11 @@ class LoginPage extends HookConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-              child: PageViewIndicator(
-                length: lottieSignUpList.length,
-                currentIndex: lottiePosition,
-                margin: const EdgeInsets.all(5),
-                borderRadius: 10,
-                animationDuration: const Duration(milliseconds: 250),
+              child: SmoothPageIndicator(
+                controller: _pageController,
+                count: lottieSignUpList.length,
+                textDirection: TextDirection.ltr,
+                effect: const ExpandingDotsEffect(),
               ),
             ),
             RegularButtonWidget(
