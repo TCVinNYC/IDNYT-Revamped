@@ -15,7 +15,6 @@ class LoginPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lottieSignUpList = ref.read(lottieSignUpListProvider);
-
     final auth = ref.watch(authServiceProvider);
 
     return Scaffold(

@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
+import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
 
-@RoutePage(name: 'HomePage')
-class HomePage extends HookConsumerWidget {
-  const HomePage({Key? key}) : super(key: key);
+@RoutePage(name: 'StudentHomePage')
+class StudentHomePage extends HookConsumerWidget {
+  const StudentHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final auth = ref.watch(authServiceProvider);
+    final currentUser = ref.watch(userDataProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,
@@ -22,7 +24,10 @@ class HomePage extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('Hey you signed in!'),
+              const Text('Hey Student you signed in!'),
+              Text(currentUser.value?.email ?? "No email"),
+              Text(currentUser.value?.fullName ?? "No name"),
+              Text(currentUser.value?.role ?? "No role"),
               RegularButtonWidget(
                   text: "Sign Out",
                   onPressed: () {

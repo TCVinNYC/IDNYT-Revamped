@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
+import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 @RoutePage(name: "SplashScreenPage")
 class SplashScreenPage extends HookConsumerWidget {
@@ -13,6 +14,8 @@ class SplashScreenPage extends HookConsumerWidget {
     //for testing
     // AutoRouter.of(context).push(Route());
     final authState = ref.watch(authStateProvider);
+    final userData = ref.watch(userDataProvider);
+    final firestore = ref.read(firestoreProvider);
 
     if (authState.value != null) {
       if (ref
@@ -20,7 +23,15 @@ class SplashScreenPage extends HookConsumerWidget {
           .currentUser!
           .email!
           .endsWith("@nyit.edu")) {
-        AutoRouter.of(context).push(const HomePage());
+        if (userData.value?.role == 'student') {
+          AutoRouter.of(context).push(const StudentHomePage());
+        } else if ((userData.value?.role == 'professor')) {
+          AutoRouter.of(context).push(const ProfessorHomePage());
+        } else if (userData.value?.role == 'admin') {
+          AutoRouter.of(context).push(const AdminHomePage());
+        } else if (userData.value?.role == "") {
+          firestore.createAccount();
+        }
       } else {
         AutoRouter.of(context).push(const ErrorPage());
       }

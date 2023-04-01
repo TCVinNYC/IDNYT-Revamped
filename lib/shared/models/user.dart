@@ -1,4 +1,4 @@
-class User {
+class UserModel {
   final String id;
   final String email;
   final String fullName;
@@ -7,7 +7,7 @@ class User {
   final Map schoolCard;
   final String schoolID;
 
-  User({
+  UserModel({
     required this.id,
     required this.email,
     required this.fullName,
@@ -17,8 +17,8 @@ class User {
     required this.schoolID,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       id: json['id'],
       email: json['email'],
       fullName: json['fullName'],
