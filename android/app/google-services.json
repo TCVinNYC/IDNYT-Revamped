@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "587457458940",
+    "project_id": "idnyt-revamped-v2",
+    "storage_bucket": "idnyt-revamped-v2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587457458940:android:c58093d8dab2b9c56cdd79",
+        "android_client_info": {
+          "package_name": "com.stevenson.idnytRevamped"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587457458940-kku5oipbuiptf2g5i2k665gf1d1jvgh7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0RZ83LTNkXdR4k-ctZgLZhkfS7GwC9fE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587457458940-kku5oipbuiptf2g5i2k665gf1d1jvgh7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

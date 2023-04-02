@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -5,11 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt/constants/locales.dart';
-import 'package:idnyt/routing/router.dart';
-import 'package:idnyt/utils/idnyt_app_theme.dart';
+import 'package:idnyt_revamped/constants/locales.dart';
+import 'package:idnyt_revamped/routing/app_router.dart';
+import 'package:idnyt_revamped/utils/idnyt_app_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    name: 'idnyt-revamped-v2',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  debugPrint("Firebase initialized");
+
   await Hive.initFlutter();
   debugPrint("Hive initialized");
 
@@ -22,7 +34,6 @@ void main() async {
       debugPrint("Error setting high refresh rate: $e");
     }
   }
-
   runApp(
     EasyLocalization(
       supportedLocales: locales,
@@ -80,10 +91,10 @@ class IDNYTAppState extends ConsumerState<IDNYTApp>
     super.dispose();
   }
 
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    var router = ref.watch(appRouterProvider);
-
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
@@ -98,8 +109,7 @@ class IDNYTAppState extends ConsumerState<IDNYTApp>
             themeMode: ThemeMode.system,
             darkTheme: idnytDarkTheme,
             theme: idnytLightTheme,
-            routeInformationParser: router.defaultRouteParser(),
-            routerDelegate: router.delegate(),
+            routerConfig: _appRouter.config(),
           ),
           // const IDNYTLoadingOverlay(),
           // const VersionAnnouncementOverlay(),

@@ -1,4 +1,4 @@
-package com.example.ora
+package com.stevenson.idnytRevamped
 
 import io.flutter.embedding.android.FlutterActivity
 
