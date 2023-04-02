@@ -9,6 +9,6 @@ final firestoreProvider = Provider<FirebaseService>((ref) {
   return FirebaseService(authUser: authUser);
 });
 
-final userDataProvider = StreamProvider<UserModel?>((ref) {
+final userDataProvider = FutureProvider<UserModel?>((ref) {
   return ref.watch(firestoreProvider).userData;
 });

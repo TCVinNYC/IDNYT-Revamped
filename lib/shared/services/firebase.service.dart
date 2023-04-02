@@ -9,7 +9,24 @@ class FirebaseService {
   final User? authUser;
   late UserModel currentUser;
 
-  Stream<UserModel?> get userData => getUserData();
+  Future<UserModel?> get userData => checkUserData();
+
+  Future<UserModel?> checkUserData() async {
+    final docRef = _db.collection("users").doc(authUser?.email);
+    var doc = await docRef.get();
+    if (doc.exists) {
+      debugPrint("document found ${authUser?.email}");
+      UserModel userData =
+          UserModel.fromJson(doc.data() as Map<String, dynamic>);
+      currentUser = userData;
+      return currentUser;
+    } else {
+      debugPrint("no document for ${authUser?.email}");
+      await createAccount();
+      checkUserData();
+      return currentUser;
+    }
+  }
 
   // make a user variable that store user's doc data
   // have it update with firestore
@@ -29,6 +46,7 @@ class FirebaseService {
   // }
 
   Future<void> createAccount() async {
+    debugPrint('Creating Account for ${authUser?.email}');
     try {
       final userDocument = <String, dynamic>{
         "email": authUser?.email,
@@ -36,7 +54,7 @@ class FirebaseService {
         "fullName": authUser?.displayName,
         "active": true,
       };
-
+      debugPrint('Created Doc for ${authUser?.email}');
       _db.collection("users").doc(authUser?.email).set(userDocument);
       currentUser = UserModel.fromJson(userDocument);
       debugPrint("Added user ${authUser?.email} to Firebase\n");
@@ -45,23 +63,9 @@ class FirebaseService {
     }
   }
 
-  // Future<User?> getUserData() async {
-  //   final docRef = _db.collection("users").doc("user_email");
-  //   var doc = await docRef.get();
-  //   if (doc.exists) {
-  //     print(doc.data());
-  //     User userData = User.fromJson(doc.data() as Map<String, dynamic>);
-  //     currentUser = userData;
-  //     return currentUser;
-  //   } else {
-  //     print("no doc");
-  //     currentUser = null;
-  //     return null;
-  //   }
-  // }
-
   Stream<UserModel> getUserData() {
     final docRef = _db.collection("users").doc(authUser?.email);
+    debugPrint('Getting Doc for ${authUser?.email}');
     return docRef
         .snapshots()
         .map((doc) => UserModel.fromJson(doc.data() as Map<String, dynamic>));

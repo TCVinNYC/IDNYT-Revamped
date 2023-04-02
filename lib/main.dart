@@ -8,7 +8,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/constants/locales.dart';
 import 'package:idnyt_revamped/routing/app_router.dart';
-import 'package:idnyt_revamped/tests/import_professors.dart';
 import 'package:idnyt_revamped/utils/idnyt_app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

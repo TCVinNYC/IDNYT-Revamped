@@ -43,7 +43,6 @@ dependencies:
   lottie: ^2.2.0
   firebase_core: ^2.7.1
   firebase_auth: ^4.2.2
-  firebase_app_check: ^0.1.1+13
   google_sign_in: ^6.0.2
   cloud_firestore: ^4.4.5
   smooth_page_indicator: ^1.0.1
