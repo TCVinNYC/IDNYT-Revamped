@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
-import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 @RoutePage(name: "SplashScreenPage")
 class SplashScreenPage extends HookConsumerWidget {
@@ -13,38 +13,44 @@ class SplashScreenPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //for testing
     // AutoRouter.of(context).push(Route());
-    final auth = ref.read(authServiceProvider);
-    final authState = ref.watch(authStateProvider);
 
-    if (authState.value != null) {
-      debugPrint('Auth is vaild for ${auth.currentUser?.email}');
-      if (auth.currentUser!.email!.endsWith("@nyit.edu")) {
-        final userData = ref.watch(userDataProvider);
-        final firestore = ref.watch(firestoreProvider);
-        debugPrint('Auth ends in @NYIT.edu :D');
-        if (userData.value?.role == 'student') {
-          debugPrint('User has document and is a student');
-          AutoRouter.of(context).push(const StudentHomePage());
-        } else if ((userData.value?.role == 'professor')) {
-          debugPrint('User has document and is a professor');
-          AutoRouter.of(context).push(const ProfessorHomePage());
-        } else if (userData.value?.role == 'admin') {
-          debugPrint('User has document and is an admin');
-          AutoRouter.of(context).push(const AdminHomePage());
-        } else if (userData.value?.role == "") {
-          debugPrint(
-              'User does NOT have a document, they will become a student unless changed');
-          firestore.createAccount();
-          AutoRouter.of(context).push(const StudentHomePage());
+    final authState = ref.watch(authStateProvider);
+    final currentUser = ref.watch(authServiceProvider).currentUser;
+    void performLoggingIn() async {
+      bool isSuccess = false;
+      await ref.read(authServiceProvider).refreshAuth();
+      isSuccess = currentUser != null;
+      if (isSuccess) {
+        debugPrint('Auth is vaild for ${currentUser.email}');
+        if (currentUser.email!.endsWith("@nyit.edu")) {
+          debugPrint('Auth ends in @NYIT.edu :D\nGoing to Tab Navigation Page');
+          // ignore: use_build_context_synchronously
+          AutoRouter.of(context).replace(const TabControllerPage());
+        } else {
+          debugPrint('Error during auth for ${currentUser.email}');
+          // ignore: use_build_context_synchronously
+          AutoRouter.of(context).push(const ErrorPage());
         }
       } else {
-        AutoRouter.of(context).push(const ErrorPage());
+        // debugPrint('Auth is broken, going back to LoginPage');
+        // auth.signOut();
+        debugPrint('Auth is unavailable, going to Login Page');
+        // ignore: use_build_context_synchronously
+        AutoRouter.of(context).replace(LoginPage());
       }
-    } else {
-      // debugPrint('Auth is broken, going back to LoginPage');
-      // auth.signOut();
-      AutoRouter.of(context).push(LoginPage());
     }
+
+    useEffect(
+      () {
+        if (currentUser != null) {
+          performLoggingIn();
+        } else {
+          AutoRouter.of(context).replace(LoginPage());
+        }
+        return null;
+      },
+      [],
+    );
 
     return Scaffold(
       body: Center(

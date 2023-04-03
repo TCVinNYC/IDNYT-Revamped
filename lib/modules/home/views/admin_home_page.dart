@@ -32,7 +32,7 @@ class AdminHomePage extends HookConsumerWidget {
                   text: "Sign Out",
                   onPressed: () {
                     auth.signOut();
-                    AutoRouter.of(context).push(LoginPage());
+                    AutoRouter.of(context).replace(LoginPage());
                   })
             ],
           ),

@@ -10,5 +10,5 @@ final firestoreProvider = Provider<FirebaseService>((ref) {
 });
 
 final userDataProvider = FutureProvider<UserModel?>((ref) {
-  return ref.watch(firestoreProvider).userData;
+  return ref.read(firestoreProvider).userData;
 });

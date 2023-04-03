@@ -13,8 +13,17 @@ class AppRouter extends $AppRouter {
     AutoRoute(path: '/', page: SplashScreenPage.page),
     AutoRoute(path: '/login', page: LoginPage.page),
     AutoRoute(path: '/error', page: ErrorPage.page),
-    AutoRoute(path: '/studenthome', page: StudentHomePage.page),
-    AutoRoute(path: '/professorhome', page: ProfessorHomePage.page),
-    AutoRoute(path: '/adminhome', page: AdminHomePage.page),
+    CustomRoute(
+      page: TabControllerPage.page,
+      children: [
+        AutoRoute(path: 'studenthome', page: StudentHomePage.page),
+        AutoRoute(path: 'professorhome', page: ProfessorHomePage.page),
+        AutoRoute(path: 'adminhome', page: AdminHomePage.page),
+        AutoRoute(path: 'blue', page: BluePage.page),
+        AutoRoute(path: 'red', page: RedPage.page),
+        AutoRoute(path: 'green', page: GreenPage.page),
+      ],
+      transitionsBuilder: TransitionsBuilders.noTransition,
+    ),
   ];
 }
