@@ -1,27 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
-import 'package:idnyt_revamped/shared/models/user.dart';
+import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 @RoutePage(name: "TabControllerPage")
 class TabControllerPage extends HookConsumerWidget {
-  UserModel userData;
-  TabControllerPage({Key? key, required this.userData}) : super(key: key);
+  const TabControllerPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userData = ref.watch(firestoreProvider).userData;
+
     return AutoTabsScaffold(
       routes: [
-        StudentHomePage(
-            userData:
-                userData), // we know that this gets loaded first before loadData gets to finish
-        // if (userDataStream.value?.role == 'student')
-        //   StudentHomePage(currentUser: userDataStream.value),
-        // if (userDataStream.value?.role == 'professor')
-        //   const ProfessorHomePage(),
-        // if (userDataStream.value?.role == 'admin') const AdminHomePage(),
+        // StudentHomePage(userData: firestore.userData),
+        if (userData.role == 'student') StudentHomePage(userData: userData),
+        if (userData.role == 'professor') ProfessorHomePage(userData: userData),
+        if (userData.role == 'admin') AdminHomePage(userData: userData),
         const RedPage(),
         const GreenPage(),
         const BluePage(),

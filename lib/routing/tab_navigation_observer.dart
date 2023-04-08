@@ -37,7 +37,7 @@ class TabNavigationObserver extends AutoRouterObserver {
     if (route.path == 'green') {
       // ref.read(albumProvider.notifier).getAllAlbums();
     }
-    ref.watch(userDataStreamProvider);
+    // ref.watch(userDataStreamProvider);
     ref.read(firestoreProvider);
     // ref.watch(serverInfoProvider.notifier).getServerVersion();
   }

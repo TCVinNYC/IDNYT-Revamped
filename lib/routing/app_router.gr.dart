@@ -31,13 +31,9 @@ abstract class $AppRouter extends _i11.RootStackRouter {
   @override
   final Map<String, _i11.PageFactory> pagesMap = {
     TabControllerPage.name: (routeData) {
-      final args = routeData.argsAs<TabControllerPageArgs>();
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i1.TabControllerPage(
-          key: args.key,
-          userData: args.userData,
-        ),
+        child: const _i1.TabControllerPage(),
       );
     },
     SplashScreenPage.name: (routeData) {
@@ -57,9 +53,13 @@ abstract class $AppRouter extends _i11.RootStackRouter {
       );
     },
     AdminHomePage.name: (routeData) {
+      final args = routeData.argsAs<AdminHomePageArgs>();
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.AdminHomePage(),
+        child: _i4.AdminHomePage(
+          key: args.key,
+          userData: args.userData,
+        ),
       );
     },
     RedPage.name: (routeData) {
@@ -81,9 +81,13 @@ abstract class $AppRouter extends _i11.RootStackRouter {
       );
     },
     ProfessorHomePage.name: (routeData) {
+      final args = routeData.argsAs<ProfessorHomePageArgs>();
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.ProfessorHomePage(),
+        child: _i8.ProfessorHomePage(
+          key: args.key,
+          userData: args.userData,
+        ),
       );
     },
     ErrorPage.name: (routeData) {
@@ -105,40 +109,16 @@ abstract class $AppRouter extends _i11.RootStackRouter {
 
 /// generated route for
 /// [_i1.TabControllerPage]
-class TabControllerPage extends _i11.PageRouteInfo<TabControllerPageArgs> {
-  TabControllerPage({
-    _i12.Key? key,
-    required _i13.UserModel userData,
-    List<_i11.PageRouteInfo>? children,
-  }) : super(
+class TabControllerPage extends _i11.PageRouteInfo<void> {
+  const TabControllerPage({List<_i11.PageRouteInfo>? children})
+      : super(
           TabControllerPage.name,
-          args: TabControllerPageArgs(
-            key: key,
-            userData: userData,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'TabControllerPage';
 
-  static const _i11.PageInfo<TabControllerPageArgs> page =
-      _i11.PageInfo<TabControllerPageArgs>(name);
-}
-
-class TabControllerPageArgs {
-  const TabControllerPageArgs({
-    this.key,
-    required this.userData,
-  });
-
-  final _i12.Key? key;
-
-  final _i13.UserModel userData;
-
-  @override
-  String toString() {
-    return 'TabControllerPageArgs{key: $key, userData: $userData}';
-  }
+  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
 }
 
 /// generated route for
@@ -195,16 +175,40 @@ class StudentHomePageArgs {
 
 /// generated route for
 /// [_i4.AdminHomePage]
-class AdminHomePage extends _i11.PageRouteInfo<void> {
-  const AdminHomePage({List<_i11.PageRouteInfo>? children})
-      : super(
+class AdminHomePage extends _i11.PageRouteInfo<AdminHomePageArgs> {
+  AdminHomePage({
+    _i12.Key? key,
+    required _i13.UserModel userData,
+    List<_i11.PageRouteInfo>? children,
+  }) : super(
           AdminHomePage.name,
+          args: AdminHomePageArgs(
+            key: key,
+            userData: userData,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AdminHomePage';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i11.PageInfo<AdminHomePageArgs> page =
+      _i11.PageInfo<AdminHomePageArgs>(name);
+}
+
+class AdminHomePageArgs {
+  const AdminHomePageArgs({
+    this.key,
+    required this.userData,
+  });
+
+  final _i12.Key? key;
+
+  final _i13.UserModel userData;
+
+  @override
+  String toString() {
+    return 'AdminHomePageArgs{key: $key, userData: $userData}';
+  }
 }
 
 /// generated route for
@@ -251,16 +255,40 @@ class GreenPage extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.ProfessorHomePage]
-class ProfessorHomePage extends _i11.PageRouteInfo<void> {
-  const ProfessorHomePage({List<_i11.PageRouteInfo>? children})
-      : super(
+class ProfessorHomePage extends _i11.PageRouteInfo<ProfessorHomePageArgs> {
+  ProfessorHomePage({
+    _i12.Key? key,
+    required _i13.UserModel userData,
+    List<_i11.PageRouteInfo>? children,
+  }) : super(
           ProfessorHomePage.name,
+          args: ProfessorHomePageArgs(
+            key: key,
+            userData: userData,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ProfessorHomePage';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i11.PageInfo<ProfessorHomePageArgs> page =
+      _i11.PageInfo<ProfessorHomePageArgs>(name);
+}
+
+class ProfessorHomePageArgs {
+  const ProfessorHomePageArgs({
+    this.key,
+    required this.userData,
+  });
+
+  final _i12.Key? key;
+
+  final _i13.UserModel userData;
+
+  @override
+  String toString() {
+    return 'ProfessorHomePageArgs{key: $key, userData: $userData}';
+  }
 }
 
 /// generated route for
