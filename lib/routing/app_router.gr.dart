@@ -20,6 +20,7 @@ import 'package:idnyt_revamped/modules/home/views/student_home_page.dart'
     as _i3;
 import 'package:idnyt_revamped/modules/login/views/error_page.dart' as _i9;
 import 'package:idnyt_revamped/modules/login/views/login_page.dart' as _i10;
+import 'package:idnyt_revamped/shared/models/user.dart' as _i13;
 import 'package:idnyt_revamped/shared/views/splash_screen.dart' as _i2;
 import 'package:idnyt_revamped/shared/views/tab_controller_page.dart' as _i1;
 
@@ -30,9 +31,13 @@ abstract class $AppRouter extends _i11.RootStackRouter {
   @override
   final Map<String, _i11.PageFactory> pagesMap = {
     TabControllerPage.name: (routeData) {
+      final args = routeData.argsAs<TabControllerPageArgs>();
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.TabControllerPage(),
+        child: _i1.TabControllerPage(
+          key: args.key,
+          userData: args.userData,
+        ),
       );
     },
     SplashScreenPage.name: (routeData) {
@@ -42,9 +47,13 @@ abstract class $AppRouter extends _i11.RootStackRouter {
       );
     },
     StudentHomePage.name: (routeData) {
+      final args = routeData.argsAs<StudentHomePageArgs>();
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.StudentHomePage(),
+        child: _i3.StudentHomePage(
+          key: args.key,
+          userData: args.userData,
+        ),
       );
     },
     AdminHomePage.name: (routeData) {
@@ -96,16 +105,40 @@ abstract class $AppRouter extends _i11.RootStackRouter {
 
 /// generated route for
 /// [_i1.TabControllerPage]
-class TabControllerPage extends _i11.PageRouteInfo<void> {
-  const TabControllerPage({List<_i11.PageRouteInfo>? children})
-      : super(
+class TabControllerPage extends _i11.PageRouteInfo<TabControllerPageArgs> {
+  TabControllerPage({
+    _i12.Key? key,
+    required _i13.UserModel userData,
+    List<_i11.PageRouteInfo>? children,
+  }) : super(
           TabControllerPage.name,
+          args: TabControllerPageArgs(
+            key: key,
+            userData: userData,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'TabControllerPage';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i11.PageInfo<TabControllerPageArgs> page =
+      _i11.PageInfo<TabControllerPageArgs>(name);
+}
+
+class TabControllerPageArgs {
+  const TabControllerPageArgs({
+    this.key,
+    required this.userData,
+  });
+
+  final _i12.Key? key;
+
+  final _i13.UserModel userData;
+
+  @override
+  String toString() {
+    return 'TabControllerPageArgs{key: $key, userData: $userData}';
+  }
 }
 
 /// generated route for
@@ -124,16 +157,40 @@ class SplashScreenPage extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.StudentHomePage]
-class StudentHomePage extends _i11.PageRouteInfo<void> {
-  const StudentHomePage({List<_i11.PageRouteInfo>? children})
-      : super(
+class StudentHomePage extends _i11.PageRouteInfo<StudentHomePageArgs> {
+  StudentHomePage({
+    _i12.Key? key,
+    required _i13.UserModel userData,
+    List<_i11.PageRouteInfo>? children,
+  }) : super(
           StudentHomePage.name,
+          args: StudentHomePageArgs(
+            key: key,
+            userData: userData,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'StudentHomePage';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i11.PageInfo<StudentHomePageArgs> page =
+      _i11.PageInfo<StudentHomePageArgs>(name);
+}
+
+class StudentHomePageArgs {
+  const StudentHomePageArgs({
+    this.key,
+    required this.userData,
+  });
+
+  final _i12.Key? key;
+
+  final _i13.UserModel userData;
+
+  @override
+  String toString() {
+    return 'StudentHomePageArgs{key: $key, userData: $userData}';
+  }
 }
 
 /// generated route for

@@ -64,7 +64,8 @@ class LoginPage extends HookConsumerWidget {
                       debugPrint(
                           'Auth ends in @NYIT.edu :D\nGoing to Tab Navigation Page');
                       // ignore: use_build_context_synchronously
-                      AutoRouter.of(context).replace(const TabControllerPage());
+                      AutoRouter.of(context).replace(const SplashScreenPage());
+                      // AutoRouter.of(context).replace(TabControllerPage());
                     } else {
                       debugPrint(
                           'Error during auth for ${auth.currentUser!.email}');

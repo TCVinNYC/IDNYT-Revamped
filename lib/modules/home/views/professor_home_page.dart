@@ -13,7 +13,7 @@ class ProfessorHomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final auth = ref.watch(authServiceProvider);
-    final currentUser = ref.watch(userDataProvider);
+    final currentUser = ref.watch(userDataStreamProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,

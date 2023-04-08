@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
 
 // RUN AUTO ROUTER COMMAND
-// flutter packages pub run build_runner build
+// flutter packages pub run build_runner build --delete-conflicting-outputs
 
 // part 'app_router.gr.dart'; * not working for now *
 

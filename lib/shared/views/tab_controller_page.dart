@@ -3,38 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
-import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
+import 'package:idnyt_revamped/shared/models/user.dart';
 
 @RoutePage(name: "TabControllerPage")
 class TabControllerPage extends HookConsumerWidget {
-  const TabControllerPage({Key? key}) : super(key: key);
+  UserModel userData;
+  TabControllerPage({Key? key, required this.userData}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final firestore = ref.read(firestoreProvider);
-    final userData = ref.read(userDataProvider);
-
-    void loadData() async {
-      await ref.read(firestoreProvider).checkUserData();
-      String? role = userData.value?.role;
-      debugPrint(role);
-      if (role == '') {
-        firestore.createAccount();
-      } else if (role == null) {}
-    }
-
-    useEffect(
-      () {
-        loadData();
-        return null;
-      },
-      [],
-    );
     return AutoTabsScaffold(
       routes: [
-        if (userData.value?.role == 'student') const StudentHomePage(),
-        if (userData.value?.role == 'professor') const ProfessorHomePage(),
-        if (userData.value?.role == 'admin') const AdminHomePage(),
+        StudentHomePage(
+            userData:
+                userData), // we know that this gets loaded first before loadData gets to finish
+        // if (userDataStream.value?.role == 'student')
+        //   StudentHomePage(currentUser: userDataStream.value),
+        // if (userDataStream.value?.role == 'professor')
+        //   const ProfessorHomePage(),
+        // if (userDataStream.value?.role == 'admin') const AdminHomePage(),
         const RedPage(),
         const GreenPage(),
         const BluePage(),
