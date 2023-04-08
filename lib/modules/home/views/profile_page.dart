@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-@RoutePage(name: 'GreenPage')
-class GreenPage extends HookConsumerWidget {
-  const GreenPage({Key? key}) : super(key: key);
+@RoutePage(name: 'ProfilePage')
+class ProfilePage extends HookConsumerWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,9 +18,9 @@ class GreenPage extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('Hey this is the green page!'),
+              const Text('Hey this is the profile page!'),
               Container(
-                color: Colors.green,
+                color: Colors.red,
                 width: 100,
                 height: 100,
               )

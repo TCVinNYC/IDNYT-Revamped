@@ -11,15 +11,15 @@
 import 'package:auto_route/auto_route.dart' as _i11;
 import 'package:flutter/material.dart' as _i12;
 import 'package:idnyt_revamped/modules/home/views/admin_home_page.dart' as _i4;
-import 'package:idnyt_revamped/modules/home/views/blue_page.dart' as _i6;
-import 'package:idnyt_revamped/modules/home/views/green_page.dart' as _i7;
+import 'package:idnyt_revamped/modules/home/views/course_page.dart' as _i8;
+import 'package:idnyt_revamped/modules/home/views/extra_page.dart' as _i9;
 import 'package:idnyt_revamped/modules/home/views/professor_home_page.dart'
-    as _i8;
-import 'package:idnyt_revamped/modules/home/views/red_page.dart' as _i5;
+    as _i5;
+import 'package:idnyt_revamped/modules/home/views/profile_page.dart' as _i10;
 import 'package:idnyt_revamped/modules/home/views/student_home_page.dart'
     as _i3;
-import 'package:idnyt_revamped/modules/login/views/error_page.dart' as _i9;
-import 'package:idnyt_revamped/modules/login/views/login_page.dart' as _i10;
+import 'package:idnyt_revamped/modules/login/views/error_page.dart' as _i6;
+import 'package:idnyt_revamped/modules/login/views/login_page.dart' as _i7;
 import 'package:idnyt_revamped/shared/models/user.dart' as _i13;
 import 'package:idnyt_revamped/shared/views/splash_screen.dart' as _i2;
 import 'package:idnyt_revamped/shared/views/tab_controller_page.dart' as _i1;
@@ -62,29 +62,11 @@ abstract class $AppRouter extends _i11.RootStackRouter {
         ),
       );
     },
-    RedPage.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i5.RedPage(),
-      );
-    },
-    BluePage.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i6.BluePage(),
-      );
-    },
-    GreenPage.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i7.GreenPage(),
-      );
-    },
     ProfessorHomePage.name: (routeData) {
       final args = routeData.argsAs<ProfessorHomePageArgs>();
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i8.ProfessorHomePage(
+        child: _i5.ProfessorHomePage(
           key: args.key,
           userData: args.userData,
         ),
@@ -93,7 +75,7 @@ abstract class $AppRouter extends _i11.RootStackRouter {
     ErrorPage.name: (routeData) {
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.ErrorPage(),
+        child: const _i6.ErrorPage(),
       );
     },
     LoginPage.name: (routeData) {
@@ -101,7 +83,25 @@ abstract class $AppRouter extends _i11.RootStackRouter {
           routeData.argsAs<LoginPageArgs>(orElse: () => const LoginPageArgs());
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.LoginPage(key: args.key),
+        child: _i7.LoginPage(key: args.key),
+      );
+    },
+    CoursePage.name: (routeData) {
+      return _i11.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i8.CoursePage(),
+      );
+    },
+    ExtraPage.name: (routeData) {
+      return _i11.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i9.ExtraPage(),
+      );
+    },
+    ProfilePage.name: (routeData) {
+      return _i11.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i10.ProfilePage(),
       );
     },
   };
@@ -212,49 +212,7 @@ class AdminHomePageArgs {
 }
 
 /// generated route for
-/// [_i5.RedPage]
-class RedPage extends _i11.PageRouteInfo<void> {
-  const RedPage({List<_i11.PageRouteInfo>? children})
-      : super(
-          RedPage.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'RedPage';
-
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i6.BluePage]
-class BluePage extends _i11.PageRouteInfo<void> {
-  const BluePage({List<_i11.PageRouteInfo>? children})
-      : super(
-          BluePage.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'BluePage';
-
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i7.GreenPage]
-class GreenPage extends _i11.PageRouteInfo<void> {
-  const GreenPage({List<_i11.PageRouteInfo>? children})
-      : super(
-          GreenPage.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'GreenPage';
-
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i8.ProfessorHomePage]
+/// [_i5.ProfessorHomePage]
 class ProfessorHomePage extends _i11.PageRouteInfo<ProfessorHomePageArgs> {
   ProfessorHomePage({
     _i12.Key? key,
@@ -292,7 +250,7 @@ class ProfessorHomePageArgs {
 }
 
 /// generated route for
-/// [_i9.ErrorPage]
+/// [_i6.ErrorPage]
 class ErrorPage extends _i11.PageRouteInfo<void> {
   const ErrorPage({List<_i11.PageRouteInfo>? children})
       : super(
@@ -306,7 +264,7 @@ class ErrorPage extends _i11.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.LoginPage]
+/// [_i7.LoginPage]
 class LoginPage extends _i11.PageRouteInfo<LoginPageArgs> {
   LoginPage({
     _i12.Key? key,
@@ -332,4 +290,46 @@ class LoginPageArgs {
   String toString() {
     return 'LoginPageArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [_i8.CoursePage]
+class CoursePage extends _i11.PageRouteInfo<void> {
+  const CoursePage({List<_i11.PageRouteInfo>? children})
+      : super(
+          CoursePage.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CoursePage';
+
+  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i9.ExtraPage]
+class ExtraPage extends _i11.PageRouteInfo<void> {
+  const ExtraPage({List<_i11.PageRouteInfo>? children})
+      : super(
+          ExtraPage.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ExtraPage';
+
+  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i10.ProfilePage]
+class ProfilePage extends _i11.PageRouteInfo<void> {
+  const ProfilePage({List<_i11.PageRouteInfo>? children})
+      : super(
+          ProfilePage.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfilePage';
+
+  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
 }

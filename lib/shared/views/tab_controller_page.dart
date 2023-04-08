@@ -18,9 +18,8 @@ class TabControllerPage extends HookConsumerWidget {
         if (userData.role == 'student') StudentHomePage(userData: userData),
         if (userData.role == 'professor') ProfessorHomePage(userData: userData),
         if (userData.role == 'admin') AdminHomePage(userData: userData),
-        const RedPage(),
-        const GreenPage(),
-        const BluePage(),
+        const CoursePage(),
+        const ProfilePage(),
       ],
       animationDuration: const Duration(seconds: 0),
       lazyLoad: true,
@@ -32,20 +31,16 @@ class TabControllerPage extends HookConsumerWidget {
           onTap: tabsRouter.setActiveIndex,
           items: const [
             BottomNavigationBarItem(
-              label: 'Home',
-              icon: Icon(Icons.home),
+              label: 'ID Card',
+              icon: Icon(Icons.credit_card_rounded),
             ),
             BottomNavigationBarItem(
-              label: 'Red',
-              icon: Icon(Icons.reddit),
+              label: 'Courses',
+              icon: Icon(Icons.my_library_books_rounded),
             ),
             BottomNavigationBarItem(
-              label: 'Green',
-              icon: Icon(Icons.grade),
-            ),
-            BottomNavigationBarItem(
-              label: 'Blue',
-              icon: Icon(Icons.blender),
+              label: 'Profile',
+              icon: Icon(Icons.person_2_rounded),
             ),
           ],
         );
