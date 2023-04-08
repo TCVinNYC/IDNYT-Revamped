@@ -14,7 +14,6 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     name: 'idnyt-revamped-v2',
     options: DefaultFirebaseOptions.currentPlatform,
@@ -95,26 +94,18 @@ class IDNYTAppState extends ConsumerState<IDNYTApp>
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      title: 'IDNYT',
+      debugShowCheckedModeBanner: false,
+      //themeMode: ref.watch(appThemeProvider),
+      themeMode: ThemeMode.system,
+      darkTheme: idnytDarkTheme,
+      theme: idnytLightTheme,
+      routerConfig: _appRouter.config(),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      home: Stack(
-        children: [
-          MaterialApp.router(
-            title: 'IDNYT',
-            debugShowCheckedModeBanner: false,
-            //themeMode: ref.watch(appThemeProvider),
-            themeMode: ThemeMode.system,
-            darkTheme: idnytDarkTheme,
-            theme: idnytLightTheme,
-            routerConfig: _appRouter.config(),
-          ),
-          // const IDNYTLoadingOverlay(),
-          // const VersionAnnouncementOverlay(),
-        ],
-      ),
+      // const IDNYTLoadingOverlay(),
+      // const VersionAnnouncementOverlay(),
     );
   }
 }

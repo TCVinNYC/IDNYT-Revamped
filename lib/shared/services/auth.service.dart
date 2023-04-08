@@ -36,7 +36,9 @@ class AuthService {
 
   Future<void> refreshAuth() async {
     try {
+      debugPrint('Refreshing Auth');
       await currentUser?.reload();
+      debugPrint('Auth Refresh Successful for ${currentUser?.email}');
     } catch (e) {
       debugPrint(e.toString());
       await _auth.signOut();

@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:idnyt_revamped/routing/app_router.gr.dart';
+import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/login/providers/lottie_provider.dart';
@@ -16,6 +18,7 @@ class LoginPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final lottieSignUpList = ref.read(lottieSignUpListProvider);
     final auth = ref.watch(authServiceProvider);
+    final firestore = ref.read(firestoreProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -54,9 +57,25 @@ class LoginPage extends HookConsumerWidget {
               ),
             ),
             RegularButtonWidget(
-              text: "Get Started",
-              onPressed: () => auth.signInWithGoogle(),
-            )
+                text: "Get Started",
+                onPressed: () async {
+                  await auth.signInWithGoogle();
+                  if (auth.currentUser != null) {
+                    debugPrint('Auth is vaild for ${auth.currentUser?.email}');
+                    if (auth.currentUser!.email!.endsWith("@nyit.edu")) {
+                      debugPrint(
+                          'Auth ends in @NYIT.edu :D\nGoing to Tab Navigation Page');
+                      await firestore.checkUserData();
+                      // ignore: use_build_context_synchronously
+                      AutoRouter.of(context).replace(const TabControllerPage());
+                    } else {
+                      debugPrint(
+                          'Error during auth for ${auth.currentUser!.email}');
+                      // ignore: use_build_context_synchronously
+                      AutoRouter.of(context).push(const ErrorPage());
+                    }
+                  }
+                })
           ],
         ),
       ),
