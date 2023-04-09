@@ -18,7 +18,7 @@ class IDCardPage extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('Hey this is the courses page!'),
+              const Text('Hey this is the id card page!'),
               Container(
                 color: Colors.green,
                 width: 100,
