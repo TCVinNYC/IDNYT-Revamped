@@ -18,7 +18,6 @@ class LoginPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final lottieSignUpList = ref.read(lottieSignUpListProvider);
     final auth = ref.watch(authServiceProvider);
-    final firestore = ref.read(firestoreProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -65,7 +64,9 @@ class LoginPage extends HookConsumerWidget {
                     if (auth.currentUser!.email!.endsWith("@nyit.edu")) {
                       debugPrint(
                           'Auth ends in @NYIT.edu :D\nGoing to Tab Navigation Page');
-                      await firestore.checkUserData();
+                      print('dsfss');
+                      await ref.read(firestoreProvider).checkUserData();
+                      print('ss');
                       // ignore: use_build_context_synchronously
                       AutoRouter.of(context).replace(const TabControllerPage());
                     } else {

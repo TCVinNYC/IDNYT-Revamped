@@ -14,6 +14,7 @@ class FirebaseService {
   Future<void> checkUserData() async {
     final docRef = _db.collection("users").doc(authUser?.email);
     var doc = await docRef.get();
+    debugPrint("Checking for ${authUser?.email} data");
     if (doc.exists) {
       debugPrint("document found ${authUser?.email}");
       UserModel currentUser =
