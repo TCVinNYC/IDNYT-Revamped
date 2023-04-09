@@ -65,7 +65,7 @@ class LoginPage extends HookConsumerWidget {
                     if (auth.currentUser!.email!.endsWith("@nyit.edu")) {
                       debugPrint(
                           'Auth ends in @NYIT.edu :D\nGoing to Tab Navigation Page');
-                      await firestore.checkUserData();
+                      await ref.read(firestoreProvider).checkUserData();
                       // ignore: use_build_context_synchronously
                       AutoRouter.of(context).replace(const TabControllerPage());
                     } else {

@@ -11,11 +11,11 @@
 import 'package:auto_route/auto_route.dart' as _i11;
 import 'package:flutter/material.dart' as _i12;
 import 'package:idnyt_revamped/modules/home/views/admin_home_page.dart' as _i4;
-import 'package:idnyt_revamped/modules/home/views/course_page.dart' as _i8;
-import 'package:idnyt_revamped/modules/home/views/extra_page.dart' as _i9;
+import 'package:idnyt_revamped/modules/home/views/extra_page.dart' as _i8;
+import 'package:idnyt_revamped/modules/home/views/id_card_page.dart' as _i10;
 import 'package:idnyt_revamped/modules/home/views/professor_home_page.dart'
     as _i5;
-import 'package:idnyt_revamped/modules/home/views/profile_page.dart' as _i10;
+import 'package:idnyt_revamped/modules/home/views/profile_page.dart' as _i9;
 import 'package:idnyt_revamped/modules/home/views/student_home_page.dart'
     as _i3;
 import 'package:idnyt_revamped/modules/login/views/error_page.dart' as _i6;
@@ -86,22 +86,22 @@ abstract class $AppRouter extends _i11.RootStackRouter {
         child: _i7.LoginPage(key: args.key),
       );
     },
-    CoursePage.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i8.CoursePage(),
-      );
-    },
     ExtraPage.name: (routeData) {
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.ExtraPage(),
+        child: const _i8.ExtraPage(),
       );
     },
     ProfilePage.name: (routeData) {
       return _i11.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.ProfilePage(),
+        child: const _i9.ProfilePage(),
+      );
+    },
+    IDCardPage.name: (routeData) {
+      return _i11.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i10.IDCardPage(),
       );
     },
   };
@@ -293,21 +293,7 @@ class LoginPageArgs {
 }
 
 /// generated route for
-/// [_i8.CoursePage]
-class CoursePage extends _i11.PageRouteInfo<void> {
-  const CoursePage({List<_i11.PageRouteInfo>? children})
-      : super(
-          CoursePage.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CoursePage';
-
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i9.ExtraPage]
+/// [_i8.ExtraPage]
 class ExtraPage extends _i11.PageRouteInfo<void> {
   const ExtraPage({List<_i11.PageRouteInfo>? children})
       : super(
@@ -321,7 +307,7 @@ class ExtraPage extends _i11.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.ProfilePage]
+/// [_i9.ProfilePage]
 class ProfilePage extends _i11.PageRouteInfo<void> {
   const ProfilePage({List<_i11.PageRouteInfo>? children})
       : super(
@@ -331,5 +317,18 @@ class ProfilePage extends _i11.PageRouteInfo<void> {
 
   static const String name = 'ProfilePage';
 
+  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i10.IDCardPage]
+class IDCardPage extends _i11.PageRouteInfo<void> {
+  const IDCardPage({List<_i11.PageRouteInfo>? children})
+      : super(
+          IDCardPage.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'IDCardPage';
   static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
 }
