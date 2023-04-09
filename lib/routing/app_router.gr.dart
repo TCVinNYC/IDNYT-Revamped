@@ -330,6 +330,5 @@ class IDCardPage extends _i11.PageRouteInfo<void> {
         );
 
   static const String name = 'IDCardPage';
-
   static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
 }

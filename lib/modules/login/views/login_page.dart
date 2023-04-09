@@ -18,6 +18,7 @@ class LoginPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final lottieSignUpList = ref.read(lottieSignUpListProvider);
     final auth = ref.watch(authServiceProvider);
+    final firestore = ref.read(firestoreProvider);
 
     return Scaffold(
       body: SafeArea(
