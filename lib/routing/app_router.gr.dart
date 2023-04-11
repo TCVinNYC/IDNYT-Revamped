@@ -11,7 +11,6 @@
 import 'package:auto_route/auto_route.dart' as _i12;
 import 'package:flutter/material.dart' as _i13;
 import 'package:idnyt_revamped/modules/home/views/admin_home_page.dart' as _i4;
-import 'package:idnyt_revamped/modules/home/views/course_page.dart' as _i11;
 import 'package:idnyt_revamped/modules/home/views/extra_page.dart' as _i8;
 import 'package:idnyt_revamped/modules/home/views/id_card_page.dart' as _i10;
 import 'package:idnyt_revamped/modules/home/views/professor_home_page.dart'
@@ -107,12 +106,6 @@ abstract class $AppRouter extends _i12.RootStackRouter {
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i10.IDCardPage(),
-      );
-    },
-    CoursePage.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i11.CoursePage(),
       );
     },
   };

@@ -2,71 +2,90 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData idnytLightTheme = ThemeData(
-    useMaterial3: true,
-    brightness: Brightness.light,
-    primarySwatch: idnytMaterialColor,
-    hintColor: Colors.blueGrey,
-    scaffoldBackgroundColor: Colors.white,
-    fontFamily: 'Nunito Sans',
-    snackBarTheme: const SnackBarThemeData(
-      contentTextStyle: TextStyle(fontFamily: 'Nunito Sans'),
+  useMaterial3: true,
+  brightness: Brightness.light,
+  primarySwatch: idnytMaterialColor,
+  hintColor: Colors.blueGrey,
+  scaffoldBackgroundColor: Colors.white,
+  fontFamily: 'Nunito Sans',
+  snackBarTheme: const SnackBarThemeData(
+    contentTextStyle: TextStyle(fontFamily: 'Nunito Sans'),
+  ),
+  inputDecorationTheme: const InputDecorationTheme(
+    labelStyle: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
     ),
-    appBarTheme: const AppBarTheme(
-      titleTextStyle: TextStyle(
-        fontFamily: 'Nunito Sans',
-        // color: Colors.black,
-      ),
-      iconTheme: IconThemeData(color: Colors.white),
-      foregroundColor: Color.fromARGB(255, 27, 39, 90),
-      backgroundColor: Colors.white,
-      centerTitle: true,
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
+  ),
+  appBarTheme: const AppBarTheme(
+    titleTextStyle: TextStyle(
+      fontFamily: 'Nunito Sans',
+      // color: Colors.black,
     ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      type: BottomNavigationBarType.fixed,
-      selectedItemColor: Colors.indigo,
+    iconTheme: IconThemeData(color: Colors.white),
+    foregroundColor: Color.fromARGB(255, 27, 39, 90),
+    backgroundColor: Colors.amber,
+    centerTitle: true,
+    systemOverlayStyle: SystemUiOverlayStyle.dark,
+  ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: Colors.indigo,
+  ),
+  drawerTheme: const DrawerThemeData(
+    backgroundColor: Color.fromARGB(255, 27, 39, 90),
+  ),
+  dropdownMenuTheme: const DropdownMenuThemeData(
+    textStyle: TextStyle(
+      fontSize: 12,
+      color: Colors.black87,
+      fontWeight: FontWeight.w500,
     ),
-    drawerTheme: const DrawerThemeData(
-      backgroundColor: Color.fromARGB(255, 27, 39, 90),
+  ),
+  textTheme: const TextTheme(
+    labelMedium: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: Colors.black87,
     ),
-    textTheme: const TextTheme(
-      displayLarge: TextStyle(
-        fontSize: 26,
-        fontWeight: FontWeight.bold,
-        color: Colors.indigo,
-      ),
-      displayMedium: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.bold,
-        color: Colors.black87,
-      ),
-      displaySmall: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-        color: Colors.indigo,
-      ),
-      labelLarge: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.normal,
-        color: Colors.black,
-      ),
-      bodyLarge: TextStyle(
-        fontSize: 10,
-        fontWeight: FontWeight.normal,
-        color: Colors.black,
-      ),
-      bodyMedium: TextStyle(
-        fontSize: 10,
-        fontWeight: FontWeight.normal,
-        color: Colors.black,
-      ),
+    displayLarge: TextStyle(
+      fontSize: 26,
+      fontWeight: FontWeight.bold,
+      color: Colors.indigo,
     ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white,
-        backgroundColor: const Color(0xffef9b00),
-      ),
-    ));
+    displayMedium: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+      color: Colors.black87,
+    ),
+    displaySmall: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.bold,
+      color: Colors.indigo,
+    ),
+    labelLarge: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+      color: Colors.black,
+    ),
+    bodyLarge: TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.normal,
+      color: Colors.black,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.normal,
+      color: Colors.black,
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      foregroundColor: Colors.white,
+      backgroundColor: const Color(0xffef9b00),
+    ),
+  ),
+);
 
 ThemeData idnytDarkTheme = ThemeData(
   useMaterial3: true,

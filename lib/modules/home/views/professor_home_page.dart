@@ -3,11 +3,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:idnyt_revamped/modules/home/views/create_course_page.dart';
 import 'package:idnyt_revamped/modules/home/widgets/professor_class_widget.dart';
-import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/user.dart';
-import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
-import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
 
 @RoutePage(name: 'ProfessorHomePage')
 class ProfessorHomePage extends HookConsumerWidget {
@@ -16,35 +14,89 @@ class ProfessorHomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final auth = ref.watch(authServiceProvider);
     return Scaffold(
+      // backgroundColor: Colors.amber,
       appBar: AppBar(
         backgroundColor: Colors.amber,
+        title: Row(
+          children: const [
+            Icon(Icons.book),
+            SizedBox(width: 10),
+            Text(
+              'My Courses',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 1,
+                child: Row(
+                  children: const [
+                    Icon(Icons.filter_list),
+                    SizedBox(width: 10),
+                    Text('Filter'),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: 2,
+                child: Row(
+                  children: const [
+                    Icon(Icons.calendar_today),
+                    SizedBox(width: 10),
+                    Text('Select Semester'),
+                  ],
+                ),
+              ),
+            ],
+            onSelected: (value) {
+              if (value == 1) {
+                // Filter action
+                // TODO: Implement filter functionality
+              } else if (value == 2) {
+                // Select Semester action
+                // showDialog(
+                //   context: context,
+                //   builder: (context) => AlertDialog(
+                //     title: Text('Select Semester'),
+                //     content: DropdownButton<String>(
+                //       value: semesters.first,
+                //       onChanged: (value) => onSemesterSelected(value!),
+                //       items: semesters
+                //           .map((semester) => DropdownMenuItem<String>(
+                //                 value: semester,
+                //                 child: Text(semester),
+                //               ))
+                //           .toList(),
+                //     ),
+                //   ),
+                // );
+              }
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CreateCoursePage()),
+              );
+            },
+          ),
+        ],
       ),
       body: Center(
         child: SafeArea(
           child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
             children: professorClasses,
           ),
-
-          // child: Column(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   children: [
-          //     const Text('Hey Professor you signed in!'),
-          //     Text(userData.email),
-          //     Text(userData.fullName),
-          //     Text(userData.role),
-          //     // Display the list of classes on the professor's home screen.
-          //     RegularButtonWidget(
-          //         text: "Sign Out",
-          //         onPressed: () {
-          //           auth.signOut();
-          //           AutoRouter.of(context).replace(LoginPage());
-          //         })
-          //   ],
-          // ),
         ),
       ),
     );
