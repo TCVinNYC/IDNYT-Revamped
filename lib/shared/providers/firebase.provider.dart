@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt_revamped/shared/models/user.dart';
+import 'package:idnyt_revamped/shared/models/user.model.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'package:idnyt_revamped/shared/services/firebase.service.dart';
 

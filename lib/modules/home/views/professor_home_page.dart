@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/home/views/create_course_page.dart';
 import 'package:idnyt_revamped/modules/home/widgets/professor_class_widget.dart';
-import 'package:idnyt_revamped/shared/models/user.dart';
+import 'package:idnyt_revamped/shared/models/user.model.dart';
 
 @RoutePage(name: 'ProfessorHomePage')
 class ProfessorHomePage extends HookConsumerWidget {

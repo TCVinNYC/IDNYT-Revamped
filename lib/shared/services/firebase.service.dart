@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
-import 'package:idnyt_revamped/shared/models/user.dart';
+import 'package:idnyt_revamped/shared/models/user.model.dart';
 
 class FirebaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -73,5 +73,25 @@ class FirebaseService {
     // } else {
     //   return const Stream.empty();
     // }
+  }
+
+  Future<void> setClassData() async {
+    final docRef = _db.collection("courses").doc(authUser?.email);
+    var doc = await docRef.get();
+    debugPrint("Checking for ${authUser?.email} data");
+    if (doc.exists) {
+      debugPrint("document found ${authUser?.email}");
+      UserModel currentUser =
+          UserModel.fromJson(doc.data() as Map<String, dynamic>);
+      userData = currentUser;
+    } else if (authUser?.email != null) {
+      debugPrint("no document for ${authUser?.email}");
+      UserModel? currentUser = await createAccount();
+      if (currentUser != null) {
+        userData = currentUser;
+      } else {
+        debugPrint("something went wrong when checking for your document");
+      }
+    }
   }
 }

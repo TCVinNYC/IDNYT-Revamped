@@ -49,8 +49,7 @@ class CreateCoursePage extends HookConsumerWidget {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
               children: [
                 const Text(
                   'Course Information',
@@ -255,39 +254,69 @@ class CreateCoursePage extends HookConsumerWidget {
                     // ref.read(selectedStudentsProvider.notifier).state = value;
                   },
                 ),
-                const Spacer(),
+                const SizedBox(height: 25.0),
                 RegularButtonWidget(
                   text: 'Submit',
                   onPressed: () {
                     if (className.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
+                            duration: Duration(seconds: 2),
+                            dismissDirection: DismissDirection.down,
+                            elevation: 3,
+                            showCloseIcon: true,
+                            closeIconColor: Colors.redAccent,
                             content: Text('Class Name field is empty')),
                       );
                     } else if (classCode.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
+                            duration: Duration(seconds: 2),
+                            dismissDirection: DismissDirection.down,
+                            elevation: 3,
+                            showCloseIcon: true,
+                            closeIconColor: Colors.redAccent,
                             content: Text('Class Code field is empty')),
                       );
                     } else if (selectedSemester.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
+                            duration: Duration(seconds: 2),
+                            dismissDirection: DismissDirection.down,
+                            elevation: 3,
+                            showCloseIcon: true,
+                            closeIconColor: Colors.redAccent,
                             content: Text('Selected Semester field is empty')),
                       );
                     } else if (classLocation.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
+                            duration: Duration(seconds: 2),
+                            dismissDirection: DismissDirection.down,
+                            elevation: 3,
+                            showCloseIcon: true,
+                            closeIconColor: Colors.redAccent,
                             content: Text('Class Location field is empty')),
                       );
                     } else if (selectedDays.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
+                            duration: Duration(seconds: 2),
+                            dismissDirection: DismissDirection.down,
+                            elevation: 3,
+                            showCloseIcon: true,
+                            closeIconColor: Colors.redAccent,
                             content:
                                 Text('Please select days the class meets on.')),
                       );
                     } else if (selectedTime.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
+                            duration: Duration(seconds: 2),
+                            dismissDirection: DismissDirection.down,
+                            elevation: 3,
+                            showCloseIcon: true,
+                            closeIconColor: Colors.redAccent,
                             content: Text(
                                 'Please select a range of time for the class.')),
                       );

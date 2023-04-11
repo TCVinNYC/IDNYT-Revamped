@@ -20,7 +20,7 @@ import 'package:idnyt_revamped/modules/home/views/student_home_page.dart'
     as _i3;
 import 'package:idnyt_revamped/modules/login/views/error_page.dart' as _i6;
 import 'package:idnyt_revamped/modules/login/views/login_page.dart' as _i7;
-import 'package:idnyt_revamped/shared/models/user.dart' as _i14;
+import 'package:idnyt_revamped/shared/models/user.model.dart' as _i14;
 import 'package:idnyt_revamped/shared/views/splash_screen.dart' as _i2;
 import 'package:idnyt_revamped/shared/views/tab_controller_page.dart' as _i1;
 
