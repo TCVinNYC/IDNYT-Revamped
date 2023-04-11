@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:idnyt_revamped/shared/models/user.model.dart';
 
 final classNameProvider = StateProvider.autoDispose<String>((ref) {
   return '';
@@ -24,6 +25,7 @@ final selectedTimeProvider = StateProvider.autoDispose<String>((ref) {
   return '';
 });
 
-final selectedStudentsProvider = StateProvider.autoDispose<List<String>>((ref) {
+final selectedStudentsProvider =
+    StateProvider.autoDispose<List<UserModel>>((ref) {
   return [];
 });

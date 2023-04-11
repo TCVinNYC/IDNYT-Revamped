@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/home/providers/create_course.provider.dart';
+import 'package:idnyt_revamped/shared/models/course.model.dart';
+import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
+import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
 import 'package:time_range/time_range.dart';
 import 'package:chips_choice/chips_choice.dart';
@@ -31,7 +36,10 @@ class CreateCoursePage extends HookConsumerWidget {
     final classLocation = ref.watch(classLocationProvider);
     final selectedDays = ref.watch(selectedDaysProvider);
     final selectedTime = ref.watch(selectedTimeProvider);
-    // final selectedStudents = ref.watch(selectedStudentsProvider);
+    final selectedStudents = ref.watch(selectedStudentsProvider);
+
+    final firebaseService = ref.read(firestoreProvider);
+    final authService = ref.read(authServiceProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -320,13 +328,60 @@ class CreateCoursePage extends HookConsumerWidget {
                             content: Text(
                                 'Please select a range of time for the class.')),
                       );
+                      //   else if (selectedStudents.isEmpty) {
+                      //     ScaffoldMessenger.of(context).showSnackBar(
+                      //       const SnackBar(
+                      //           content: Text('Class Code field is empty')),
+                      //     );
+                      // }
+                    } else {
+                      Map<String, dynamic> course = {
+                        "professorEmail":
+                            authService.currentUser!.email.toString(),
+                        "professorFullName":
+                            authService.currentUser!.displayName.toString(),
+                        "professorPicture":
+                            authService.currentUser!.photoURL.toString(),
+                        "courseName": className,
+                        "courseCode": classCode,
+                        "semester": selectedSemester,
+                        "location": classLocation,
+                        "courseDaysList": selectedDays,
+                        "courseTime": selectedTime,
+                        "studentList": selectedStudents
+                      };
+                      firebaseService.setClassData(course).then(
+                        (value) {
+                          if (value == "Added") {
+                            Navigator.of(context).pop();
+                          } else if (value == "Error uploading to Firebase") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                duration: Duration(seconds: 2),
+                                dismissDirection: DismissDirection.down,
+                                elevation: 3,
+                                showCloseIcon: true,
+                                closeIconColor: Colors.redAccent,
+                                content: Text(
+                                    'There was a problem uploading your class. Please try again later.'),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                duration: Duration(seconds: 2),
+                                dismissDirection: DismissDirection.down,
+                                elevation: 3,
+                                showCloseIcon: true,
+                                closeIconColor: Colors.redAccent,
+                                content: Text('Something went wrong.'),
+                              ),
+                            );
+                            Navigator.of(context).pop();
+                          }
+                        },
+                      );
                     }
-                    //   else if (selectedStudents.isEmpty) {
-                    //     ScaffoldMessenger.of(context).showSnackBar(
-                    //       const SnackBar(
-                    //           content: Text('Class Code field is empty')),
-                    //     );
-                    // }
                   },
                 )
               ],
