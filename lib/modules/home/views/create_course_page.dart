@@ -121,19 +121,19 @@ class CreateCoursePage extends HookConsumerWidget {
                         ),
                         items: [
                           DropdownMenuItem(
-                            value: 'Fall ${DateTime.now().year}',
+                            value: 'Fall',
                             child: Text('Fall ${DateTime.now().year}'),
                           ),
                           DropdownMenuItem(
-                            value: 'Spring ${DateTime.now().year}',
+                            value: 'Spring',
                             child: Text('Spring ${DateTime.now().year}'),
                           ),
                           DropdownMenuItem(
-                            value: 'Winter ${DateTime.now().year}',
+                            value: 'Winter',
                             child: Text('Winter ${DateTime.now().year}'),
                           ),
                           DropdownMenuItem(
-                            value: 'Summer ${DateTime.now().year}',
+                            value: 'Summer',
                             child: Text('Summer ${DateTime.now().year}'),
                           ),
                         ],

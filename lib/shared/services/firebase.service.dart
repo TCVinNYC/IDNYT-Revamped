@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
-import 'package:idnyt_revamped/modules/home/providers/create_course.provider.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
 
 class FirebaseService {
@@ -78,10 +75,42 @@ class FirebaseService {
     // }
   }
 
+  // Future<String> setClassData(classData) async {
+  //   if (authUser?.email != null) {
+  //     try {
+  //       await _db.collection("courses").add(classData).then(
+  //         (documentSnapshot) {
+  //           debugPrint(
+  //               "Added Data for ${authUser?.email} with ID: ${documentSnapshot.id}");
+  //           return "Added";
+  //         },
+  //       );
+  //     } catch (e) {
+  //       debugPrint(e.toString());
+  //       return "Error uploading to Firebase";
+  //     }
+  //   }
+  //   return "Other Error";
+  // }
   Future<String> setClassData(classData) async {
     if (authUser?.email != null) {
       try {
-        await _db.collection("courses").add(classData).then(
+        String currentYear = DateTime.now().year.toString();
+        DocumentReference courseYearDocumentReference =
+            _db.collection('courses').doc(currentYear);
+        CollectionReference currentSemesterCollectionReference = _db
+            .collection("courses")
+            .doc(currentYear)
+            .collection(classData['semester']);
+
+        await courseYearDocumentReference.get().then((yearDocument) async => {
+              if (!yearDocument.exists)
+                debugPrint(
+                    "$currentYear document doesn't exist. Creating now."),
+              await courseYearDocumentReference.set({'year': currentYear})
+            });
+
+        await currentSemesterCollectionReference.add(classData).then(
           (documentSnapshot) {
             debugPrint(
                 "Added Data for ${authUser?.email} with ID: ${documentSnapshot.id}");
