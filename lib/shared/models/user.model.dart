@@ -3,7 +3,6 @@ class UserModel {
   final String email;
   final String fullName;
   final String role;
-  final Map courses;
   final Map schoolCard;
   final String schoolID;
 
@@ -12,7 +11,6 @@ class UserModel {
     required this.email,
     required this.fullName,
     required this.role,
-    required this.courses,
     required this.schoolCard,
     required this.schoolID,
   });
@@ -23,7 +21,6 @@ class UserModel {
       email: json['email'] ?? '',
       fullName: json['fullName'] ?? '',
       role: json['role'] ?? '',
-      courses: json['courses'] ?? {},
       schoolCard: json['schoolCard'] ?? {},
       schoolID: json['schoolID'] ?? '',
     );

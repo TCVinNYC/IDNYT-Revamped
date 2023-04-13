@@ -2,30 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:idnyt_revamped/shared/models/course.model.dart';
 
 class ProfessorClassWidget extends ConsumerWidget {
-  final String className;
-  final String classCode;
-  final String semester;
-  final List<String> daysOfWeek;
-  final String classTime;
-  final String classLocation;
-  final int numStudents;
-  final int numNotifications;
-  final double attendanceRate;
+  final CourseModel course;
 
-  const ProfessorClassWidget({
-    Key? key,
-    required this.className,
-    required this.classCode,
-    required this.semester,
-    required this.daysOfWeek,
-    required this.classTime,
-    required this.classLocation,
-    required this.numStudents,
-    required this.numNotifications,
-    required this.attendanceRate,
-  }) : super(key: key);
+  const ProfessorClassWidget({Key? key, required this.course})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,14 +31,14 @@ class ProfessorClassWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        className,
+                        course.courseName,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
                       ),
                       Text(
-                        classCode,
+                        course.courseCode,
                         style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 14,
@@ -67,14 +50,15 @@ class ProfessorClassWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        semester,
+                        course.semester,
                         style: const TextStyle(
                           color: Colors.grey,
                         ),
                       ),
-                      Text(
-                        'Attendance: ${attendanceRate.toStringAsFixed(2)}%',
-                        style: const TextStyle(
+                      const Text(
+                        '0',
+                        // 'Attendance: ${course.toStringAsFixed(2)}%',
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -93,7 +77,7 @@ class ProfessorClassWidget extends ConsumerWidget {
               const SizedBox(height: 4),
               Row(
                 children: [
-                  for (var day in daysOfWeek)
+                  for (var day in course.courseDaysList)
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -122,7 +106,7 @@ class ProfessorClassWidget extends ConsumerWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                classTime,
+                course.courseTime,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 11,
@@ -138,7 +122,7 @@ class ProfessorClassWidget extends ConsumerWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                classLocation,
+                course.location,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 11,
@@ -156,7 +140,7 @@ class ProfessorClassWidget extends ConsumerWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        '$numStudents students',
+                        '${course.studentList.length} students',
                         style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 10,
@@ -165,15 +149,15 @@ class ProfessorClassWidget extends ConsumerWidget {
                     ],
                   ),
                   Row(
-                    children: [
+                    children: const [
                       Icon(
                         Icons.notifications,
-                        color: numNotifications > 0 ? Colors.red : Colors.grey,
+                        color: 1 > 0 ? Colors.red : Colors.grey,
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: 4),
                       Text(
-                        '$numNotifications new',
-                        style: const TextStyle(
+                        '1 new',
+                        style: TextStyle(
                           color: Colors.grey,
                           fontSize: 10,
                         ),

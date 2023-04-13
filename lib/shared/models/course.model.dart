@@ -11,7 +11,7 @@ class CourseModel {
   final String location;
   final List<String> courseDaysList;
   final String courseTime;
-  final List<UserModel> studentList;
+  final List<String> studentList;
 
   CourseModel({
     required this.id,
@@ -37,9 +37,9 @@ class CourseModel {
       courseCode: json['courseCode'] ?? '',
       semester: json['semester'] ?? '',
       location: json['location'] ?? '',
-      courseDaysList: json['courseDaysList'] ?? [],
+      courseDaysList: json['courseDaysList'].cast<String>() ?? [],
       courseTime: json['courseTime'] ?? '',
-      studentList: json['studentList'] ?? [],
+      studentList: json['studentList'].cast<String>() ?? [],
     );
   }
 }

@@ -250,16 +250,19 @@ class CreateCoursePage extends HookConsumerWidget {
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'Students',
-                    hintText: 'Select student names',
+                    hintText: 'Add student emails separated with a comma.',
                     border: OutlineInputBorder(),
                   ),
-                  maxLines: 1,
+                  textInputAction: TextInputAction.done,
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
                   onChanged: (value) {
-                    // ref.read(selectedStudentsProvider.notifier).state = value;
+                    List<String> students =
+                        value.replaceAll(RegExp(r"\s+"), "").split(',');
+                    ref.read(selectedStudentsProvider.notifier).state =
+                        students;
                   },
                 ),
                 const SizedBox(height: 25.0),

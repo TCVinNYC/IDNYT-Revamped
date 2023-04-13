@@ -31,14 +31,6 @@ class FirebaseService {
     }
   }
 
-  // Future<void> setUserData() async {
-  //   try {
-  //     final user =
-  //   } on PlatformException catch (e) {
-  //     debugPrint(e.message);
-  //   }
-  // }
-
   Future<UserModel?> createAccount() async {
     debugPrint('Creating Account for ${authUser?.email}');
     try {
@@ -75,23 +67,6 @@ class FirebaseService {
     // }
   }
 
-  // Future<String> setClassData(classData) async {
-  //   if (authUser?.email != null) {
-  //     try {
-  //       await _db.collection("courses").add(classData).then(
-  //         (documentSnapshot) {
-  //           debugPrint(
-  //               "Added Data for ${authUser?.email} with ID: ${documentSnapshot.id}");
-  //           return "Added";
-  //         },
-  //       );
-  //     } catch (e) {
-  //       debugPrint(e.toString());
-  //       return "Error uploading to Firebase";
-  //     }
-  //   }
-  //   return "Other Error";
-  // }
   Future<String> setClassData(classData) async {
     if (authUser?.email != null) {
       try {
