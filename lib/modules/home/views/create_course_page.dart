@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/home/providers/create_course.provider.dart';
-import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
@@ -331,12 +328,6 @@ class CreateCoursePage extends HookConsumerWidget {
                             content: Text(
                                 'Please select a range of time for the class.')),
                       );
-                      //   else if (selectedStudents.isEmpty) {
-                      //     ScaffoldMessenger.of(context).showSnackBar(
-                      //       const SnackBar(
-                      //           content: Text('Class Code field is empty')),
-                      //     );
-                      // }
                     } else {
                       Map<String, dynamic> course = {
                         "professorEmail":
@@ -355,9 +346,9 @@ class CreateCoursePage extends HookConsumerWidget {
                       };
                       firebaseService.setClassData(course).then(
                         (value) {
-                          if (value == "Added") {
+                          if (value == "Added" || value == "Other Error") {
                             Navigator.of(context).pop();
-                          } else if (value == "Error uploading to Firebase") {
+                          } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 duration: Duration(seconds: 2),
@@ -369,18 +360,6 @@ class CreateCoursePage extends HookConsumerWidget {
                                     'There was a problem uploading your class. Please try again later.'),
                               ),
                             );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                duration: Duration(seconds: 2),
-                                dismissDirection: DismissDirection.down,
-                                elevation: 3,
-                                showCloseIcon: true,
-                                closeIconColor: Colors.redAccent,
-                                content: Text('Something went wrong.'),
-                              ),
-                            );
-                            Navigator.of(context).pop();
                           }
                         },
                       );

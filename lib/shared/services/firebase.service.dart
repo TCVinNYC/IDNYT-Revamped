@@ -11,6 +11,22 @@ class FirebaseService {
 
   Stream<UserModel> get userDataStream => getUserData();
 
+  Stream<QuerySnapshot> courseDataStream(String year, String semester) {
+    return _db.collection('courses').doc(year).collection(semester).snapshots();
+  }
+
+  List<String> yearDataStream() {
+    List<String> years = [];
+    _db.collection('courses').get().then(
+      (value) {
+        for (var element in value.docs) {
+          years.add(element.data().values.first);
+        }
+      },
+    );
+    return years;
+  }
+
   Future<void> checkUserData() async {
     final docRef = _db.collection("users").doc(authUser?.email);
     var doc = await docRef.get();

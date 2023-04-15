@@ -8,6 +8,7 @@ import 'package:idnyt_revamped/modules/home/views/create_course_page.dart';
 import 'package:idnyt_revamped/modules/home/widgets/professor_class_widget.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
+import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 @RoutePage(name: 'ProfessorHomePage')
 class ProfessorHomePage extends HookConsumerWidget {
@@ -16,13 +17,14 @@ class ProfessorHomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-        .collection('courses')
-        .doc('2023')
-        .collection('Spring')
-        .snapshots();
+    List<String> semesters = ['Fall', 'Spring', 'Summer', 'Winter'];
+    List<String> yearData = ref.read(firestoreProvider).yearDataStream();
+    final courseDataStream = ref.watch(courseDataStreamProvider);
+    final selectedYear = ref.watch(selectedYearProvider);
+    final selectedSemester = ref.watch(selectedSemesterProvider);
+
     return Scaffold(
-      // backgroundColor: Colors.amber,
+      backgroundColor: Colors.amber,
       appBar: AppBar(
         backgroundColor: Colors.amber,
         title: Row(
@@ -39,59 +41,52 @@ class ProfessorHomePage extends HookConsumerWidget {
           ],
         ),
         actions: [
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 1,
-                child: Row(
-                  children: const [
-                    Icon(Icons.filter_list),
-                    SizedBox(width: 10),
-                    Text('Filter'),
-                  ],
-                ),
-              ),
-              PopupMenuItem(
-                value: 2,
-                child: Row(
-                  children: const [
-                    Icon(Icons.calendar_today),
-                    SizedBox(width: 10),
-                    Text('Select Semester'),
-                  ],
-                ),
-              ),
-            ],
-            onSelected: (value) {
-              if (value == 1) {
-                // Filter action
-              } else if (value == 2) {
-                // Select Semester action
-                // showDialog(
-                //   context: context,
-                //   builder: (context) => AlertDialog(
-                //     title: Text('Select Semester'),
-                //     content: DropdownButton<String>(
-                //       value: semesters.first,
-                //       onChanged: (value) => onSemesterSelected(value!),
-                //       items: semesters
-                //           .map((semester) => DropdownMenuItem<String>(
-                //                 value: semester,
-                //                 child: Text(semester),
-                //               ))
-                //           .toList(),
-                //     ),
-                //   ),
-                // );
-              }
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.calendar_month_rounded),
+            tooltip: "Select Year",
+            elevation: 2,
+            onSelected: (String value) {
+              ref.read(selectedYearProvider.notifier).state = value;
+            },
+            itemBuilder: (BuildContext context) {
+              return yearData.map(
+                (String year) {
+                  return CheckedPopupMenuItem<String>(
+                    checked: year == selectedYear ? true : false,
+                    padding: const EdgeInsets.all(0),
+                    value: year,
+                    child: Text(year),
+                  );
+                },
+              ).toList();
+            },
+          ),
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.school_rounded),
+            tooltip: "Select Semester",
+            onSelected: (String value) {
+              ref.read(selectedSemesterProvider.notifier).state = value;
+            },
+            itemBuilder: (BuildContext context) {
+              return semesters.map((String semester) {
+                return CheckedPopupMenuItem<String>(
+                  checked: semester == selectedSemester ? true : false,
+                  padding: const EdgeInsets.all(0),
+                  value: semester,
+                  child: Text(semester),
+                );
+              }).toList();
             },
           ),
           IconButton(
-            icon: Icon(Icons.add),
+            tooltip: "Create New Course",
+            icon: const Icon(Icons.add),
+            enableFeedback: true,
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CreateCoursePage()),
+                MaterialPageRoute(
+                    builder: (context) => const CreateCoursePage()),
               );
             },
           ),
@@ -99,8 +94,8 @@ class ProfessorHomePage extends HookConsumerWidget {
       ),
       body: Center(
         child: SafeArea(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: _usersStream,
+          child: StreamBuilder<QuerySnapshot<Object?>>(
+            stream: courseDataStream,
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
@@ -134,39 +129,3 @@ class ProfessorHomePage extends HookConsumerWidget {
     );
   }
 }
-
-// List<Widget> professorClasses = [
-  // const ProfessorClassWidget(
-  //   className: "Mobile App Development",
-  //   classCode: "CS321",
-  //   semester: "Spring 2023",
-  //   daysOfWeek: ["Monday", "Wednesday"],
-  //   classTime: "2:00 PM - 3:15 PM",
-  //   classLocation: "Building 1, Room 101",
-  //   numStudents: 28,
-  //   numNotifications: 1,
-  //   attendanceRate: 30,
-  // ),
-  // const ProfessorClassWidget(
-  //   className: "Database Systems",
-  //   classCode: "CS341",
-  //   semester: "Spring 2023",
-  //   daysOfWeek: ["Thursday", "Saturday"],
-  //   classTime: "9:30 AM - 10:45 AM",
-  //   classLocation: "Building 2, Room 201",
-  //   numStudents: 20,
-  //   numNotifications: 0,
-  //   attendanceRate: 99,
-  // ),
-  // const ProfessorClassWidget(
-  //   className: "Software Engineering",
-  //   classCode: "CS431",
-  //   semester: "Spring 2023",
-  //   daysOfWeek: ["Friday"],
-  //   classTime: "11:00 AM - 12:15 PM",
-  //   classLocation: "Building 1, Room 201",
-  //   numStudents: 30,
-  //   numNotifications: 2,
-  //   attendanceRate: 0,
-  // ),
-// ];

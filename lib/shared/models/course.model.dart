@@ -1,7 +1,4 @@
-import 'package:idnyt_revamped/shared/models/user.model.dart';
-
 class CourseModel {
-  final String id;
   final String professorEmail;
   final String professorFullName;
   final String professorPicture;
@@ -14,7 +11,6 @@ class CourseModel {
   final List<String> studentList;
 
   CourseModel({
-    required this.id,
     required this.professorEmail,
     required this.professorFullName,
     required this.professorPicture,
@@ -29,7 +25,6 @@ class CourseModel {
 
   factory CourseModel.fromJson(Map<String, dynamic> json) {
     return CourseModel(
-      id: json['id'] ?? '',
       professorEmail: json['professorEmail'] ?? '',
       professorFullName: json['professorFullName'] ?? '',
       professorPicture: json['professorPicture'] ?? '',

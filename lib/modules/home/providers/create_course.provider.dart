@@ -8,10 +8,6 @@ final classCodeProvider = StateProvider.autoDispose<String>((ref) {
   return '';
 });
 
-final selectedSemesterProvider = StateProvider.autoDispose<String>((ref) {
-  return '';
-});
-
 final classLocationProvider = StateProvider.autoDispose<String>((ref) {
   return '';
 });
