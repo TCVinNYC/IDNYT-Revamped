@@ -7,6 +7,8 @@ import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/user.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
+import 'dart:typed_data';
+import 'package:nfc_manager/nfc_manager.dart';
 
 @RoutePage(name: 'StudentHomePage')
 class StudentHomePage extends HookConsumerWidget {
