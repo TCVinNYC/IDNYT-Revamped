@@ -105,12 +105,28 @@ class FirebaseService {
           (documentSnapshot) {
             debugPrint(
                 "Added Data for ${authUser?.email} with ID: ${documentSnapshot.id}");
+            documentSnapshot.update({
+              'id': documentSnapshot.id,
+            });
+            debugPrint("Added Document ID field to document.");
             return "Added";
           },
         );
       } catch (e) {
         debugPrint(e.toString());
         return "Error uploading to Firebase";
+      }
+    }
+    return "Other Error";
+  }
+
+  Future<String> getClassAttendance(course_id) async {
+    if (authUser?.email != null) {
+      try {
+        debugPrint(course_id);
+        return "Good";
+      } catch (e) {
+        debugPrint(e.toString());
       }
     }
     return "Other Error";

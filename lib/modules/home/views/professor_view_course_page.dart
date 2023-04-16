@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +12,20 @@ import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 @RoutePage(name: 'ProfessorViewCoursePage')
 class ProfessorViewCoursePage extends HookConsumerWidget {
-  const ProfessorViewCoursePage({Key? key}) : super(key: key);
+  CourseModel course;
+  ProfessorViewCoursePage({Key? key, required this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Course Details'),
+        title: Text(
+          course.courseName,
+          style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -31,17 +40,17 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
+                      const Text(
                         'Latest Attendance',
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text(
                             'Date:',
                             style: TextStyle(fontSize: 16.0),
@@ -52,24 +61,24 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Time:',
                             style: TextStyle(fontSize: 16.0),
                           ),
                           Text(
-                            '9:00 AM - 10:30 AM',
-                            style: TextStyle(fontSize: 16.0),
+                            course.courseTime,
+                            style: const TextStyle(fontSize: 16.0),
                           ),
                         ],
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text(
                             'Present:',
                             style: TextStyle(fontSize: 16.0),
@@ -80,10 +89,10 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text(
                             'Absent:',
                             style: TextStyle(fontSize: 16.0),
@@ -98,18 +107,17 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text(
+              const SizedBox(height: 16.0),
+              const Text(
                 'Previous Attendances',
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               _buildAttendanceListItem(
                 'August 16, 2022',
-                '9:00 AM - 10:30 AM',
                 29,
                 2,
                 [
@@ -137,65 +145,7 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
                   '9:20 AM',
                 ],
               ),
-              SizedBox(height: 16.0),
-              _buildAttendanceListItem(
-                'August 9, 2022',
-                '9:00AM - 10:30 AM',
-                30,
-                1,
-                [
-                  'https://randomuser.me/api/portraits/women/52.jpg',
-                  'https://randomuser.me/api/portraits/men/63.jpg',
-                  'https://randomuser.me/api/portraits/women/95.jpg',
-                  'https://randomuser.me/api/portraits/men/32.jpg',
-                  'https://randomuser.me/api/portraits/women/19.jpg',
-                ],
-                [
-                  'Grace',
-                  'John',
-                  'Olivia',
-                  'Mark',
-                  'Lily',
-                ],
-                [
-                  '9:00 AM',
-                  '9:01 AM',
-                  '9:03 AM',
-                  '9:06 AM',
-                  '9:10 AM',
-                ],
-              ),
-              SizedBox(height: 16.0),
-              _buildAttendanceListItem(
-                'August 2, 2022',
-                '9:00 AM - 10:30 AM',
-                28,
-                3,
-                [
-                  'https://randomuser.me/api/portraits/women/73.jpg',
-                  'https://randomuser.me/api/portraits/men/22.jpg',
-                  'https://randomuser.me/api/portraits/women/68.jpg',
-                  'https://randomuser.me/api/portraits/men/77.jpg',
-                  'https://randomuser.me/api/portraits/women/87.jpg',
-                  'https://randomuser.me/api/portraits/men/19.jpg',
-                ],
-                [
-                  'Emma',
-                  'Luke',
-                  'Chloe',
-                  'Eric',
-                  'Mia',
-                  'Owen',
-                ],
-                [
-                  '9:01 AM',
-                  '9:05 AM',
-                  '9:07 AM',
-                  '9:10 AM',
-                  '9:11 AM',
-                  '9:15 AM',
-                ],
-              ),
+              const SizedBox(height: 16.0),
             ],
           ),
         ),
@@ -205,7 +155,6 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
 
   Widget _buildAttendanceListItem(
     String date,
-    String time,
     int presentCount,
     int absentCount,
     List<String> studentProfilePics,
@@ -220,23 +169,10 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
           children: [
             Text(
               date,
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              style:
+                  const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Time:',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Text(
-                  time,
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ],
-            ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Wrap(
               spacing: 8.0,
               runSpacing: 8.0,
@@ -250,40 +186,45 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
                         backgroundImage:
                             NetworkImage(studentProfilePics[index]),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       Text(studentNames[index]),
-                      SizedBox(height: 4.0),
-                      Text(
-                        joinTimes[index],
-                        style: TextStyle(fontSize: 12.0),
-                      ),
+                      const SizedBox(height: 4.0),
+                      // Text(
+                      //   joinTimes[index],
+                      //   style: TextStyle(fontSize: 12.0),
+                      // ),
                     ],
                   );
                 },
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Present:',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Text(
-                  '$presentCount',
-                ),
-                SizedBox(height: 8.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    const Text(
+                      'Present: ',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
                     Text(
-                      'Absent:',
+                      '$presentCount',
+                      style: const TextStyle(fontSize: 16.0),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Absent: ',
                       style: TextStyle(fontSize: 16.0),
                     ),
                     Text(
                       '$absentCount',
-                      style: TextStyle(fontSize: 16.0),
+                      style: const TextStyle(fontSize: 16.0),
                     ),
                   ],
                 ),

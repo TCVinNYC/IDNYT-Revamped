@@ -15,8 +15,9 @@ class ProfessorClassWidget extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 3, 5, 0),
       child: InkWell(
-        onTapDown: (course) {
-          AutoRouter.of(context).push(ProfessorViewCoursePage());
+        enableFeedback: true,
+        onTap: () {
+          AutoRouter.of(context).push(ProfessorViewCoursePage(course: course));
         },
         child: Card(
           elevation: 2,

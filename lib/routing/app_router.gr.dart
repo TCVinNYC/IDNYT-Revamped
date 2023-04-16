@@ -23,6 +23,7 @@ import 'package:idnyt_revamped/modules/home/views/student_home_page.dart'
     as _i6;
 import 'package:idnyt_revamped/modules/login/views/error_page.dart' as _i4;
 import 'package:idnyt_revamped/modules/login/views/login_page.dart' as _i5;
+import 'package:idnyt_revamped/shared/models/course.model.dart' as _i16;
 import 'package:idnyt_revamped/shared/models/user.model.dart' as _i15;
 import 'package:idnyt_revamped/shared/views/splash_screen.dart' as _i3;
 import 'package:idnyt_revamped/shared/views/tab_controller_page.dart' as _i2;
@@ -119,9 +120,13 @@ abstract class $AppRouter extends _i13.RootStackRouter {
       );
     },
     ProfessorViewCoursePage.name: (routeData) {
+      final args = routeData.argsAs<ProfessorViewCoursePageArgs>();
       return _i13.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i12.ProfessorViewCoursePage(),
+        child: _i12.ProfessorViewCoursePage(
+          key: args.key,
+          course: args.course,
+        ),
       );
     },
   };
@@ -394,14 +399,39 @@ class ProfilePageArgs {
 
 /// generated route for
 /// [_i12.ProfessorViewCoursePage]
-class ProfessorViewCoursePage extends _i13.PageRouteInfo<void> {
-  const ProfessorViewCoursePage({List<_i13.PageRouteInfo>? children})
-      : super(
+class ProfessorViewCoursePage
+    extends _i13.PageRouteInfo<ProfessorViewCoursePageArgs> {
+  ProfessorViewCoursePage({
+    _i14.Key? key,
+    required _i16.CourseModel course,
+    List<_i13.PageRouteInfo>? children,
+  }) : super(
           ProfessorViewCoursePage.name,
+          args: ProfessorViewCoursePageArgs(
+            key: key,
+            course: course,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ProfessorViewCoursePage';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static const _i13.PageInfo<ProfessorViewCoursePageArgs> page =
+      _i13.PageInfo<ProfessorViewCoursePageArgs>(name);
+}
+
+class ProfessorViewCoursePageArgs {
+  const ProfessorViewCoursePageArgs({
+    this.key,
+    required this.course,
+  });
+
+  final _i14.Key? key;
+
+  final _i16.CourseModel course;
+
+  @override
+  String toString() {
+    return 'ProfessorViewCoursePageArgs{key: $key, course: $course}';
+  }
 }
