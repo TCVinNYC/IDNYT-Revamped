@@ -4,8 +4,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt_revamped/modules/home/views/create_course_page.dart';
 import 'package:idnyt_revamped/modules/home/widgets/professor_class_widget.dart';
+import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
@@ -83,11 +83,7 @@ class ProfessorHomePage extends HookConsumerWidget {
             icon: const Icon(Icons.add),
             enableFeedback: true,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const CreateCoursePage()),
-              );
+              AutoRouter.of(context).push(CreateCoursePage());
             },
           ),
         ],
@@ -103,7 +99,7 @@ class ProfessorHomePage extends HookConsumerWidget {
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Text("Loading");
+                return const CircularProgressIndicator();
               }
 
               return ListView(
@@ -120,10 +116,6 @@ class ProfessorHomePage extends HookConsumerWidget {
               );
             },
           ),
-          // ListView(
-          //   padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-          //   children: professorClasses,
-          // ),
         ),
       ),
     );

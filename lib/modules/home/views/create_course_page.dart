@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/home/providers/create_course.provider.dart';
@@ -7,6 +8,7 @@ import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
 import 'package:time_range/time_range.dart';
 import 'package:chips_choice/chips_choice.dart';
 
+@RoutePage(name: 'CreateCoursePage')
 class CreateCoursePage extends HookConsumerWidget {
   const CreateCoursePage({Key? key}) : super(key: key);
 
