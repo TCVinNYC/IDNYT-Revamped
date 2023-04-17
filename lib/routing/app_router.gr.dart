@@ -43,13 +43,9 @@ abstract class $AppRouter extends _i12.RootStackRouter {
       );
     },
     StudentHomePage.name: (routeData) {
-      final args = routeData.argsAs<StudentHomePageArgs>();
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.StudentHomePage(
-          key: args.key,
-          userData: args.userData,
-        ),
+        child: const _i3.StudentHomePage(),
       );
     },
     AdminHomePage.name: (routeData) {
@@ -143,40 +139,16 @@ class SplashScreenPage extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.StudentHomePage]
-class StudentHomePage extends _i12.PageRouteInfo<StudentHomePageArgs> {
-  StudentHomePage({
-    _i13.Key? key,
-    required _i14.UserModel userData,
-    List<_i12.PageRouteInfo>? children,
-  }) : super(
+class StudentHomePage extends _i12.PageRouteInfo<void> {
+  const StudentHomePage({List<_i12.PageRouteInfo>? children})
+      : super(
           StudentHomePage.name,
-          args: StudentHomePageArgs(
-            key: key,
-            userData: userData,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'StudentHomePage';
 
-  static const _i12.PageInfo<StudentHomePageArgs> page =
-      _i12.PageInfo<StudentHomePageArgs>(name);
-}
-
-class StudentHomePageArgs {
-  const StudentHomePageArgs({
-    this.key,
-    required this.userData,
-  });
-
-  final _i13.Key? key;
-
-  final _i14.UserModel userData;
-
-  @override
-  String toString() {
-    return 'StudentHomePageArgs{key: $key, userData: $userData}';
-  }
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
