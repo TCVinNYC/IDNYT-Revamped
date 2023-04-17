@@ -10,7 +10,10 @@ import 'package:idnyt_revamped/constants/locales.dart';
 import 'package:idnyt_revamped/routing/app_router.dart';
 import 'package:idnyt_revamped/utils/idnyt_app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 import 'firebase_options.dart';
+
+bool isNfcAvalible = false;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,8 +21,10 @@ Future<void> main() async {
     name: 'idnyt-revamped-v2',
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   debugPrint("Firebase initialized");
+
+  isNfcAvalible = await NfcManager.instance.isAvailable();
+  debugPrint("NFC Manager initialized");
 
   await Hive.initFlutter();
   debugPrint("Hive initialized");
