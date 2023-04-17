@@ -83,7 +83,7 @@ class ProfessorHomePage extends HookConsumerWidget {
             icon: const Icon(Icons.add),
             enableFeedback: true,
             onPressed: () {
-              AutoRouter.of(context).push(CreateCoursePage());
+              AutoRouter.of(context).push(const CreateCoursePage());
             },
           ),
         ],

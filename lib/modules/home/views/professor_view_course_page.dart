@@ -17,6 +17,7 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final attendanceDocsStream = ref.watch(attendanceDocsStreamProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -116,121 +117,60 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
                 ),
               ),
               const SizedBox(height: 16.0),
-              _buildAttendanceListItem(
-                'August 16, 2022',
-                29,
-                2,
-                [
-                  'https://randomuser.me/api/portraits/women/24.jpg',
-                  'https://randomuser.me/api/portraits/men/11.jpg',
-                  'https://randomuser.me/api/portraits/women/49.jpg',
-                  'https://randomuser.me/api/portraits/men/45.jpg',
-                  'https://randomuser.me/api/portraits/women/16.jpg',
-                  'https://randomuser.me/api/portraits/men/92.jpg',
-                ],
-                [
-                  'Alice',
-                  'Bob',
-                  'Cathy',
-                  'David',
-                  'Ella',
-                  'Frank',
-                ],
-                [
-                  '9:02 AM',
-                  '9:05 AM',
-                  '9:10 AM',
-                  '9:14 AM',
-                  '9:15 AM',
-                  '9:20 AM',
-                ],
+              Container(
+                height: 200,
+                child: StreamBuilder<QuerySnapshot<Object?>>(
+                  stream: attendanceDocsStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    }
+
+                    for (DocumentSnapshot doc in snapshot.data!.docs) {
+                      print(doc.data.toString());
+                      return Text('data');
+                    }
+                    return Text('data2');
+                  },
+                ),
               ),
+              // _buildAttendanceListItem(
+              //   'August 16, 2022',
+              //   29,
+              //   2,
+              //   [
+              //     'https://randomuser.me/api/portraits/women/24.jpg',
+              //     'https://randomuser.me/api/portraits/men/11.jpg',
+              //     'https://randomuser.me/api/portraits/women/49.jpg',
+              //     'https://randomuser.me/api/portraits/men/45.jpg',
+              //     'https://randomuser.me/api/portraits/women/16.jpg',
+              //     'https://randomuser.me/api/portraits/men/92.jpg',
+              //   ],
+              //   [
+              //     'Alice',
+              //     'Bob',
+              //     'Cathy',
+              //     'David',
+              //     'Ella',
+              //     'Frank',
+              //   ],
+              //   [
+              //     '9:02 AM',
+              //     '9:05 AM',
+              //     '9:10 AM',
+              //     '9:14 AM',
+              //     '9:15 AM',
+              //     '9:20 AM',
+              //   ],
+              // ),
               const SizedBox(height: 16.0),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAttendanceListItem(
-    String date,
-    int presentCount,
-    int absentCount,
-    List<String> studentProfilePics,
-    List<String> studentNames,
-    List<String> joinTimes,
-  ) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              date,
-              style:
-                  const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16.0),
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: List.generate(
-                studentProfilePics.length,
-                (index) {
-                  return Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 24.0,
-                        backgroundImage:
-                            NetworkImage(studentProfilePics[index]),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(studentNames[index]),
-                      const SizedBox(height: 4.0),
-                      // Text(
-                      //   joinTimes[index],
-                      //   style: TextStyle(fontSize: 12.0),
-                      // ),
-                    ],
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Present: ',
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                    Text(
-                      '$presentCount',
-                      style: const TextStyle(fontSize: 16.0),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Absent: ',
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                    Text(
-                      '$absentCount',
-                      style: const TextStyle(fontSize: 16.0),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
+import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 class ProfessorClassWidget extends ConsumerWidget {
   final CourseModel course;
@@ -17,6 +18,7 @@ class ProfessorClassWidget extends ConsumerWidget {
       child: InkWell(
         enableFeedback: true,
         onTap: () {
+          ref.read(selectedCourseProvider.notifier).state = course.id;
           AutoRouter.of(context).push(ProfessorViewCoursePage(course: course));
         },
         child: Card(

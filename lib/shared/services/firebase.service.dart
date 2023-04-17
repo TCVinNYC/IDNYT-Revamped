@@ -15,6 +15,17 @@ class FirebaseService {
     return _db.collection('courses').doc(year).collection(semester).snapshots();
   }
 
+  Stream<QuerySnapshot> attendanceDataStream(
+      String year, String semester, String course) {
+    return _db
+        .collection('courses')
+        .doc(year)
+        .collection(semester)
+        .doc(course)
+        .collection('attendance')
+        .snapshots();
+  }
+
   List<String> yearDataStream() {
     List<String> years = [];
     _db.collection('courses').get().then(
@@ -120,10 +131,10 @@ class FirebaseService {
     return "Other Error";
   }
 
-  Future<String> getClassAttendance(course_id) async {
+  Future<String> getClassAttendance(courseId) async {
     if (authUser?.email != null) {
       try {
-        debugPrint(course_id);
+        debugPrint(courseId);
         return "Good";
       } catch (e) {
         debugPrint(e.toString());
