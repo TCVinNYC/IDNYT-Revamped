@@ -55,8 +55,14 @@ class AttendanceListItemWidget extends ConsumerWidget {
                       children: [
                         CircleAvatar(
                           radius: 28.0,
-                          backgroundImage:
-                              NetworkImage(students[index].profilePicture),
+                          backgroundColor: Colors.transparent,
+                          child: ClipOval(
+                            child: Image.network(
+                              students[index].profilePicture,
+                              cacheWidth: 168,
+                              cacheHeight: 168,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 8.0),
                         AnimatedCrossFade(
