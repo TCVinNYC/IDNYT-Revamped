@@ -5,7 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/home/views/create_course_page.dart';
+import 'package:idnyt_revamped/modules/home/widgets/professor_attendance_list_item_widget.dart';
 import 'package:idnyt_revamped/modules/home/widgets/professor_class_widget.dart';
+import 'package:idnyt_revamped/modules/models/student_attendance.model.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
@@ -18,6 +20,10 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final attendanceDocsStream = ref.watch(attendanceDocsStreamProvider);
+    // final selectedCourse = ref.watch(selectedCourseProvider);
+    // final selectedYear = ref.watch(selectedYearProvider);
+    // final selectedSemester = ref.watch(selectedSemesterProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -118,27 +124,48 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
               ),
               const SizedBox(height: 16.0),
               Container(
-                height: 200,
-                child: StreamBuilder<QuerySnapshot<Object?>>(
-                  stream: attendanceDocsStream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text('Something went wrong');
-                    }
+                height: 300,
+                child: SafeArea(
+                  child: StreamBuilder<QuerySnapshot<Object?>>(
+                    stream: attendanceDocsStream,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        print("error");
+                        return const Text('Something went wrong');
+                      }
 
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        print("waiting");
+                        return const CircularProgressIndicator();
+                      }
+                      final List<StudentAttendanceModel> students = [];
+                      return ListView(
+                        children: snapshot.data!.docs
+                            .map((DocumentSnapshot document) {
+                              final data =
+                                  document.data() as Map<String, dynamic>;
 
-                    for (DocumentSnapshot doc in snapshot.data!.docs) {
-                      print(doc.data.toString());
-                      return Text('data');
-                    }
-                    return Text('data2');
-                  },
+                              data.forEach((key, value) {
+                                final student =
+                                    StudentAttendanceModel.fromJson(value, key);
+                                students.add(student);
+                              });
+
+                              return AttendanceListItemWidget(
+                                totalNumberStudent: course.studentList.length,
+                                students: students,
+                                date: document.id,
+                              );
+                            })
+                            .toList()
+                            .cast(),
+                      );
+                    },
+                  ),
                 ),
               ),
+
               // _buildAttendanceListItem(
               //   'August 16, 2022',
               //   29,

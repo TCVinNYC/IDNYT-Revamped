@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:idnyt_revamped/modules/models/student_attendance.model.dart';
+// ignore: depend_on_referenced_packages
+import 'package:intl/intl.dart';
 
 class AttendanceListItemWidget extends ConsumerWidget {
-  // total_num_students - from the course variable
+  final int totalNumberStudent;
+  final String date;
+  final List<StudentAttendanceModel> students;
 
-  // Date
-  // while pulling from the document data for who is here by email + time
-  // this would require me to pull twice though for only name + profile pic to be separate
-
-  const AttendanceListItemWidget({Key? key}) : super(key: key);
+  const AttendanceListItemWidget({
+    Key? key,
+    required this.totalNumberStudent,
+    required this.date,
+    required this.students,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    DateFormat inputFormat = DateFormat('M-d-yyyy');
+    DateTime parsedDate = inputFormat.parse(date);
+    DateFormat outputFormat = DateFormat('MMMM d, yyyy');
+    String formattedDate = outputFormat.format(parsedDate);
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -19,7 +30,7 @@ class AttendanceListItemWidget extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              date,
+              formattedDate,
               style:
                   const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
@@ -28,20 +39,20 @@ class AttendanceListItemWidget extends ConsumerWidget {
               spacing: 8.0,
               runSpacing: 8.0,
               children: List.generate(
-                studentProfilePics.length,
+                students.length,
                 (index) {
                   return Column(
                     children: [
                       CircleAvatar(
-                        radius: 24.0,
+                        radius: 28.0,
                         backgroundImage:
-                            NetworkImage(studentProfilePics[index]),
+                            NetworkImage(students[index].profilePicture),
                       ),
                       const SizedBox(height: 8.0),
-                      Text(studentNames[index]),
-                      const SizedBox(height: 4.0),
+                      Text(students[index].name),
+                      // const SizedBox(height: 4.0),
                       // Text(
-                      //   joinTimes[index],
+                      //   students[index].time,
                       //   style: TextStyle(fontSize: 12.0),
                       // ),
                     ],
@@ -61,7 +72,7 @@ class AttendanceListItemWidget extends ConsumerWidget {
                       style: TextStyle(fontSize: 16.0),
                     ),
                     Text(
-                      '$presentCount',
+                      '${students.length}',
                       style: const TextStyle(fontSize: 16.0),
                     ),
                   ],
@@ -74,7 +85,7 @@ class AttendanceListItemWidget extends ConsumerWidget {
                       style: TextStyle(fontSize: 16.0),
                     ),
                     Text(
-                      '$absentCount',
+                      '${totalNumberStudent - students.length}',
                       style: const TextStyle(fontSize: 16.0),
                     ),
                   ],
