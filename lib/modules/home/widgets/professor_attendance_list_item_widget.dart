@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:idnyt_revamped/modules/home/providers/attendance.provider.dart';
 import 'package:idnyt_revamped/modules/models/student_attendance.model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
-final showTimeProvider = StateProvider<bool>((ref) => false);
-
-class AttendanceListItemWidget extends ConsumerWidget {
+class AttendanceListItemWidget extends HookConsumerWidget {
   final int totalNumberStudent;
   final String date;
   final List<StudentAttendanceModel> students;
@@ -20,17 +20,19 @@ class AttendanceListItemWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final uniqueKey = useMemoized(() => UniqueKey());
+
     DateFormat inputFormat = DateFormat('M-d-yyyy');
     DateTime parsedDate = inputFormat.parse(date);
     DateFormat outputFormat = DateFormat('MMMM d, yyyy');
     String formattedDate = outputFormat.format(parsedDate);
 
-    bool showTime = ref.watch(showTimeProvider);
+    bool showTime = ref.watch(showTimeProvider(uniqueKey));
 
     return InkWell(
       enableFeedback: true,
       onLongPress: () {
-        ref.read(showTimeProvider.notifier).state = !showTime;
+        ref.read(showTimeProvider(uniqueKey).notifier).state = !showTime;
       },
       child: Card(
         child: Padding(

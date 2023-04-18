@@ -31,134 +31,73 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text(
-                      'Latest Attendance',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          'Date:',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                        Text(
-                          'August 23, 2022',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Time:',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                        Text(
-                          course.courseTime,
-                          style: const TextStyle(fontSize: 16.0),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          'Present:',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                        Text(
-                          '28',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          'Absent:',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                        Text(
-                          '3',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
-              child: Text(
-                'Previous Attendances',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10.0),
-            Expanded(
-              child: SafeArea(
-                child: StreamBuilder<QuerySnapshot<Object?>>(
-                  stream: attendanceDocsStream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text('Something went wrong');
-                    }
+        child: StreamBuilder<QuerySnapshot<Object?>>(
+          stream: attendanceDocsStream,
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
+            }
 
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
+
+            return ListView(
+              children: snapshot.data!.docs.reversed
+                  .map((DocumentSnapshot document) {
                     final List<StudentAttendanceModel> students = [];
-                    return ListView(
-                      children: snapshot.data!.docs
-                          .map((DocumentSnapshot document) {
-                            final data =
-                                document.data() as Map<String, dynamic>;
-
-                            data.forEach((key, value) {
-                              final student =
-                                  StudentAttendanceModel.fromJson(value, key);
-                              students.add(student);
-                            });
-
-                            return AttendanceListItemWidget(
-                              totalNumberStudent: course.studentList.length,
-                              students: students,
-                              date: document.id,
-                            );
-                          })
-                          .toList()
-                          .cast(),
+                    final data = document.data() as Map<String, dynamic>;
+                    data.forEach((key, value) {
+                      final student =
+                          StudentAttendanceModel.fromJson(value, key);
+                      students.add(student);
+                    });
+                    if (document.id == snapshot.data?.docs.last.id) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(10, 5, 0, 10),
+                            child: Text(
+                              'Latest Attendance',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          AttendanceListItemWidget(
+                            totalNumberStudent: course.studentList.length,
+                            students: students,
+                            date: document.id,
+                          ),
+                          const SizedBox(height: 8.0),
+                          snapshot.data!.docs.length > 1
+                              ? const Padding(
+                                  padding: EdgeInsets.fromLTRB(10, 5, 0, 10),
+                                  child: Text(
+                                    'Previous Attendance',
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      );
+                    }
+                    return AttendanceListItemWidget(
+                      totalNumberStudent: course.studentList.length,
+                      students: students,
+                      date: document.id,
                     );
-                  },
-                ),
-              ),
-            ),
-          ],
+                  })
+                  .toList()
+                  .cast(),
+            );
+          },
         ),
       ),
     );
