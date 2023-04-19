@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
-import 'package:idnyt_revamped/modules/models/student_attendance.model.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
 
 class FirebaseService {

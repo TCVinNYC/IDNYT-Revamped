@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/home/widgets/professor_attendance_list_item_widget.dart';
-import 'package:idnyt_revamped/modules/models/student_attendance.model.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
