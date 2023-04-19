@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:idnyt_revamped/modules/models/student_attendance.model.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
 
 class FirebaseService {
@@ -15,7 +16,7 @@ class FirebaseService {
     return _db.collection('courses').doc(year).collection(semester).snapshots();
   }
 
-  Stream<QuerySnapshot> attendanceDataStream(
+  Stream<QuerySnapshot> attendanceCollectionDataStream(
       String year, String semester, String course) {
     return _db
         .collection('courses')
@@ -23,6 +24,18 @@ class FirebaseService {
         .collection(semester)
         .doc(course)
         .collection('attendance')
+        .snapshots();
+  }
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> attendanceDocDataStream(
+      String year, String semester, String course, String date) {
+    return _db
+        .collection('courses')
+        .doc(year)
+        .collection(semester)
+        .doc(course)
+        .collection('attendance')
+        .doc(date)
         .snapshots();
   }
 

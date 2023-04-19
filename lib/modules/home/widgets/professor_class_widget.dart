@@ -63,7 +63,7 @@ class ProfessorClassWidget extends ConsumerWidget {
                           ),
                         ),
                         const Text(
-                          '0',
+                          'Attendance: N/A%',
                           // 'Attendance: ${course.toStringAsFixed(2)}%',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,

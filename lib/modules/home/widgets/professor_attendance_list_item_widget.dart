@@ -1,3 +1,6 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,31 +11,39 @@ import 'package:intl/intl.dart';
 
 class AttendanceListItemWidget extends HookConsumerWidget {
   final int totalNumberStudent;
-  final String date;
-  final List<StudentAttendanceModel> students;
+  final DocumentSnapshot<Object?> documentSnapshot;
 
   const AttendanceListItemWidget({
     Key? key,
     required this.totalNumberStudent,
-    required this.date,
-    required this.students,
+    required this.documentSnapshot,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final uniqueKey = useMemoized(() => UniqueKey());
+    List<StudentAttendanceModel> students = [];
+    final studentData = documentSnapshot.data() as Map<String, dynamic>;
+    studentData.forEach((key, value) {
+      final student = StudentAttendanceModel.fromJson(value, key);
+      students.add(student);
+    });
 
     DateFormat inputFormat = DateFormat('M-d-yyyy');
-    DateTime parsedDate = inputFormat.parse(date);
+    DateTime parsedDate = inputFormat.parse(documentSnapshot.id);
     DateFormat outputFormat = DateFormat('MMMM d, yyyy');
     String formattedDate = outputFormat.format(parsedDate);
 
+    final uniqueKey = useMemoized(() => UniqueKey());
     bool showTime = ref.watch(showTimeProvider(uniqueKey));
 
     return InkWell(
       enableFeedback: true,
       onLongPress: () {
         ref.read(showTimeProvider(uniqueKey).notifier).state = !showTime;
+      },
+      onTap: () {
+        AutoRouter.of(context)
+            .push(AttendanceDetailPage(documentSnapshot: documentSnapshot));
       },
       child: Card(
         child: Padding(

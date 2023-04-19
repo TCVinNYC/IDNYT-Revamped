@@ -16,7 +16,7 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final attendanceDocsStream = ref.watch(attendanceDocsStreamProvider);
+    final attendanceDocsStream = ref.watch(attendanceCollectionStreamProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -46,13 +46,6 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
             return ListView(
               children: snapshot.data!.docs.reversed
                   .map((DocumentSnapshot document) {
-                    final List<StudentAttendanceModel> students = [];
-                    final data = document.data() as Map<String, dynamic>;
-                    data.forEach((key, value) {
-                      final student =
-                          StudentAttendanceModel.fromJson(value, key);
-                      students.add(student);
-                    });
                     if (document.id == snapshot.data?.docs.last.id) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -69,8 +62,7 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
                           ),
                           AttendanceListItemWidget(
                             totalNumberStudent: course.studentList.length,
-                            students: students,
-                            date: document.id,
+                            documentSnapshot: document,
                           ),
                           const SizedBox(height: 8.0),
                           snapshot.data!.docs.length > 1
@@ -90,8 +82,7 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
                     }
                     return AttendanceListItemWidget(
                       totalNumberStudent: course.studentList.length,
-                      students: students,
-                      date: document.id,
+                      documentSnapshot: document,
                     );
                   })
                   .toList()

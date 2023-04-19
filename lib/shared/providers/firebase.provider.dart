@@ -36,7 +36,7 @@ final courseDataStreamProvider =
 
 final selectedCourseProvider = StateProvider((ref) => '');
 
-final attendanceDocsStreamProvider =
+final attendanceCollectionStreamProvider =
     Provider<Stream<QuerySnapshot<Object?>>>((ref) {
   String year = ref.watch(selectedYearProvider);
   String semester = ref.watch(selectedSemesterProvider);
@@ -44,5 +44,22 @@ final attendanceDocsStreamProvider =
 
   return ref
       .read(firestoreProvider)
-      .attendanceDataStream(year, semester, course);
+      .attendanceCollectionDataStream(year, semester, course);
 });
+
+
+// return attendanceStream.map((docSnapshot) {
+//     if (docSnapshot.exists) {
+//       final data = docSnapshot.data();
+//       final List<StudentAttendanceModel> students = [];
+
+//       data.forEach((email, studentData) {
+//         final student = StudentAttendanceModel.fromJson(studentData, email);
+//         students.add(student);
+//       });
+
+//       return students;
+//     } else {
+//       return [];
+//     }
+//   });

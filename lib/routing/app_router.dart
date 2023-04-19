@@ -28,5 +28,6 @@ class AppRouter extends $AppRouter {
     AutoRoute(path: '/createcoursepage', page: CreateCoursePage.page),
     AutoRoute(
         path: '/professorviewcoursepage', page: ProfessorViewCoursePage.page),
+    AutoRoute(path: '/attendancedetailpage', page: AttendanceDetailPage.page),
   ];
 }

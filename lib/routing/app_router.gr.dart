@@ -1,3 +1,4 @@
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -8,9 +9,12 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i13;
-import 'package:flutter/material.dart' as _i14;
+import 'package:auto_route/auto_route.dart' as _i14;
+import 'package:cloud_firestore/cloud_firestore.dart' as _i18;
+import 'package:flutter/material.dart' as _i15;
 import 'package:idnyt_revamped/modules/home/views/admin_home_page.dart' as _i5;
+import 'package:idnyt_revamped/modules/home/views/attendance_detail_page.dart'
+    as _i13;
 import 'package:idnyt_revamped/modules/home/views/create_course_page.dart'
     as _i7;
 import 'package:idnyt_revamped/modules/home/views/id_card_page.dart' as _i8;
@@ -23,38 +27,38 @@ import 'package:idnyt_revamped/modules/home/views/student_home_page.dart'
     as _i4;
 import 'package:idnyt_revamped/modules/login/views/error_page.dart' as _i11;
 import 'package:idnyt_revamped/modules/login/views/login_page.dart' as _i12;
-import 'package:idnyt_revamped/shared/models/course.model.dart' as _i16;
-import 'package:idnyt_revamped/shared/models/user.model.dart' as _i15;
+import 'package:idnyt_revamped/shared/models/course.model.dart' as _i17;
+import 'package:idnyt_revamped/shared/models/user.model.dart' as _i16;
 import 'package:idnyt_revamped/shared/views/splash_screen.dart' as _i3;
 import 'package:idnyt_revamped/shared/views/tab_controller_page.dart' as _i2;
 import 'package:idnyt_revamped/tests/extra_page.dart' as _i1;
 
-abstract class $AppRouter extends _i13.RootStackRouter {
+abstract class $AppRouter extends _i14.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i13.PageFactory> pagesMap = {
+  final Map<String, _i14.PageFactory> pagesMap = {
     ExtraPage.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i1.ExtraPage(),
       );
     },
     TabControllerPage.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i2.TabControllerPage(),
       );
     },
     SplashScreenPage.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i3.SplashScreenPage(),
       );
     },
     StudentHomePage.name: (routeData) {
       final args = routeData.argsAs<StudentHomePageArgs>();
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i4.StudentHomePage(
           key: args.key,
@@ -64,7 +68,7 @@ abstract class $AppRouter extends _i13.RootStackRouter {
     },
     AdminHomePage.name: (routeData) {
       final args = routeData.argsAs<AdminHomePageArgs>();
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i5.AdminHomePage(
           key: args.key,
@@ -74,7 +78,7 @@ abstract class $AppRouter extends _i13.RootStackRouter {
     },
     ProfessorViewCoursePage.name: (routeData) {
       final args = routeData.argsAs<ProfessorViewCoursePageArgs>();
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i6.ProfessorViewCoursePage(
           key: args.key,
@@ -83,20 +87,20 @@ abstract class $AppRouter extends _i13.RootStackRouter {
       );
     },
     CreateCoursePage.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i7.CreateCoursePage(),
       );
     },
     IDCardPage.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i8.IDCardPage(),
       );
     },
     ProfessorHomePage.name: (routeData) {
       final args = routeData.argsAs<ProfessorHomePageArgs>();
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i9.ProfessorHomePage(
           key: args.key,
@@ -106,7 +110,7 @@ abstract class $AppRouter extends _i13.RootStackRouter {
     },
     ProfilePage.name: (routeData) {
       final args = routeData.argsAs<ProfilePageArgs>();
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i10.ProfilePage(
           key: args.key,
@@ -115,7 +119,7 @@ abstract class $AppRouter extends _i13.RootStackRouter {
       );
     },
     ErrorPage.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i11.ErrorPage(),
       );
@@ -123,9 +127,19 @@ abstract class $AppRouter extends _i13.RootStackRouter {
     LoginPage.name: (routeData) {
       final args =
           routeData.argsAs<LoginPageArgs>(orElse: () => const LoginPageArgs());
-      return _i13.AutoRoutePage<dynamic>(
+      return _i14.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i12.LoginPage(key: args.key),
+      );
+    },
+    AttendanceDetailPage.name: (routeData) {
+      final args = routeData.argsAs<AttendanceDetailPageArgs>();
+      return _i14.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i13.AttendanceDetailPage(
+          key: args.key,
+          documentSnapshot: args.documentSnapshot,
+        ),
       );
     },
   };
@@ -133,8 +147,8 @@ abstract class $AppRouter extends _i13.RootStackRouter {
 
 /// generated route for
 /// [_i1.ExtraPage]
-class ExtraPage extends _i13.PageRouteInfo<void> {
-  const ExtraPage({List<_i13.PageRouteInfo>? children})
+class ExtraPage extends _i14.PageRouteInfo<void> {
+  const ExtraPage({List<_i14.PageRouteInfo>? children})
       : super(
           ExtraPage.name,
           initialChildren: children,
@@ -142,13 +156,13 @@ class ExtraPage extends _i13.PageRouteInfo<void> {
 
   static const String name = 'ExtraPage';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static const _i14.PageInfo<void> page = _i14.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.TabControllerPage]
-class TabControllerPage extends _i13.PageRouteInfo<void> {
-  const TabControllerPage({List<_i13.PageRouteInfo>? children})
+class TabControllerPage extends _i14.PageRouteInfo<void> {
+  const TabControllerPage({List<_i14.PageRouteInfo>? children})
       : super(
           TabControllerPage.name,
           initialChildren: children,
@@ -156,13 +170,13 @@ class TabControllerPage extends _i13.PageRouteInfo<void> {
 
   static const String name = 'TabControllerPage';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static const _i14.PageInfo<void> page = _i14.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i3.SplashScreenPage]
-class SplashScreenPage extends _i13.PageRouteInfo<void> {
-  const SplashScreenPage({List<_i13.PageRouteInfo>? children})
+class SplashScreenPage extends _i14.PageRouteInfo<void> {
+  const SplashScreenPage({List<_i14.PageRouteInfo>? children})
       : super(
           SplashScreenPage.name,
           initialChildren: children,
@@ -170,16 +184,16 @@ class SplashScreenPage extends _i13.PageRouteInfo<void> {
 
   static const String name = 'SplashScreenPage';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static const _i14.PageInfo<void> page = _i14.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i4.StudentHomePage]
-class StudentHomePage extends _i13.PageRouteInfo<StudentHomePageArgs> {
+class StudentHomePage extends _i14.PageRouteInfo<StudentHomePageArgs> {
   StudentHomePage({
-    _i14.Key? key,
-    required _i15.UserModel userData,
-    List<_i13.PageRouteInfo>? children,
+    _i15.Key? key,
+    required _i16.UserModel userData,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
           StudentHomePage.name,
           args: StudentHomePageArgs(
@@ -191,8 +205,8 @@ class StudentHomePage extends _i13.PageRouteInfo<StudentHomePageArgs> {
 
   static const String name = 'StudentHomePage';
 
-  static const _i13.PageInfo<StudentHomePageArgs> page =
-      _i13.PageInfo<StudentHomePageArgs>(name);
+  static const _i14.PageInfo<StudentHomePageArgs> page =
+      _i14.PageInfo<StudentHomePageArgs>(name);
 }
 
 class StudentHomePageArgs {
@@ -201,9 +215,9 @@ class StudentHomePageArgs {
     required this.userData,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
-  final _i15.UserModel userData;
+  final _i16.UserModel userData;
 
   @override
   String toString() {
@@ -213,11 +227,11 @@ class StudentHomePageArgs {
 
 /// generated route for
 /// [_i5.AdminHomePage]
-class AdminHomePage extends _i13.PageRouteInfo<AdminHomePageArgs> {
+class AdminHomePage extends _i14.PageRouteInfo<AdminHomePageArgs> {
   AdminHomePage({
-    _i14.Key? key,
-    required _i15.UserModel userData,
-    List<_i13.PageRouteInfo>? children,
+    _i15.Key? key,
+    required _i16.UserModel userData,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
           AdminHomePage.name,
           args: AdminHomePageArgs(
@@ -229,8 +243,8 @@ class AdminHomePage extends _i13.PageRouteInfo<AdminHomePageArgs> {
 
   static const String name = 'AdminHomePage';
 
-  static const _i13.PageInfo<AdminHomePageArgs> page =
-      _i13.PageInfo<AdminHomePageArgs>(name);
+  static const _i14.PageInfo<AdminHomePageArgs> page =
+      _i14.PageInfo<AdminHomePageArgs>(name);
 }
 
 class AdminHomePageArgs {
@@ -239,9 +253,9 @@ class AdminHomePageArgs {
     required this.userData,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
-  final _i15.UserModel userData;
+  final _i16.UserModel userData;
 
   @override
   String toString() {
@@ -252,11 +266,11 @@ class AdminHomePageArgs {
 /// generated route for
 /// [_i6.ProfessorViewCoursePage]
 class ProfessorViewCoursePage
-    extends _i13.PageRouteInfo<ProfessorViewCoursePageArgs> {
+    extends _i14.PageRouteInfo<ProfessorViewCoursePageArgs> {
   ProfessorViewCoursePage({
-    _i14.Key? key,
-    required _i16.CourseModel course,
-    List<_i13.PageRouteInfo>? children,
+    _i15.Key? key,
+    required _i17.CourseModel course,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
           ProfessorViewCoursePage.name,
           args: ProfessorViewCoursePageArgs(
@@ -268,8 +282,8 @@ class ProfessorViewCoursePage
 
   static const String name = 'ProfessorViewCoursePage';
 
-  static const _i13.PageInfo<ProfessorViewCoursePageArgs> page =
-      _i13.PageInfo<ProfessorViewCoursePageArgs>(name);
+  static const _i14.PageInfo<ProfessorViewCoursePageArgs> page =
+      _i14.PageInfo<ProfessorViewCoursePageArgs>(name);
 }
 
 class ProfessorViewCoursePageArgs {
@@ -278,9 +292,9 @@ class ProfessorViewCoursePageArgs {
     required this.course,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
-  final _i16.CourseModel course;
+  final _i17.CourseModel course;
 
   @override
   String toString() {
@@ -290,8 +304,8 @@ class ProfessorViewCoursePageArgs {
 
 /// generated route for
 /// [_i7.CreateCoursePage]
-class CreateCoursePage extends _i13.PageRouteInfo<void> {
-  const CreateCoursePage({List<_i13.PageRouteInfo>? children})
+class CreateCoursePage extends _i14.PageRouteInfo<void> {
+  const CreateCoursePage({List<_i14.PageRouteInfo>? children})
       : super(
           CreateCoursePage.name,
           initialChildren: children,
@@ -299,13 +313,13 @@ class CreateCoursePage extends _i13.PageRouteInfo<void> {
 
   static const String name = 'CreateCoursePage';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static const _i14.PageInfo<void> page = _i14.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i8.IDCardPage]
-class IDCardPage extends _i13.PageRouteInfo<void> {
-  const IDCardPage({List<_i13.PageRouteInfo>? children})
+class IDCardPage extends _i14.PageRouteInfo<void> {
+  const IDCardPage({List<_i14.PageRouteInfo>? children})
       : super(
           IDCardPage.name,
           initialChildren: children,
@@ -313,16 +327,16 @@ class IDCardPage extends _i13.PageRouteInfo<void> {
 
   static const String name = 'IDCardPage';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static const _i14.PageInfo<void> page = _i14.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i9.ProfessorHomePage]
-class ProfessorHomePage extends _i13.PageRouteInfo<ProfessorHomePageArgs> {
+class ProfessorHomePage extends _i14.PageRouteInfo<ProfessorHomePageArgs> {
   ProfessorHomePage({
-    _i14.Key? key,
-    required _i15.UserModel userData,
-    List<_i13.PageRouteInfo>? children,
+    _i15.Key? key,
+    required _i16.UserModel userData,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
           ProfessorHomePage.name,
           args: ProfessorHomePageArgs(
@@ -334,8 +348,8 @@ class ProfessorHomePage extends _i13.PageRouteInfo<ProfessorHomePageArgs> {
 
   static const String name = 'ProfessorHomePage';
 
-  static const _i13.PageInfo<ProfessorHomePageArgs> page =
-      _i13.PageInfo<ProfessorHomePageArgs>(name);
+  static const _i14.PageInfo<ProfessorHomePageArgs> page =
+      _i14.PageInfo<ProfessorHomePageArgs>(name);
 }
 
 class ProfessorHomePageArgs {
@@ -344,9 +358,9 @@ class ProfessorHomePageArgs {
     required this.userData,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
-  final _i15.UserModel userData;
+  final _i16.UserModel userData;
 
   @override
   String toString() {
@@ -356,11 +370,11 @@ class ProfessorHomePageArgs {
 
 /// generated route for
 /// [_i10.ProfilePage]
-class ProfilePage extends _i13.PageRouteInfo<ProfilePageArgs> {
+class ProfilePage extends _i14.PageRouteInfo<ProfilePageArgs> {
   ProfilePage({
-    _i14.Key? key,
-    required _i15.UserModel userData,
-    List<_i13.PageRouteInfo>? children,
+    _i15.Key? key,
+    required _i16.UserModel userData,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
           ProfilePage.name,
           args: ProfilePageArgs(
@@ -372,8 +386,8 @@ class ProfilePage extends _i13.PageRouteInfo<ProfilePageArgs> {
 
   static const String name = 'ProfilePage';
 
-  static const _i13.PageInfo<ProfilePageArgs> page =
-      _i13.PageInfo<ProfilePageArgs>(name);
+  static const _i14.PageInfo<ProfilePageArgs> page =
+      _i14.PageInfo<ProfilePageArgs>(name);
 }
 
 class ProfilePageArgs {
@@ -382,9 +396,9 @@ class ProfilePageArgs {
     required this.userData,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
-  final _i15.UserModel userData;
+  final _i16.UserModel userData;
 
   @override
   String toString() {
@@ -394,8 +408,8 @@ class ProfilePageArgs {
 
 /// generated route for
 /// [_i11.ErrorPage]
-class ErrorPage extends _i13.PageRouteInfo<void> {
-  const ErrorPage({List<_i13.PageRouteInfo>? children})
+class ErrorPage extends _i14.PageRouteInfo<void> {
+  const ErrorPage({List<_i14.PageRouteInfo>? children})
       : super(
           ErrorPage.name,
           initialChildren: children,
@@ -403,15 +417,15 @@ class ErrorPage extends _i13.PageRouteInfo<void> {
 
   static const String name = 'ErrorPage';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static const _i14.PageInfo<void> page = _i14.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i12.LoginPage]
-class LoginPage extends _i13.PageRouteInfo<LoginPageArgs> {
+class LoginPage extends _i14.PageRouteInfo<LoginPageArgs> {
   LoginPage({
-    _i14.Key? key,
-    List<_i13.PageRouteInfo>? children,
+    _i15.Key? key,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
           LoginPage.name,
           args: LoginPageArgs(key: key),
@@ -420,17 +434,56 @@ class LoginPage extends _i13.PageRouteInfo<LoginPageArgs> {
 
   static const String name = 'LoginPage';
 
-  static const _i13.PageInfo<LoginPageArgs> page =
-      _i13.PageInfo<LoginPageArgs>(name);
+  static const _i14.PageInfo<LoginPageArgs> page =
+      _i14.PageInfo<LoginPageArgs>(name);
 }
 
 class LoginPageArgs {
   const LoginPageArgs({this.key});
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   @override
   String toString() {
     return 'LoginPageArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i13.AttendanceDetailPage]
+class AttendanceDetailPage
+    extends _i14.PageRouteInfo<AttendanceDetailPageArgs> {
+  AttendanceDetailPage({
+    _i15.Key? key,
+    required _i18.DocumentSnapshot<Object?> documentSnapshot,
+    List<_i14.PageRouteInfo>? children,
+  }) : super(
+          AttendanceDetailPage.name,
+          args: AttendanceDetailPageArgs(
+            key: key,
+            documentSnapshot: documentSnapshot,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'AttendanceDetailPage';
+
+  static const _i14.PageInfo<AttendanceDetailPageArgs> page =
+      _i14.PageInfo<AttendanceDetailPageArgs>(name);
+}
+
+class AttendanceDetailPageArgs {
+  const AttendanceDetailPageArgs({
+    this.key,
+    required this.documentSnapshot,
+  });
+
+  final _i15.Key? key;
+
+  final _i18.DocumentSnapshot<Object?> documentSnapshot;
+
+  @override
+  String toString() {
+    return 'AttendanceDetailPageArgs{key: $key, documentSnapshot: $documentSnapshot}';
   }
 }
