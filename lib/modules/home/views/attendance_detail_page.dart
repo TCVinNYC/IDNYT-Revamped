@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt_revamped/modules/home/widgets/student_list_item_widget.dart';
+import 'package:idnyt_revamped/modules/home/widgets/attendance_student_list_item_widget.dart';
 import 'package:idnyt_revamped/modules/models/student_attendance.model.dart';
 
 @RoutePage(name: 'AttendanceDetailPage')
