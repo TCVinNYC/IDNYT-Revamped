@@ -20,4 +20,13 @@ class StudentAttendanceModel {
       time: json['time'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['email'] = email;
+    data['time'] = time;
+    data['profilePicture'] = profilePicture;
+    return data;
+  }
 }
