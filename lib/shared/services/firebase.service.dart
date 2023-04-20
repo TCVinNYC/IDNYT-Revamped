@@ -47,7 +47,7 @@ class FirebaseService {
         .collection(semester)
         .doc(course)
         .collection('messages')
-        // .orderBy('time', descending: true)
+        .orderBy('timestamp', descending: true)
         .snapshots();
   }
 

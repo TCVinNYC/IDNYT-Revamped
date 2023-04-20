@@ -1,11 +1,13 @@
 import 'dart:ffi';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class MessageModel {
   final String name;
   final String email;
   final String message;
   final String profilePicture;
-  final int time;
+  final Timestamp time;
 
   MessageModel({
     required this.name,
@@ -21,7 +23,7 @@ class MessageModel {
       email: json['email'] ?? '',
       message: json['message'] ?? '',
       profilePicture: json['profilePicture'] ?? '',
-      time: json['time'] ?? 0,
+      time: json['timestamp'],
     );
   }
 
@@ -34,6 +36,4 @@ class MessageModel {
     data['profilePicture'] = profilePicture;
     return data;
   }
-
-  DateTime get dateTime => DateTime.fromMillisecondsSinceEpoch(time);
 }
