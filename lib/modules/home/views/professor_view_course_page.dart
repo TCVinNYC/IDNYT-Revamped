@@ -10,13 +10,15 @@ import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 @RoutePage(name: 'ProfessorViewCoursePage')
 class ProfessorViewCoursePage extends HookConsumerWidget {
-  CourseModel course;
-  ProfessorViewCoursePage({Key? key, required this.course}) : super(key: key);
+  final DocumentSnapshot<Object?> documentSnapshot;
+  const ProfessorViewCoursePage({Key? key, required this.documentSnapshot})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final attendanceDocsStream = ref.watch(attendanceCollectionStreamProvider);
-
+    CourseModel course =
+        CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -26,6 +28,16 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
+        actions: [
+          IconButton(
+            tooltip: "Edit Course",
+            icon: const Icon(Icons.mode_edit),
+            enableFeedback: true,
+            onPressed: () {
+              // AutoRouter.of(context).push(const CreateCoursePage());
+            },
+          ),
+        ],
         centerTitle: true,
       ),
       body: Padding(

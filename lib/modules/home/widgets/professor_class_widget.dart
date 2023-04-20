@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
@@ -6,20 +7,24 @@ import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 class ProfessorClassWidget extends ConsumerWidget {
-  final CourseModel course;
+  // final CourseModel course;
+  final DocumentSnapshot<Object?> documentSnapshot;
 
-  const ProfessorClassWidget({Key? key, required this.course})
+  const ProfessorClassWidget({Key? key, required this.documentSnapshot})
       : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    CourseModel course =
+        CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 3, 5, 0),
       child: InkWell(
         enableFeedback: true,
         onTap: () {
           ref.read(selectedCourseProvider.notifier).state = course.id;
-          AutoRouter.of(context).push(ProfessorViewCoursePage(course: course));
+          AutoRouter.of(context).push(
+              ProfessorViewCoursePage(documentSnapshot: documentSnapshot));
         },
         child: Card(
           elevation: 2,

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/home/widgets/professor_class_widget.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
-import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
@@ -105,10 +104,8 @@ class ProfessorHomePage extends HookConsumerWidget {
               return ListView(
                 children: snapshot.data!.docs
                     .map((DocumentSnapshot document) {
-                      CourseModel data = CourseModel.fromJson(
-                          document.data() as Map<String, dynamic>);
                       return ProfessorClassWidget(
-                        course: data,
+                        documentSnapshot: document,
                       );
                     })
                     .toList()

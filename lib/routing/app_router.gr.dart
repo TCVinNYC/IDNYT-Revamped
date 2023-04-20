@@ -1,4 +1,3 @@
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -10,7 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i14;
-import 'package:cloud_firestore/cloud_firestore.dart' as _i18;
+import 'package:cloud_firestore/cloud_firestore.dart' as _i17;
 import 'package:flutter/material.dart' as _i15;
 import 'package:idnyt_revamped/modules/home/views/admin_home_page.dart' as _i5;
 import 'package:idnyt_revamped/modules/home/views/attendance_detail_page.dart'
@@ -27,7 +26,6 @@ import 'package:idnyt_revamped/modules/home/views/student_home_page.dart'
     as _i4;
 import 'package:idnyt_revamped/modules/login/views/error_page.dart' as _i11;
 import 'package:idnyt_revamped/modules/login/views/login_page.dart' as _i12;
-import 'package:idnyt_revamped/shared/models/course.model.dart' as _i17;
 import 'package:idnyt_revamped/shared/models/user.model.dart' as _i16;
 import 'package:idnyt_revamped/shared/views/splash_screen.dart' as _i3;
 import 'package:idnyt_revamped/shared/views/tab_controller_page.dart' as _i2;
@@ -82,7 +80,7 @@ abstract class $AppRouter extends _i14.RootStackRouter {
         routeData: routeData,
         child: _i6.ProfessorViewCoursePage(
           key: args.key,
-          course: args.course,
+          documentSnapshot: args.documentSnapshot,
         ),
       );
     },
@@ -269,13 +267,13 @@ class ProfessorViewCoursePage
     extends _i14.PageRouteInfo<ProfessorViewCoursePageArgs> {
   ProfessorViewCoursePage({
     _i15.Key? key,
-    required _i17.CourseModel course,
+    required _i17.DocumentSnapshot<Object?> documentSnapshot,
     List<_i14.PageRouteInfo>? children,
   }) : super(
           ProfessorViewCoursePage.name,
           args: ProfessorViewCoursePageArgs(
             key: key,
-            course: course,
+            documentSnapshot: documentSnapshot,
           ),
           initialChildren: children,
         );
@@ -289,16 +287,16 @@ class ProfessorViewCoursePage
 class ProfessorViewCoursePageArgs {
   const ProfessorViewCoursePageArgs({
     this.key,
-    required this.course,
+    required this.documentSnapshot,
   });
 
   final _i15.Key? key;
 
-  final _i17.CourseModel course;
+  final _i17.DocumentSnapshot<Object?> documentSnapshot;
 
   @override
   String toString() {
-    return 'ProfessorViewCoursePageArgs{key: $key, course: $course}';
+    return 'ProfessorViewCoursePageArgs{key: $key, documentSnapshot: $documentSnapshot}';
   }
 }
 
@@ -455,7 +453,7 @@ class AttendanceDetailPage
     extends _i14.PageRouteInfo<AttendanceDetailPageArgs> {
   AttendanceDetailPage({
     _i15.Key? key,
-    required _i18.DocumentSnapshot<Object?> documentSnapshot,
+    required _i17.DocumentSnapshot<Object?> documentSnapshot,
     List<_i14.PageRouteInfo>? children,
   }) : super(
           AttendanceDetailPage.name,
@@ -480,7 +478,7 @@ class AttendanceDetailPageArgs {
 
   final _i15.Key? key;
 
-  final _i18.DocumentSnapshot<Object?> documentSnapshot;
+  final _i17.DocumentSnapshot<Object?> documentSnapshot;
 
   @override
   String toString() {
