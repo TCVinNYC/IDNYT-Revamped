@@ -23,7 +23,7 @@ class MessageModel {
       email: json['email'] ?? '',
       message: json['message'] ?? '',
       profilePicture: json['profilePicture'] ?? '',
-      time: json['timestamp'],
+      time: json['time'],
     );
   }
 

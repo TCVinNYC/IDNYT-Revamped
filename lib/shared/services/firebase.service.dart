@@ -47,19 +47,26 @@ class FirebaseService {
         .collection(semester)
         .doc(course)
         .collection('messages')
-        .orderBy('timestamp', descending: true)
+        .orderBy('time', descending: true)
         .snapshots();
   }
 
-  Future<void> sendCourseMessage(String year, String semester, String course,
-      Map<String, Object?> message) {
+  Future<void> sendCourseMessage(
+      String year, String semester, String course, String message) {
+    final documentMessage = {
+      'name': userData.fullName,
+      'email': userData.email,
+      'profilePicture': 'https://i.redd.it/qyvapot2xjsa1.png',
+      'message': message,
+      'time': Timestamp.now(),
+    };
     return _db
         .collection('courses')
         .doc(year)
         .collection(semester)
         .doc(course)
         .collection('messages')
-        .add(message);
+        .add(documentMessage);
   }
 
   List<String> yearDataStream() {
