@@ -9,6 +9,7 @@ class FirebaseService {
   final User? authUser;
   late UserModel userData;
 
+  FirebaseFirestore get firestore => _db;
   Stream<UserModel> get userDataStream => getUserData();
 
   Stream<QuerySnapshot> courseDataStream(String year, String semester) {
@@ -36,6 +37,29 @@ class FirebaseService {
         .collection('attendance')
         .doc(date)
         .snapshots();
+  }
+
+  Stream<QuerySnapshot> courseMessagesCollectionDataStream(
+      String year, String semester, String course) {
+    return _db
+        .collection('courses')
+        .doc(year)
+        .collection(semester)
+        .doc(course)
+        .collection('messages')
+        // .orderBy('time', descending: true)
+        .snapshots();
+  }
+
+  Future<void> sendCourseMessage(String year, String semester, String course,
+      Map<String, Object?> message) {
+    return _db
+        .collection('courses')
+        .doc(year)
+        .collection(semester)
+        .doc(course)
+        .collection('messages')
+        .add(message);
   }
 
   List<String> yearDataStream() {

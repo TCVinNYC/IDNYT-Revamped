@@ -4,8 +4,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt_revamped/constants/idnyt_icon_set_icons.dart';
 import 'package:idnyt_revamped/modules/home/widgets/professor_attendance_list_item_widget.dart';
+import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
@@ -70,16 +70,7 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
             icon: const Icon(Icons.messenger_rounded),
             enableFeedback: true,
             onPressed: () {
-              // ignore: use_build_context_synchronously
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text('Cannot message class yet.'),
-                  action: SnackBarAction(
-                    label: 'Dismiss',
-                    onPressed: () {},
-                  ),
-                ),
-              );
+              AutoRouter.of(context).push(const CourseMessagingPage());
             },
           ),
         ],

@@ -6,7 +6,6 @@ import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'package:idnyt_revamped/shared/services/firebase.service.dart';
 
 final firestoreProvider = Provider<FirebaseService>((ref) {
-  // final User? authUser = ref.read(authStateProvider).value;
   final User? authUser = ref.watch(authServiceProvider).currentUser;
   return FirebaseService(authUser: authUser);
 });
@@ -45,4 +44,15 @@ final attendanceCollectionStreamProvider =
   return ref
       .read(firestoreProvider)
       .attendanceCollectionDataStream(year, semester, course);
+});
+
+final courseMessagesCollectionStreamProvider =
+    Provider<Stream<QuerySnapshot<Object?>>>((ref) {
+  String year = ref.watch(selectedYearProvider);
+  String semester = ref.watch(selectedSemesterProvider);
+  String course = ref.watch(selectedCourseProvider);
+
+  return ref
+      .read(firestoreProvider)
+      .courseMessagesCollectionDataStream(year, semester, course);
 });
