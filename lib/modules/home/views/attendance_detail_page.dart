@@ -139,25 +139,6 @@ class AttendanceDetailPage extends HookConsumerWidget {
                             },
                           );
                         },
-                        // onDismissed: (DismissDirection direction) async {
-                        //   await documentSnapshot.reference.update({
-                        //     student.email: FieldValue.delete(),
-                        //   });
-                        //   // ignore: use_build_context_synchronously
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     SnackBar(
-                        //       content: Text('${student.name} deleted'),
-                        //       action: SnackBarAction(
-                        //         label: 'UNDO',
-                        //         onPressed: () async {
-                        //           await documentSnapshot.reference.update({
-                        //             student.email: student.toJson(),
-                        //           });
-                        //         },
-                        //       ),
-                        //     ),
-                        //   );
-                        // },
                         background: Padding(
                           padding: const EdgeInsets.all(5),
                           child: Container(
@@ -181,8 +162,16 @@ class AttendanceDetailPage extends HookConsumerWidget {
                 ),
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
-                    // ignore: todo
-                    // TODO: implement add student
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text(
+                            'Manually Adding Students is not available yet.'),
+                        action: SnackBarAction(
+                          label: 'Dismiss',
+                          onPressed: () {},
+                        ),
+                      ),
+                    );
                   },
                   child: const Icon(Icons.add),
                 ),
