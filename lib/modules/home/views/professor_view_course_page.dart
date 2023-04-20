@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:idnyt_revamped/constants/idnyt_icon_set_icons.dart';
 import 'package:idnyt_revamped/modules/home/widgets/professor_attendance_list_item_widget.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
@@ -21,12 +22,30 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
         CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          course.courseName,
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w700,
-          ),
+        titleSpacing: 0,
+        centerTitle: false,
+        automaticallyImplyLeading: false,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            IconButton(
+              onPressed: () {
+                AutoRouter.of(context).pop();
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              course.courseName,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
         ),
         actions: [
           IconButton(
@@ -34,11 +53,36 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
             icon: const Icon(Icons.mode_edit),
             enableFeedback: true,
             onPressed: () {
-              // AutoRouter.of(context).push(const CreateCoursePage());
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Cannot edit course yet.'),
+                  action: SnackBarAction(
+                    label: 'Dismiss',
+                    onPressed: () {},
+                  ),
+                ),
+              );
+            },
+          ),
+          IconButton(
+            tooltip: "Message Class",
+            icon: const Icon(Icons.messenger_rounded),
+            enableFeedback: true,
+            onPressed: () {
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Cannot message class yet.'),
+                  action: SnackBarAction(
+                    label: 'Dismiss',
+                    onPressed: () {},
+                  ),
+                ),
+              );
             },
           ),
         ],
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
