@@ -147,7 +147,7 @@ class CourseMessagingPage extends HookConsumerWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: Row(
                 children: [
                   Expanded(
@@ -171,8 +171,11 @@ class CourseMessagingPage extends HookConsumerWidget {
                     onPressed: () async {
                       final text = messageController.text.trim();
                       if (text.isNotEmpty) {
+                        String year = ref.read(selectedYearProvider);
+                        String semester = ref.read(selectedSemesterProvider);
+                        String course = ref.read(selectedCourseProvider);
                         await firestore.sendCourseMessage(
-                            '2023', 'Fall', 'BqEvW9wUP9DD5r2sryee', text);
+                            year, semester, course, text);
                         messageController.clear();
                       }
                     },
