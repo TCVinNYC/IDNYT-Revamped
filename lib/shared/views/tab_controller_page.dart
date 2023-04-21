@@ -16,7 +16,7 @@ class TabControllerPage extends HookConsumerWidget {
       routes: [
         const IDCardPage(),
         // StudentHomePage(userData: firestore.userData),
-        if (userData.role == 'student') StudentHomePage(userData: userData),
+        if (userData.role == 'student') StudentHomePage(),
         if (userData.role == 'professor') ProfessorHomePage(userData: userData),
         if (userData.role == 'admin') AdminHomePage(userData: userData),
         ProfilePage(userData: userData),

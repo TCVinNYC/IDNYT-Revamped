@@ -44,7 +44,7 @@ dependencies:
   firebase_core: ^2.7.1
   firebase_auth: ^4.2.2
   google_sign_in: ^6.0.2
-  cloud_firestore: ^4.4.5
+  cloud_firestore: ^4.5.1
   smooth_page_indicator: ^1.0.1
   time_picker_spinner_pop_up: ^1.0.3
   form_builder_validators: ^8.5.0
@@ -55,6 +55,7 @@ dependencies:
   pluto_menu_bar: ^3.0.1
   flutter_hooks: ^0.18.6
   cached_network_image: ^3.2.3
+  nfc_manager: ^3.2.0
 
 dev_dependencies:
   auto_route_generator: ^6.0.0

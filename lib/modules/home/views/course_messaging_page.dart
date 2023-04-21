@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/models/message.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
+@RoutePage(name: 'CourseMessagingPage')
 class CourseMessagingPage extends HookConsumerWidget {
   const CourseMessagingPage({
     Key? key,
