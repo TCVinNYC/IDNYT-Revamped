@@ -7,7 +7,6 @@ import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 class ProfessorClassWidget extends ConsumerWidget {
-  // final CourseModel course;
   final DocumentSnapshot<Object?> documentSnapshot;
 
   const ProfessorClassWidget({Key? key, required this.documentSnapshot})
@@ -17,6 +16,7 @@ class ProfessorClassWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     CourseModel course =
         CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 3, 5, 0),
       child: InkWell(
@@ -163,12 +163,12 @@ class ProfessorClassWidget extends ConsumerWidget {
                     Row(
                       children: const [
                         Icon(
-                          Icons.notifications,
-                          color: 1 > 0 ? Colors.red : Colors.grey,
+                          Icons.messenger_rounded,
+                          color: 1 > 0 ? Colors.blue : Colors.grey,
                         ),
                         SizedBox(width: 4),
                         Text(
-                          '1 new',
+                          'New messages',
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 10,
