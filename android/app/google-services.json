@@ -12,7 +12,20 @@
           "package_name": "app.stevenson.idnytRevamped"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "587457458940-vcbbibei9gnquqsmenm1jg5c54a5meb9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.stevenson.idnytRevamped",
+            "certificate_hash": "7c40511985f7e5a4d3eb464b2ef5238902f5f27c"
+          }
+        },
+        {
+          "client_id": "587457458940-aunuq34mtvsg5p87k9g2fq25dd2d4458.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD6KO_QhYAxmRaSqfwOnt__Un7F9tdUyak"
@@ -20,26 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:587457458940:android:c58093d8dab2b9c56cdd79",
-        "android_client_info": {
-          "package_name": "com.stevenson.idnytRevamped"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD6KO_QhYAxmRaSqfwOnt__Un7F9tdUyak"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587457458940-aunuq34mtvsg5p87k9g2fq25dd2d4458.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "587457458940-p90gnmungcf53728dsmabtj4ts002l1j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.stevenson.idnytRevamped"
+              }
+            }
+          ]
         }
       }
     }
