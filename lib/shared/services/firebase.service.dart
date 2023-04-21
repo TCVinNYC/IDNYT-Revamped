@@ -56,7 +56,7 @@ class FirebaseService {
     final documentMessage = {
       'name': userData.fullName,
       'email': userData.email,
-      'profilePicture': 'https://i.redd.it/qyvapot2xjsa1.png',
+      'profilePicture': userData.profilePicture,
       'message': message,
       'time': Timestamp.now(),
     };
@@ -108,7 +108,7 @@ class FirebaseService {
         "email": authUser?.email,
         "role": "student",
         "fullName": authUser?.displayName,
-        "active": true,
+        "profilePicture": authUser?.photoURL,
       };
       debugPrint('Created Doc for ${authUser?.email}');
       _db.collection("users").doc(authUser?.email).set(userDocument);
