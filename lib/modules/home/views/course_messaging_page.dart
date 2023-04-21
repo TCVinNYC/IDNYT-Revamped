@@ -191,11 +191,11 @@ class CourseMessagingPage extends HookConsumerWidget {
     final date = timestamp.toDate();
     final now = DateTime.now();
     final difference = now.difference(date);
-    if (difference.inDays >= 7) {
+    if (difference.inDays >= 6) {
       return DateFormat.yMd().add_jm().format(date);
-    } else if (difference.inDays >= 2) {
-      return DateFormat.E().add_jm().format(date);
-    } else if (difference.inDays >= 1) {
+    } else if (difference.inDays > 1 && difference.inDays <= 6) {
+      return DateFormat('EEEE').add_jm().format(date);
+    } else if (difference.inDays == 1 || now.day != date.day) {
       return 'Yesterday at ${DateFormat.jm().format(date)}';
     } else {
       return 'Today at ${DateFormat.jm().format(date)}';
