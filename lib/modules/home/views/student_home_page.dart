@@ -9,7 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:idnyt_revamped/main.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
-import 'package:idnyt_revamped/shared/models/user.dart';
+import 'package:idnyt_revamped/shared/models/user.model.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'dart:typed_data';
 import 'package:nfc_manager/nfc_manager.dart';

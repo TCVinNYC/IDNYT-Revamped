@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD0RZ83LTNkXdR4k-ctZgLZhkfS7GwC9fE',
-    appId: '1:587457458940:android:c58093d8dab2b9c56cdd79',
+    apiKey: 'AIzaSyD6KO_QhYAxmRaSqfwOnt__Un7F9tdUyak',
+    appId: '1:587457458940:android:60344eb281f6544e6cdd79',
     messagingSenderId: '587457458940',
     projectId: 'idnyt-revamped-v2',
     storageBucket: 'idnyt-revamped-v2.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCrFJH6g7QlkmyHRBELRZDBSAsADRiEUWY',
-    appId: '1:587457458940:ios:72c5bda0e1c90a146cdd79',
+    apiKey: 'AIzaSyC2gSoHmO5IfTo7Dl4sxl3c3MFKXDil-ag',
+    appId: '1:587457458940:ios:b47ede1693e42ce86cdd79',
     messagingSenderId: '587457458940',
     projectId: 'idnyt-revamped-v2',
     storageBucket: 'idnyt-revamped-v2.appspot.com',
-    iosClientId: '587457458940-pvjqal96l36tj44n7785t1ht8luiqdli.apps.googleusercontent.com',
-    iosBundleId: 'com.stevenson.idnytRevamped',
+    iosClientId: '587457458940-p90gnmungcf53728dsmabtj4ts002l1j.apps.googleusercontent.com',
+    iosBundleId: 'app.stevenson.idnytRevamped',
   );
 }

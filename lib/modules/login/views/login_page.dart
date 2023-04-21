@@ -4,7 +4,7 @@ import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt_revamped/modules/login/providers/lottie_provider.dart';
+import 'package:idnyt_revamped/modules/login/providers/lottie.provider.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
 

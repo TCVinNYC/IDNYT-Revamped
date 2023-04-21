@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:idnyt_revamped/routing/app_router.gr.dart';
+import 'app_router.gr.dart';
 
 // RUN AUTO ROUTER COMMAND
 // flutter packages pub run build_runner build --delete-conflicting-outputs
@@ -25,5 +25,10 @@ class AppRouter extends $AppRouter {
       ],
       transitionsBuilder: TransitionsBuilders.noTransition,
     ),
+    AutoRoute(path: '/createcoursepage', page: CreateCoursePage.page),
+    AutoRoute(
+        path: '/professorviewcoursepage', page: ProfessorViewCoursePage.page),
+    AutoRoute(path: '/attendancedetailpage', page: AttendanceDetailPage.page),
+    AutoRoute(path: '/coursemessagingpage', page: CourseMessagingPage.page),
   ];
 }
