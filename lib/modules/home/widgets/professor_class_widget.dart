@@ -163,8 +163,8 @@ class ProfessorClassWidget extends ConsumerWidget {
                     Row(
                       children: const [
                         Icon(
-                          Icons.messenger_rounded,
-                          color: 1 > 0 ? Colors.blue : Colors.grey,
+                          Icons.notifications,
+                          color: 1 > 0 ? Colors.red : Colors.grey,
                         ),
                         SizedBox(width: 4),
                         Text(

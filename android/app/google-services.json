@@ -7,45 +7,39 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:587457458940:android:60344eb281f6544e6cdd79",
+        "android_client_info": {
+          "package_name": "app.stevenson.idnytRevamped"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6KO_QhYAxmRaSqfwOnt__Un7F9tdUyak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:587457458940:android:c58093d8dab2b9c56cdd79",
         "android_client_info": {
           "package_name": "com.stevenson.idnytRevamped"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "587457458940-us2n7kh7999aiqfsgus0inu000tlh3g4.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.stevenson.idnytRevamped",
-            "certificate_hash": "7c40511985f7e5a4d3eb464b2ef5238902f5f27c"
-          }
-        },
-        {
-          "client_id": "587457458940-kku5oipbuiptf2g5i2k665gf1d1jvgh7.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD0RZ83LTNkXdR4k-ctZgLZhkfS7GwC9fE"
+          "current_key": "AIzaSyD6KO_QhYAxmRaSqfwOnt__Un7F9tdUyak"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "587457458940-kku5oipbuiptf2g5i2k665gf1d1jvgh7.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "587457458940-pvjqal96l36tj44n7785t1ht8luiqdli.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.stevenson.idnytRevamped"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
