@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-// import 'package:barcode/barcode.dart';
+import 'package:barcode_widget/barcode_widget.dart';
 
 final studentEmailProvider = Provider<String>((ref) => 'johndoe@my.nyit.edu');
 final currentSemesterProvider = Provider<String>((ref) => 'Spring 2023');
@@ -160,34 +160,11 @@ class IDCardPage extends HookConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 60),
-                SizedBox(
-                  height: 120,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Image.network(
-                          'https://www.qrstuff.com/images/sample.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 4, horizontal: 16),
-                          color: Colors.white,
-                          child: Text(
-                            studentEmail,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                BarcodeWidget(
+                  barcode: Barcode.code128(),
+                  data: idNumber,
+                  width: 350,
+                  height: 160,
                 ),
               ],
             ),
