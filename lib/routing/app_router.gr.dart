@@ -105,9 +105,13 @@ abstract class $AppRouter extends _i15.RootStackRouter {
       );
     },
     IDCardPage.name: (routeData) {
+      final args = routeData.argsAs<IDCardPageArgs>();
       return _i15.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.IDCardPage(),
+        child: _i10.IDCardPage(
+          key: args.key,
+          userData: args.userData,
+        ),
       );
     },
     ProfessorHomePage.name: (routeData) {
@@ -349,16 +353,40 @@ class CreateCoursePage extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.IDCardPage]
-class IDCardPage extends _i15.PageRouteInfo<void> {
-  const IDCardPage({List<_i15.PageRouteInfo>? children})
-      : super(
+class IDCardPage extends _i15.PageRouteInfo<IDCardPageArgs> {
+  IDCardPage({
+    _i16.Key? key,
+    required _i18.UserModel userData,
+    List<_i15.PageRouteInfo>? children,
+  }) : super(
           IDCardPage.name,
+          args: IDCardPageArgs(
+            key: key,
+            userData: userData,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'IDCardPage';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i15.PageInfo<IDCardPageArgs> page =
+      _i15.PageInfo<IDCardPageArgs>(name);
+}
+
+class IDCardPageArgs {
+  const IDCardPageArgs({
+    this.key,
+    required this.userData,
+  });
+
+  final _i16.Key? key;
+
+  final _i18.UserModel userData;
+
+  @override
+  String toString() {
+    return 'IDCardPageArgs{key: $key, userData: $userData}';
+  }
 }
 
 /// generated route for

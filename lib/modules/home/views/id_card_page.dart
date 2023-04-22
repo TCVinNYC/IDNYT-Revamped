@@ -1,28 +1,18 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:barcode_widget/barcode_widget.dart';
-
-final studentEmailProvider = Provider<String>((ref) => 'johndoe@my.nyit.edu');
-final currentSemesterProvider = Provider<String>((ref) => 'Spring 2023');
-final idNumberProvider = Provider<String>((ref) => '123456789');
-final creditAmountProvider = Provider<String>((ref) => '234.00');
-final profilePictureProvider =
-    Provider<String>((ref) => 'https://i.pravatar.cc/150?img=13');
-final studentNameProvider = Provider<String>((ref) => 'John Doe');
+import 'package:idnyt_revamped/shared/models/user.model.dart';
 
 @RoutePage(name: 'IDCardPage')
 class IDCardPage extends HookConsumerWidget {
-  const IDCardPage({Key? key}) : super(key: key);
+  UserModel userData;
+  IDCardPage({Key? key, required this.userData}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final studentEmail = ref.watch(studentEmailProvider);
-    final currentSemester = ref.watch(currentSemesterProvider);
-    final idNumber = ref.watch(idNumberProvider);
-    final profilePicture = ref.watch(profilePictureProvider);
-    final studentName = ref.watch(studentNameProvider);
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -55,16 +45,23 @@ class IDCardPage extends HookConsumerWidget {
             child: Column(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(profilePicture),
+                  backgroundImage: NetworkImage(userData.profilePicture),
                   radius: 64,
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  studentName,
+                  userData.fullName,
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
+                  ),
+                ),
+                Text(
+                  userData.role.toUpperCase(),
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 50),
@@ -82,7 +79,7 @@ class IDCardPage extends HookConsumerWidget {
                       ),
                     ),
                     Text(
-                      studentEmail,
+                      userData.email,
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -95,8 +92,8 @@ class IDCardPage extends HookConsumerWidget {
                 const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'ID Number',
                       style: TextStyle(
                         color: Colors.black,
@@ -105,8 +102,8 @@ class IDCardPage extends HookConsumerWidget {
                       ),
                     ),
                     Text(
-                      idNumber,
-                      style: const TextStyle(
+                      '122680',
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                       ),
@@ -141,8 +138,8 @@ class IDCardPage extends HookConsumerWidget {
                 const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'Current Semester',
                       style: TextStyle(
                         color: Colors.black,
@@ -151,8 +148,8 @@ class IDCardPage extends HookConsumerWidget {
                       ),
                     ),
                     Text(
-                      currentSemester,
-                      style: const TextStyle(
+                      'semester',
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                       ),
@@ -162,7 +159,7 @@ class IDCardPage extends HookConsumerWidget {
                 const SizedBox(height: 60),
                 BarcodeWidget(
                   barcode: Barcode.code128(),
-                  data: idNumber,
+                  data: '122690',
                   width: 350,
                   height: 160,
                 ),

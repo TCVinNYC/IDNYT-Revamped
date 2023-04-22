@@ -14,9 +14,8 @@ class TabControllerPage extends HookConsumerWidget {
 
     return AutoTabsScaffold(
       routes: [
-        const IDCardPage(),
-        // StudentHomePage(userData: firestore.userData),
-        if (userData.role == 'student') StudentHomePage(),
+        IDCardPage(userData: userData),
+        if (userData.role == 'student') const StudentHomePage(),
         if (userData.role == 'professor') ProfessorHomePage(userData: userData),
         if (userData.role == 'admin') AdminHomePage(userData: userData),
         ProfilePage(userData: userData),
