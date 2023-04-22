@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:barcode/barcode.dart';
+// import 'package:barcode/barcode.dart';
 
 final studentEmailProvider = Provider<String>((ref) => 'johndoe@my.nyit.edu');
 final currentSemesterProvider = Provider<String>((ref) => 'Spring 2023');
@@ -19,7 +19,6 @@ class IDCardPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final studentEmail = ref.watch(studentEmailProvider);
     final currentSemester = ref.watch(currentSemesterProvider);
-    final creditAmount = ref.watch(creditAmountProvider);
     final idNumber = ref.watch(idNumberProvider);
     final profilePicture = ref.watch(profilePictureProvider);
     final studentName = ref.watch(studentNameProvider);
@@ -41,10 +40,6 @@ class IDCardPage extends HookConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 20),
         decoration: const BoxDecoration(
           color: Color(0xFF233972),
-          // borderRadius: BorderRadius.only(
-          //   bottomLeft: Radius.circular(32),
-          //   bottomRight: Radius.circular(32),
-          // ),
         ),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
@@ -72,7 +67,7 @@ class IDCardPage extends HookConsumerWidget {
                     fontSize: 24,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 50),
                 const Divider(height: 0),
                 const SizedBox(height: 16),
                 Row(
@@ -123,8 +118,8 @@ class IDCardPage extends HookConsumerWidget {
                 const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'Credit Balance',
                       style: TextStyle(
                         color: Colors.black,
@@ -133,8 +128,8 @@ class IDCardPage extends HookConsumerWidget {
                       ),
                     ),
                     Text(
-                      "\$$creditAmount",
-                      style: const TextStyle(
+                      "Unavailable",
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                       ),
@@ -164,6 +159,7 @@ class IDCardPage extends HookConsumerWidget {
                     ),
                   ],
                 ),
+                const SizedBox(height: 60),
                 SizedBox(
                   height: 120,
                   child: Stack(
