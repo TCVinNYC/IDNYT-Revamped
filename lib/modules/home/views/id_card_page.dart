@@ -27,6 +27,16 @@ class IDCardPage extends HookConsumerWidget {
             fontSize: 24,
           ),
         ),
+        actions: [
+          IconButton(
+            tooltip: "Settings",
+            icon: const Icon(Icons.settings),
+            enableFeedback: true,
+            onPressed: () {
+              // AutoRouter.of(context).push(const CreateCoursePage());
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: Container(
