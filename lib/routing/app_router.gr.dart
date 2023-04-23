@@ -23,7 +23,6 @@ import 'package:idnyt_revamped/modules/home/views/professor_home_page.dart'
     as _i11;
 import 'package:idnyt_revamped/modules/home/views/professor_view_course_page.dart'
     as _i7;
-import 'package:idnyt_revamped/modules/home/views/profile_page.dart' as _i12;
 import 'package:idnyt_revamped/modules/home/views/student_home_page.dart'
     as _i4;
 import 'package:idnyt_revamped/modules/login/views/error_page.dart' as _i13;
@@ -120,16 +119,6 @@ abstract class $AppRouter extends _i16.RootStackRouter {
       return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i11.ProfessorHomePage(
-          key: args.key,
-          userData: args.userData,
-        ),
-      );
-    },
-    ProfilePage.name: (routeData) {
-      final args = routeData.argsAs<ProfilePageArgs>();
-      return _i16.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i12.ProfilePage(
           key: args.key,
           userData: args.userData,
         ),

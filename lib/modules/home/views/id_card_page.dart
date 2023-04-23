@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:idnyt_revamped/modules/home/providers/semester.provider.dart';
+import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
+import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 
 @RoutePage(name: 'IDCardPage')
 class IDCardPage extends HookConsumerWidget {
@@ -28,12 +30,84 @@ class IDCardPage extends HookConsumerWidget {
           ),
         ),
         actions: [
-          IconButton(
-            tooltip: "Settings",
+          PopupMenuButton(
             icon: const Icon(Icons.settings),
             enableFeedback: true,
-            onPressed: () {
-              // AutoRouter.of(context).push(const CreateCoursePage());
+            onSelected: (value) {
+              if (value == 'help') {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    duration: Duration(seconds: 2),
+                    dismissDirection: DismissDirection.down,
+                    elevation: 3,
+                    showCloseIcon: true,
+                    closeIconColor: Colors.redAccent,
+                    content: Text('Contact NYIT Admin!'),
+                  ),
+                );
+              }
+              if (value == 'logout') {
+                ref.read(authServiceProvider).signOut();
+                AutoRouter.of(context).replace(LoginPage());
+              }
+            },
+            itemBuilder: (BuildContext bc) {
+              return [
+                PopupMenuItem(
+                  value: 'help',
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: const <Widget>[
+                        Icon(
+                          Icons.help_rounded,
+                        ),
+                        Spacer(
+                          flex: 1,
+                        ),
+                        Text(
+                          'Help',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Spacer(
+                          flex: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                PopupMenuItem(
+                  value: 'logout',
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: const <Widget>[
+                        Icon(
+                          Icons.logout,
+                          color: Colors.redAccent,
+                        ),
+                        Spacer(
+                          flex: 1,
+                        ),
+                        Text(
+                          'Logout',
+                          style: TextStyle(
+                            color: Colors.redAccent,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Spacer(
+                          flex: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ];
             },
           ),
         ],
