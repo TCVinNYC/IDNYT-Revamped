@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
+import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
 
 @RoutePage(name: "EnterIDPage")
 class EnterIDPage extends HookConsumerWidget {
@@ -46,7 +47,7 @@ class EnterIDPage extends HookConsumerWidget {
                 },
               ),
               const SizedBox(height: 16.0),
-              ElevatedButton(
+              RegularButtonWidget(
                 onPressed: () async {
                   if (_idNumberController.text != '') {
                     try {
@@ -59,12 +60,23 @@ class EnterIDPage extends HookConsumerWidget {
                         {'schoolID': _idNumberController.text},
                       );
                       debugPrint('Finished updating ID number');
+                      // ignore: use_build_context_synchronously
                     } catch (e) {
                       debugPrint('Did not update ID number');
                     }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text('Please enter a valid ID Number'),
+                        action: SnackBarAction(
+                          label: 'Dismiss',
+                          onPressed: () {},
+                        ),
+                      ),
+                    );
                   }
                 },
-                child: const Text('Continue'),
+                text: 'Submit',
               ),
             ],
           ),

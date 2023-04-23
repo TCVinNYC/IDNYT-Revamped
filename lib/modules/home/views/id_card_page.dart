@@ -51,7 +51,9 @@ class IDCardPage extends HookConsumerWidget {
                     backgroundImage: NetworkImage(userData.profilePicture),
                     radius: 64,
                   ),
-                  const SizedBox(height: 16),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   Text(
                     userData.fullName,
                     style: const TextStyle(
@@ -67,9 +69,13 @@ class IDCardPage extends HookConsumerWidget {
                       fontSize: 16,
                     ),
                   ),
-                  const SizedBox(height: 50),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   const Divider(height: 0),
-                  const SizedBox(height: 16),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -90,9 +96,13 @@ class IDCardPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   const Divider(height: 0),
-                  const SizedBox(height: 16),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -113,9 +123,13 @@ class IDCardPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   const Divider(height: 0),
-                  const SizedBox(height: 16),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
@@ -136,9 +150,13 @@ class IDCardPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   const Divider(height: 0),
-                  const SizedBox(height: 16),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -159,7 +177,9 @@ class IDCardPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 60),
+                  const Spacer(
+                    flex: 3,
+                  ),
                   BarcodeWidget(
                     barcode: Barcode.code128(),
                     data: userData.schoolID,
