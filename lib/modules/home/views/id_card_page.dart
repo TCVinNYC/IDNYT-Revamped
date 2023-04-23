@@ -28,144 +28,146 @@ class IDCardPage extends HookConsumerWidget {
           ),
         ),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        decoration: const BoxDecoration(
-          color: Color(0xFF233972),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            padding: const EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 24,
-            ),
-            child: Column(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(userData.profilePicture),
-                  radius: 64,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  userData.fullName,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          decoration: const BoxDecoration(
+            color: Color(0xFF233972),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              padding: const EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 24,
+              ),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(userData.profilePicture),
+                    radius: 64,
                   ),
-                ),
-                Text(
-                  userData.role.toUpperCase(),
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
+                  const SizedBox(height: 16),
+                  Text(
+                    userData.fullName,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 50),
-                const Divider(height: 0),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'NYIT Email',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                  Text(
+                    userData.role.toUpperCase(),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
                     ),
-                    Text(
-                      userData.email,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
+                  ),
+                  const SizedBox(height: 50),
+                  const Divider(height: 0),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'NYIT Email',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                const Divider(height: 0),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'ID Number',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                      Text(
+                        userData.email,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                    Text(
-                      userData.id,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  const Divider(height: 0),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'ID Number',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                const Divider(height: 0),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Credit Balance',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                      Text(
+                        userData.schoolID,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "Unavailable",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  const Divider(height: 0),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        'Credit Balance',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                const Divider(height: 0),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Current Semester',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                      Text(
+                        "Unavailable",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                    Text(
-                      currentSemester,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  const Divider(height: 0),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Current Semester',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 60),
-                BarcodeWidget(
-                  barcode: Barcode.code128(),
-                  data: userData.id,
-                  width: 350,
-                  height: 160,
-                ),
-              ],
+                      Text(
+                        currentSemester,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 60),
+                  BarcodeWidget(
+                    barcode: Barcode.code128(),
+                    data: userData.schoolID,
+                    width: 350,
+                    height: 130,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

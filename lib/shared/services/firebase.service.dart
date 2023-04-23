@@ -124,18 +124,22 @@ class FirebaseService {
     final docRef = _db.collection("users").doc(authUser?.email);
     debugPrint('Getting Doc for ${authUser?.email}');
     return docRef.snapshots().map((doc) {
-      userData = UserModel.fromJson(doc.data() as Map<String, dynamic>);
-      return userData;
+      final data = doc.data();
+      if (data == null) {
+        throw Exception("Document doesn't exist");
+      }
+      return UserModel.fromJson(data);
     });
-    // if (userEmail != null) {
-    //   final docRef = _db.collection("users").doc("user_email");
-    //   return docRef
-    //       .snapshots()
-    //       .map((doc) => User.fromJson(doc.data() as Map<String, dynamic>));
-    // } else {
-    //   return const Stream.empty();
-    // }
   }
+
+  // Stream<UserModel> getUserData() {
+  //   final docRef = _db.collection("users").doc(authUser?.email);
+  //   debugPrint('Getting Doc for ${authUser?.email}');
+  //   return docRef.snapshots().map((doc) {
+  //     userData = UserModel.fromJson(doc.data() as Map<String, dynamic>);
+  //     return userData;
+  //   });
+  // }
 
   Future<String> setClassData(classData) async {
     if (authUser?.email != null) {

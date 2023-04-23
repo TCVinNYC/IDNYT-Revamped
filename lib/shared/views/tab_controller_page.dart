@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
+import 'package:idnyt_revamped/shared/models/user.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 @RoutePage(name: "TabControllerPage")
@@ -10,11 +11,17 @@ class TabControllerPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userData = ref.watch(firestoreProvider).userData;
-
+    final userDataStream = ref.watch(userDataStreamProvider);
+    if (userDataStream.value == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    final UserModel userData = userDataStream.value as UserModel;
     return AutoTabsScaffold(
       routes: [
-        IDCardPage(userData: userData),
+        if (userData.schoolID == '')
+          EnterIDPage(userData: userData)
+        else
+          IDCardPage(userData: userData),
         if (userData.role == 'student') const StudentHomePage(),
         if (userData.role == 'professor') ProfessorHomePage(userData: userData),
         if (userData.role == 'admin') AdminHomePage(userData: userData),
