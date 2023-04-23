@@ -20,13 +20,19 @@ ThemeData idnytLightTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     titleTextStyle: TextStyle(
       fontFamily: 'Nunito Sans',
-      // color: Colors.black,
+      fontSize: 22,
+      fontWeight: FontWeight.w700,
     ),
     iconTheme: IconThemeData(color: Colors.white),
     foregroundColor: Color.fromARGB(255, 27, 39, 90),
     backgroundColor: Colors.amber,
-    centerTitle: true,
+    centerTitle: false,
     systemOverlayStyle: SystemUiOverlayStyle.dark,
+  ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    enableFeedback: true,
+    backgroundColor: Colors.indigo,
+    foregroundColor: Colors.white,
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
@@ -101,14 +107,22 @@ ThemeData idnytDarkTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     titleTextStyle: TextStyle(
       fontFamily: 'Nunito Sans',
-      // color: Color(0xffff0852),
+      fontSize: 22,
+      fontWeight: FontWeight.w700,
     ),
+    actionsIconTheme: IconThemeData(color: Colors.white),
+    iconTheme: IconThemeData(color: Colors.white),
     backgroundColor: Color.fromARGB(255, 24, 24, 24),
     surfaceTintColor: Color.fromARGB(255, 24, 24, 24),
     foregroundColor: Color(0xff1b275a),
     elevation: 1,
-    centerTitle: true,
+    centerTitle: false,
     systemOverlayStyle: SystemUiOverlayStyle.light,
+  ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    enableFeedback: true,
+    backgroundColor: Colors.white,
+    foregroundColor: Colors.indigo,
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,

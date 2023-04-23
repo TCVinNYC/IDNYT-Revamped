@@ -26,19 +26,18 @@ class ProfessorHomePage extends HookConsumerWidget {
       backgroundColor: Colors.amber,
       appBar: AppBar(
         backgroundColor: Colors.amber,
-        title: Row(
-          children: const [
-            Icon(Icons.book),
-            SizedBox(width: 10),
-            Text(
-              'My Courses',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
+        title: const Text(
+          'My Courses',
         ),
+        //  Row(
+        //   children: const [
+        //     // Icon(Icons.book),
+        //     // SizedBox(width: 10),
+        //     Text(
+        //       'My Courses',
+        //     ),
+        //   ],
+        // ),
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(Icons.calendar_month_rounded),

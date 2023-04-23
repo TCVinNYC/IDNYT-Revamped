@@ -19,20 +19,16 @@ class IDCardPage extends HookConsumerWidget {
     final currentSemester = ref.read(currentSemesterProvider);
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
         backgroundColor: const Color(0xFF233972),
         title: const Text(
           'My NYIT ID',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
         ),
         actions: [
           PopupMenuButton(
             icon: const Icon(Icons.settings),
             enableFeedback: true,
+            elevation: 2,
+            tooltip: 'Settings',
             onSelected: (value) {
               if (value == 'help') {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -61,6 +57,7 @@ class IDCardPage extends HookConsumerWidget {
                       children: const <Widget>[
                         Icon(
                           Icons.help_rounded,
+                          color: Colors.blueAccent,
                         ),
                         Spacer(
                           flex: 1,
