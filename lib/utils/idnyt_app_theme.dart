@@ -159,9 +159,10 @@ ThemeData idnytDarkTheme = ThemeData(
   iconButtonTheme: const IconButtonThemeData(
       style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white))),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Color.fromARGB(255, 35, 36, 37),
-      selectedItemColor: Colors.white),
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: Color.fromARGB(255, 35, 36, 37),
+    selectedItemColor: Colors.deepOrangeAccent,
+  ),
   drawerTheme: DrawerThemeData(
     backgroundColor: const Color(0xff1b275a),
     scrimColor: Colors.white.withOpacity(0.1),

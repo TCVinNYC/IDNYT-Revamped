@@ -36,7 +36,10 @@ class EnterIDPage extends HookConsumerWidget {
                 decoration: const InputDecoration(
                   labelText: 'ID Number',
                   border: OutlineInputBorder(),
+                  labelStyle: TextStyle(fontSize: 14),
+                  floatingLabelStyle: TextStyle(fontSize: 14),
                 ),
+                style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {

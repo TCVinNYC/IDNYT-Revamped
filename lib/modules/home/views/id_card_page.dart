@@ -20,6 +20,7 @@ class IDCardPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF233972),
+        elevation: 0,
         title: const Text(
           'My NYIT ID',
         ),
