@@ -22,27 +22,21 @@ class CourseMessagingPage extends HookConsumerWidget {
     final scrollController = useScrollController();
 
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        titleSpacing: 0,
+        title: const Text(
+          'Course Messaging',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    AutoRouter.of(context).pop();
-                  },
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                ),
-                const Text(
-                  'Course Messaging',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                  ),
-                ),
-              ],
-            ),
             Expanded(
               child: StreamBuilder<QuerySnapshot<Object?>>(
                 stream: courseMessagesCollectionStream,
@@ -180,7 +174,7 @@ class CourseMessagingPage extends HookConsumerWidget {
                         messageController.clear();
                       }
                     },
-                    child: const Icon(Icons.send, color: Colors.white),
+                    child: const Icon(Icons.send),
                   ),
                 ],
               ),

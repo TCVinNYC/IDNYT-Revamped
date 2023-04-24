@@ -27,6 +27,7 @@ class ProfessorClassWidget extends ConsumerWidget {
               ProfessorViewCoursePage(documentSnapshot: documentSnapshot));
         },
         child: Card(
+          shadowColor: Colors.grey[600],
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),

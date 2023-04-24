@@ -47,10 +47,6 @@ class AttendanceDetailPage extends HookConsumerWidget {
                 appBar: AppBar(
                   title: Text(
                     formattedDate,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                    ),
                   ),
                   centerTitle: true,
                 ),

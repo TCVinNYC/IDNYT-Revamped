@@ -16,11 +16,11 @@ class AppRouter extends $AppRouter {
     CustomRoute(
       page: TabControllerPage.page,
       children: [
+        AutoRoute(path: 'cardpage', page: IDCardPage.page),
+        AutoRoute(path: 'enteridpage', page: EnterIDPage.page),
         AutoRoute(path: 'studenthome', page: StudentHomePage.page),
         AutoRoute(path: 'professorhome', page: ProfessorHomePage.page),
         AutoRoute(path: 'adminhome', page: AdminHomePage.page),
-        AutoRoute(path: 'cardpage', page: IDCardPage.page),
-        AutoRoute(path: 'profilepage', page: ProfilePage.page),
         AutoRoute(path: 'extrapage', page: ExtraPage.page),
       ],
       transitionsBuilder: TransitionsBuilders.noTransition,

@@ -22,22 +22,15 @@ class ProfessorHomePage extends HookConsumerWidget {
     final selectedYear = ref.watch(selectedYearProvider);
     final selectedSemester = ref.watch(selectedSemesterProvider);
 
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: Colors.amber,
+      backgroundColor: isDarkMode ? const Color(0x0001d97c) : Colors.amber,
       appBar: AppBar(
-        backgroundColor: Colors.amber,
-        title: Row(
-          children: const [
-            Icon(Icons.book),
-            SizedBox(width: 10),
-            Text(
-              'My Courses',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
+        scrolledUnderElevation: 1,
+        backgroundColor: isDarkMode ? const Color(0x0001d97c) : Colors.amber,
+        title: const Text(
+          'My Courses',
         ),
         actions: [
           PopupMenuButton<String>(

@@ -29,6 +29,9 @@ class CreateCoursePage extends HookConsumerWidget {
       'Sunday',
     ];
 
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+
     final className = ref.watch(classNameProvider);
     final classCode = ref.watch(classCodeProvider);
     final selectedSemester = ref.watch(selectedSemesterProvider);
@@ -42,7 +45,6 @@ class CreateCoursePage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber,
         centerTitle: true,
         title: const Text(
           'Create Course',
@@ -113,10 +115,10 @@ class CreateCoursePage extends HookConsumerWidget {
                         enableFeedback: true,
                         elevation: 1,
                         autofocus: false,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black87,
+                          color: isDarkMode ? Colors.white : Colors.black87,
                         ),
                         items: [
                           DropdownMenuItem(
