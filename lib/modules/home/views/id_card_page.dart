@@ -267,7 +267,7 @@ class IDCardPage extends HookConsumerWidget {
                     data: userData.schoolID,
                     width: 350,
                     height: 130,
-                    style: TextStyle(color: Colors.black, fontSize: 10),
+                    style: const TextStyle(color: Colors.black, fontSize: 10),
                   ),
                 ],
               ),
