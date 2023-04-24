@@ -66,11 +66,10 @@ class SplashScreenPage extends HookConsumerWidget {
               child: Text(
                 'IDNYT',
                 style: TextStyle(
-                  fontFamily: 'SnowburstOne',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 48,
-                  color: Theme.of(context).primaryColor,
-                ),
+                    fontFamily: 'SnowburstOne',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 48,
+                    color: Colors.amber[800]),
               ),
             ),
           ],

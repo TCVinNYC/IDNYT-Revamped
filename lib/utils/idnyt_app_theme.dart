@@ -27,14 +27,16 @@ ThemeData idnytLightTheme = ThemeData(
       ),
     ),
   ),
-  appBarTheme: const AppBarTheme(
-    titleTextStyle: TextStyle(
+  appBarTheme: AppBarTheme(
+    scrolledUnderElevation: 0.5,
+    shadowColor: Colors.grey[600],
+    titleTextStyle: const TextStyle(
       fontFamily: 'Nunito Sans',
       fontSize: 22,
       fontWeight: FontWeight.w700,
     ),
-    iconTheme: IconThemeData(color: Colors.white),
-    foregroundColor: Color.fromARGB(255, 27, 39, 90),
+    iconTheme: const IconThemeData(color: Colors.white),
+    foregroundColor: const Color.fromARGB(255, 27, 39, 90),
     backgroundColor: Colors.amber,
     centerTitle: false,
     systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -151,8 +153,8 @@ ThemeData idnytDarkTheme = ThemeData(
   ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     enableFeedback: true,
-    backgroundColor: Colors.white,
-    foregroundColor: Colors.indigo,
+    backgroundColor: Color.fromARGB(255, 37, 47, 95),
+    foregroundColor: Colors.white,
   ),
   iconButtonTheme: const IconButtonThemeData(
       style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white))),

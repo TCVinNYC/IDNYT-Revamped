@@ -27,6 +27,7 @@ class ProfessorHomePage extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: isDarkMode ? const Color(0x0001d97c) : Colors.amber,
       appBar: AppBar(
+        scrolledUnderElevation: 1,
         backgroundColor: isDarkMode ? const Color(0x0001d97c) : Colors.amber,
         title: const Text(
           'My Courses',
