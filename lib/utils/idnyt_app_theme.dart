@@ -16,6 +16,16 @@ ThemeData idnytLightTheme = ThemeData(
       fontSize: 12,
       fontWeight: FontWeight.w500,
     ),
+    floatingLabelStyle: TextStyle(
+      color: Colors.black,
+      fontSize: 12,
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 2,
+        color: Colors.deepOrangeAccent,
+      ),
+    ),
   ),
   appBarTheme: const AppBarTheme(
     titleTextStyle: TextStyle(
@@ -29,6 +39,8 @@ ThemeData idnytLightTheme = ThemeData(
     centerTitle: false,
     systemOverlayStyle: SystemUiOverlayStyle.dark,
   ),
+  iconButtonTheme: const IconButtonThemeData(
+      style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white))),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     enableFeedback: true,
     backgroundColor: Colors.indigo,
@@ -38,6 +50,7 @@ ThemeData idnytLightTheme = ThemeData(
     type: BottomNavigationBarType.fixed,
     selectedItemColor: Colors.indigo,
   ),
+  indicatorColor: Colors.deepOrange,
   drawerTheme: const DrawerThemeData(
     backgroundColor: Color.fromARGB(255, 27, 39, 90),
   ),
@@ -101,9 +114,27 @@ ThemeData idnytDarkTheme = ThemeData(
   scaffoldBackgroundColor: const Color.fromARGB(255, 24, 24, 24),
   hintColor: Colors.grey[600],
   fontFamily: 'Nunito Sans',
-  snackBarTheme: const SnackBarThemeData(
-    contentTextStyle: TextStyle(fontFamily: 'Nunito Sans'),
+  inputDecorationTheme: const InputDecorationTheme(
+    labelStyle: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+    ),
+    floatingLabelStyle: TextStyle(
+      color: Colors.white,
+      fontSize: 12,
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 2,
+        color: Colors.deepOrangeAccent,
+      ),
+    ),
   ),
+  snackBarTheme: const SnackBarThemeData(
+      contentTextStyle: TextStyle(fontFamily: 'Nunito Sans'),
+      closeIconColor: Colors.red,
+      actionTextColor: Colors.grey,
+      backgroundColor: Color.fromARGB(255, 35, 36, 37)),
   appBarTheme: const AppBarTheme(
     titleTextStyle: TextStyle(
       fontFamily: 'Nunito Sans',
@@ -113,8 +144,7 @@ ThemeData idnytDarkTheme = ThemeData(
     actionsIconTheme: IconThemeData(color: Colors.white),
     iconTheme: IconThemeData(color: Colors.white),
     backgroundColor: Color.fromARGB(255, 24, 24, 24),
-    surfaceTintColor: Color.fromARGB(255, 24, 24, 24),
-    foregroundColor: Color(0xff1b275a),
+    foregroundColor: Colors.white,
     elevation: 1,
     centerTitle: false,
     systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -124,11 +154,12 @@ ThemeData idnytDarkTheme = ThemeData(
     backgroundColor: Colors.white,
     foregroundColor: Colors.indigo,
   ),
+  iconButtonTheme: const IconButtonThemeData(
+      style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white))),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    type: BottomNavigationBarType.fixed,
-    backgroundColor: Color.fromARGB(255, 35, 36, 37),
-    selectedItemColor: Color.fromARGB(255, 27, 39, 90),
-  ),
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: Color.fromARGB(255, 35, 36, 37),
+      selectedItemColor: Colors.white),
   drawerTheme: DrawerThemeData(
     backgroundColor: const Color(0xff1b275a),
     scrimColor: Colors.white.withOpacity(0.1),
@@ -149,12 +180,29 @@ ThemeData idnytDarkTheme = ThemeData(
       fontWeight: FontWeight.bold,
       color: Color(0xff1b275a),
     ),
+    labelMedium: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+    ),
+    labelLarge: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+    ),
+    bodyLarge: TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.normal,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.normal,
+    ),
   ),
   cardColor: Colors.grey[900],
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: const Color.fromARGB(255, 27, 39, 90)),
+        backgroundColor: const Color.fromARGB(255, 27, 39, 90),
+        shadowColor: Colors.grey[800]),
   ),
 );
 

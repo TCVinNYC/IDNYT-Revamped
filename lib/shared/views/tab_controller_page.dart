@@ -41,7 +41,7 @@ class TabControllerPage extends HookConsumerWidget {
             ),
             BottomNavigationBarItem(
               label: 'Courses',
-              icon: Icon(Icons.my_library_books_rounded),
+              icon: Icon(Icons.book),
             ),
           ],
         );
