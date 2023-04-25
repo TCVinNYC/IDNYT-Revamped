@@ -23,7 +23,6 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
-        centerTitle: false,
         automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -35,15 +34,10 @@ class ProfessorViewCoursePage extends HookConsumerWidget {
               },
               icon: const Icon(
                 Icons.arrow_back_ios_new_rounded,
-                color: Colors.white,
               ),
             ),
             Text(
               course.courseName,
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-              ),
             ),
           ],
         ),

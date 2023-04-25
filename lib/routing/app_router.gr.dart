@@ -17,13 +17,13 @@ import 'package:idnyt_revamped/modules/home/views/attendance_detail_page.dart'
 import 'package:idnyt_revamped/modules/home/views/course_messaging_page.dart'
     as _i9;
 import 'package:idnyt_revamped/modules/home/views/create_course_page.dart'
-    as _i10;
-import 'package:idnyt_revamped/modules/home/views/id_card_page.dart' as _i11;
+    as _i11;
+import 'package:idnyt_revamped/modules/home/views/enter_id_page.dart' as _i10;
+import 'package:idnyt_revamped/modules/home/views/id_card_page.dart' as _i12;
 import 'package:idnyt_revamped/modules/home/views/professor_home_page.dart'
-    as _i12;
+    as _i13;
 import 'package:idnyt_revamped/modules/home/views/professor_view_course_page.dart'
     as _i8;
-import 'package:idnyt_revamped/modules/home/views/profile_page.dart' as _i13;
 import 'package:idnyt_revamped/modules/home/views/student_course_detail_page.dart'
     as _i5;
 import 'package:idnyt_revamped/modules/home/views/student_home_page.dart'
@@ -115,33 +115,37 @@ abstract class $AppRouter extends _i16.RootStackRouter {
         child: const _i9.CourseMessagingPage(),
       );
     },
+    EnterIDPage.name: (routeData) {
+      final args = routeData.argsAs<EnterIDPageArgs>();
+      return _i16.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i10.EnterIDPage(
+          key: args.key,
+          userData: args.userData,
+        ),
+      );
+    },
     CreateCoursePage.name: (routeData) {
       return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.CreateCoursePage(),
+        child: const _i11.CreateCoursePage(),
       );
     },
     IDCardPage.name: (routeData) {
+      final args = routeData.argsAs<IDCardPageArgs>();
       return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i11.IDCardPage(),
+        child: _i12.IDCardPage(
+          key: args.key,
+          userData: args.userData,
+        ),
       );
     },
     ProfessorHomePage.name: (routeData) {
       final args = routeData.argsAs<ProfessorHomePageArgs>();
       return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i12.ProfessorHomePage(
-          key: args.key,
-          userData: args.userData,
-        ),
-      );
-    },
-    ProfilePage.name: (routeData) {
-      final args = routeData.argsAs<ProfilePageArgs>();
-      return _i16.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i13.ProfilePage(
+        child: _i13.ProfessorHomePage(
           key: args.key,
           userData: args.userData,
         ),
@@ -415,7 +419,45 @@ class CourseMessagingPage extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.CreateCoursePage]
+/// [_i10.EnterIDPage]
+class EnterIDPage extends _i16.PageRouteInfo<EnterIDPageArgs> {
+  EnterIDPage({
+    _i17.Key? key,
+    required _i19.UserModel userData,
+    List<_i16.PageRouteInfo>? children,
+  }) : super(
+          EnterIDPage.name,
+          args: EnterIDPageArgs(
+            key: key,
+            userData: userData,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'EnterIDPage';
+
+  static const _i16.PageInfo<EnterIDPageArgs> page =
+      _i16.PageInfo<EnterIDPageArgs>(name);
+}
+
+class EnterIDPageArgs {
+  const EnterIDPageArgs({
+    this.key,
+    required this.userData,
+  });
+
+  final _i17.Key? key;
+
+  final _i19.UserModel userData;
+
+  @override
+  String toString() {
+    return 'EnterIDPageArgs{key: $key, userData: $userData}';
+  }
+}
+
+/// generated route for
+/// [_i11.CreateCoursePage]
 class CreateCoursePage extends _i16.PageRouteInfo<void> {
   const CreateCoursePage({List<_i16.PageRouteInfo>? children})
       : super(
@@ -429,21 +471,45 @@ class CreateCoursePage extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.IDCardPage]
-class IDCardPage extends _i16.PageRouteInfo<void> {
-  const IDCardPage({List<_i16.PageRouteInfo>? children})
-      : super(
+/// [_i12.IDCardPage]
+class IDCardPage extends _i16.PageRouteInfo<IDCardPageArgs> {
+  IDCardPage({
+    _i17.Key? key,
+    required _i19.UserModel userData,
+    List<_i16.PageRouteInfo>? children,
+  }) : super(
           IDCardPage.name,
+          args: IDCardPageArgs(
+            key: key,
+            userData: userData,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'IDCardPage';
 
-  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
+  static const _i16.PageInfo<IDCardPageArgs> page =
+      _i16.PageInfo<IDCardPageArgs>(name);
+}
+
+class IDCardPageArgs {
+  const IDCardPageArgs({
+    this.key,
+    required this.userData,
+  });
+
+  final _i17.Key? key;
+
+  final _i19.UserModel userData;
+
+  @override
+  String toString() {
+    return 'IDCardPageArgs{key: $key, userData: $userData}';
+  }
 }
 
 /// generated route for
-/// [_i12.ProfessorHomePage]
+/// [_i13.ProfessorHomePage]
 class ProfessorHomePage extends _i16.PageRouteInfo<ProfessorHomePageArgs> {
   ProfessorHomePage({
     _i17.Key? key,
@@ -477,44 +543,6 @@ class ProfessorHomePageArgs {
   @override
   String toString() {
     return 'ProfessorHomePageArgs{key: $key, userData: $userData}';
-  }
-}
-
-/// generated route for
-/// [_i13.ProfilePage]
-class ProfilePage extends _i16.PageRouteInfo<ProfilePageArgs> {
-  ProfilePage({
-    _i17.Key? key,
-    required _i19.UserModel userData,
-    List<_i16.PageRouteInfo>? children,
-  }) : super(
-          ProfilePage.name,
-          args: ProfilePageArgs(
-            key: key,
-            userData: userData,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'ProfilePage';
-
-  static const _i16.PageInfo<ProfilePageArgs> page =
-      _i16.PageInfo<ProfilePageArgs>(name);
-}
-
-class ProfilePageArgs {
-  const ProfilePageArgs({
-    this.key,
-    required this.userData,
-  });
-
-  final _i17.Key? key;
-
-  final _i19.UserModel userData;
-
-  @override
-  String toString() {
-    return 'ProfilePageArgs{key: $key, userData: $userData}';
   }
 }
 
