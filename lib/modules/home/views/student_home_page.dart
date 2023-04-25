@@ -14,6 +14,8 @@ import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'dart:typed_data';
 import 'package:nfc_manager/nfc_manager.dart';
 
+import '../../../shared/widgets/course_card_widget.dart';
+
 @RoutePage(name: 'StudentHomePage')
 class StudentHomePage extends HookConsumerWidget {
   const StudentHomePage({Key? key}) : super(key: key);
@@ -31,28 +33,76 @@ class StudentHomePage extends HookConsumerWidget {
       });
     }, const []);
 
-    return Center(
+    // return Center(
+    //   child: Column(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     crossAxisAlignment: CrossAxisAlignment.center,
+    //     children: [
+    //       // if (!nfcAvailable.value) ...[
+
+    //       //   Text("NFC not available"),
+    //       // ] else ...[
+    //       //   ElevatedButton(
+    //       //     onPressed:
+    //       //         reading.value ? null : () => _readNFC(reading, nfcData),
+    //       //     child: Text(reading.value ? "Reading..." : "Read NFC"),
+    //       //   ),
+    //       //   ElevatedButton(
+    //       //     onPressed: writing.value ? null : () => _writeNFC(writing),
+    //       //     child: Text(writing.value ? "Writing..." : "Write NFC"),
+    //       //   ),
+    //       //   Text('NFC Data: ${nfcData.value}'),
+    //       // ],
+
+    //     ],
+    //   ),
+    // );
+    return SafeArea(
+        child: SingleChildScrollView(
+            child: Container(
+      padding: const EdgeInsets.all(16.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (!nfcAvailable.value) ...[
-            Text("NFC not available"),
-          ] else ...[
-            ElevatedButton(
-              onPressed:
-                  reading.value ? null : () => _readNFC(reading, nfcData),
-              child: Text(reading.value ? "Reading..." : "Read NFC"),
-            ),
-            ElevatedButton(
-              onPressed: writing.value ? null : () => _writeNFC(writing),
-              child: Text(writing.value ? "Writing..." : "Write NFC"),
-            ),
-            Text('NFC Data: ${nfcData.value}'),
-          ],
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: const <Widget>[
+          SizedBox(height: 16.0),
+          StudentCourseCard(
+            courseName: 'Introduction to Flutter',
+            professorName: 'John Doe',
+            classTime: '9:00 AM - 10:30 AM',
+            classLocation: 'Room 101',
+            classDay: 'Monday',
+          ),
+          StudentCourseCard(
+            courseName: 'Advanced Android Programming',
+            professorName: 'Jane Doe',
+            classTime: '11:00 AM - 12:30 PM',
+            classLocation: 'Room 202',
+            classDay: 'Tuesday',
+          ),
+          StudentCourseCard(
+            courseName: 'Web Development with React',
+            professorName: 'Bob Smith',
+            classTime: '1:00 PM - 2:30 PM',
+            classLocation: 'Room 303',
+            classDay: 'Wednesday',
+          ),
+          StudentCourseCard(
+            courseName: 'Database Management',
+            professorName: 'Alice Johnson',
+            classTime: '3:00 PM - 4:30 PM',
+            classLocation: 'Room 404',
+            classDay: 'Thursday',
+          ),
+          StudentCourseCard(
+            courseName: 'Intro to Artificial Intelligence',
+            professorName: 'David Lee',
+            classTime: '5:00 PM - 6:30 PM',
+            classLocation: 'Room 505',
+            classDay: 'Friday',
+          ),
         ],
       ),
-    );
+    )));
   }
 
   Future<bool> _checkNfcAvailability() async {

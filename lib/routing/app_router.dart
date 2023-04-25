@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+// import 'package:idnyt_revamped/modules/home/views/student_course_detail_page.dart';
 import 'app_router.gr.dart';
 
 // RUN AUTO ROUTER COMMAND
@@ -25,6 +26,8 @@ class AppRouter extends $AppRouter {
       ],
       transitionsBuilder: TransitionsBuilders.noTransition,
     ),
+    AutoRoute(
+        path: "/studentcoursedetailpage", page: StudentCourseDetailPage.page),
     AutoRoute(path: '/createcoursepage', page: CreateCoursePage.page),
     AutoRoute(
         path: '/professorviewcoursepage', page: ProfessorViewCoursePage.page),
