@@ -13,7 +13,12 @@ class FirebaseService {
   Stream<UserModel> get userDataStream => getUserData();
 
   Stream<QuerySnapshot> courseDataStream(String year, String semester) {
-    return _db.collection('courses').doc(year).collection(semester).snapshots();
+    return _db
+        .collection('courses')
+        .doc(year)
+        .collection(semester)
+        .where("professorEmail", isEqualTo: userData.email)
+        .snapshots();
   }
 
   Stream<QuerySnapshot> attendanceCollectionDataStream(
@@ -132,60 +137,36 @@ class FirebaseService {
     });
   }
 
-  // Stream<UserModel> getUserData() {
-  //   final docRef = _db.collection("users").doc(authUser?.email);
-  //   debugPrint('Getting Doc for ${authUser?.email}');
-  //   return docRef.snapshots().map((doc) {
-  //     userData = UserModel.fromJson(doc.data() as Map<String, dynamic>);
-  //     return userData;
-  //   });
-  // }
-
   Future<String> setClassData(classData) async {
-    if (authUser?.email != null) {
-      try {
-        String currentYear = DateTime.now().year.toString();
-        DocumentReference courseYearDocumentReference =
-            _db.collection('courses').doc(currentYear);
-        CollectionReference currentSemesterCollectionReference = _db
-            .collection("courses")
-            .doc(currentYear)
-            .collection(classData['semester']);
+    try {
+      String currentYear = DateTime.now().year.toString();
+      DocumentReference courseYearDocumentReference =
+          _db.collection('courses').doc(currentYear);
+      CollectionReference currentSemesterCollectionReference = _db
+          .collection("courses")
+          .doc(currentYear)
+          .collection(classData['semester']);
 
-        await courseYearDocumentReference.get().then((yearDocument) async => {
-              if (!yearDocument.exists)
-                debugPrint(
-                    "$currentYear document doesn't exist. Creating now."),
-              await courseYearDocumentReference.set({'year': currentYear})
-            });
+      await courseYearDocumentReference.get().then((yearDocument) async => {
+            if (!yearDocument.exists)
+              debugPrint("$currentYear document doesn't exist. Creating now."),
+            await courseYearDocumentReference.set({'year': currentYear})
+          });
 
-        await currentSemesterCollectionReference.add(classData).then(
-          (documentSnapshot) {
-            debugPrint(
-                "Added Data for ${authUser?.email} with ID: ${documentSnapshot.id}");
-            documentSnapshot.update({
-              'id': documentSnapshot.id,
-            });
-            debugPrint("Added Document ID field to document.");
-            return "Added";
-          },
-        );
-      } catch (e) {
-        debugPrint(e.toString());
-        return "Error uploading to Firebase";
-      }
-    }
-    return "Other Error";
-  }
-
-  Future<String> getClassAttendance(courseId) async {
-    if (authUser?.email != null) {
-      try {
-        debugPrint(courseId);
-        return "Good";
-      } catch (e) {
-        debugPrint(e.toString());
-      }
+      await currentSemesterCollectionReference.add(classData).then(
+        (documentSnapshot) {
+          debugPrint(
+              "Added Data for ${authUser?.email} with ID: ${documentSnapshot.id}");
+          documentSnapshot.update({
+            'id': documentSnapshot.id,
+          });
+          debugPrint("Added Document ID field to document.");
+          return "Added";
+        },
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+      return "Error uploading to Firebase";
     }
     return "Other Error";
   }
