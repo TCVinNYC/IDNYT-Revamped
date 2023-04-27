@@ -39,7 +39,10 @@ class LoginPage extends HookConsumerWidget {
                 pageSnapping: true,
                 controller: _pageController,
                 itemBuilder: (BuildContext context, int index) {
-                  return lottieSignUpList[index];
+                  return Padding(
+                    child: lottieSignUpList[index],
+                    padding: const EdgeInsets.fromLTRB(5, 20, 5, 0),
+                  );
                 },
                 onPageChanged: (value) {
                   ref.read(lottiePositionProvider.notifier).state = value;
