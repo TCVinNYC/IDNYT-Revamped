@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,31 +14,29 @@ class ErrorPage extends HookConsumerWidget {
     final auth = ref.read(authServiceProvider);
     auth.deleteUser();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-      ),
-      body: Center(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(50.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  "You aren't an NYIT user.\nPlease sign in with an @NYIT email or contact your administrator!",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(50.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                "You aren't an NYIT user.\n\nPlease sign in with an @NYIT email or contact your administrator!",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 23,
                 ),
-                RegularButtonWidget(
-                    text: "Return to Login Page",
-                    onPressed: () {
-                      AutoRouter.of(context).replace(LoginPage());
-                    })
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              RegularButtonWidget(
+                  text: "Return to Login Page",
+                  onPressed: () {
+                    AutoRouter.of(context).pop(LoginPage());
+                  })
+            ],
           ),
         ),
       ),
