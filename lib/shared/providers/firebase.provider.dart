@@ -10,10 +10,6 @@ final firestoreProvider = Provider<FirebaseService>((ref) {
   return FirebaseService(authUser: authUser);
 });
 
-// final userDataProvider = FutureProvider<UserModel?>((ref) {
-//   return ref.read(firestoreProvider).userData;
-// });
-
 final userDataStreamProvider = StreamProvider<UserModel?>((ref) {
   return ref.read(firestoreProvider).userDataStream;
 });

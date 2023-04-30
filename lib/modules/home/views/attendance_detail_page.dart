@@ -74,10 +74,9 @@ class AttendanceDetailPage extends HookConsumerWidget {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       'Cancel',
                                       style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
