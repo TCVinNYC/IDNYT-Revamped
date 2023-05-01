@@ -1,7 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
+import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 class StudentCourseWidget extends HookConsumerWidget {
   const StudentCourseWidget({
@@ -165,7 +168,10 @@ class StudentCourseWidget extends HookConsumerWidget {
                         ),
                         IconButton(
                           onPressed: () {
-                            // Send email to professor
+                            ref.read(selectedCourseProvider.notifier).state =
+                                course.id;
+                            AutoRouter.of(context)
+                                .push(const CourseMessagingPage());
                           },
                           icon: const Icon(
                             Icons.messenger_rounded,

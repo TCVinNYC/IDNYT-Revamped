@@ -23,7 +23,7 @@ class TabControllerPage extends HookConsumerWidget {
         else
           IDCardPage(userData: userData),
         if (userData.role == 'student') StudentHomePage(),
-        if (userData.role == 'professor') ProfessorHomePage(),
+        if (userData.role == 'professor') const ProfessorHomePage(),
         if (userData.role == 'admin') AdminHomePage(userData: userData),
       ],
       animationDuration: const Duration(seconds: 0),

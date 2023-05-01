@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
 
 @RoutePage(name: 'StudentCourseDetailPage')
@@ -60,16 +58,6 @@ class StudentCourseDetailPage extends StatelessWidget {
                 // SizedBox(height: 8.0),
                 Text(syllabus, style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(height: 16.0),
-                // Center(
-                //   child: TextButton(
-                //     onPressed: () {
-                //       // TODO: Implement attend button tap action.
-                //       // This code is commented out for now.
-                //       //print('Attend button tapped.');
-                //     },
-                //     child: Text('Attend'),
-                //   ),
-                // ),
                 Text("Class Attendance 80%",
                     style: Theme.of(context).textTheme.bodyMedium),
                 const LinearProgressIndicator(

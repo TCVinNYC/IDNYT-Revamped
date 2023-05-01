@@ -20,7 +20,12 @@ List<String> semesters = ['Fall', 'Spring', 'Summer', 'Winter'];
 final selectedYearProvider =
     StateProvider((ref) => DateTime.now().year.toString());
 
-final selectedSemesterProvider = StateProvider((ref) => 'Spring');
+final selectedSemesterProvider = StateProvider((ref) {
+  if (ref.read(firestoreProvider).userData.role == 'student') {
+    return ref.read(currentSemesterProvider);
+  }
+  return 'Spring';
+});
 
 final professorCourseDataStreamProvider =
     Provider<Stream<QuerySnapshot<Object?>>>((ref) {
@@ -33,9 +38,9 @@ final professorCourseDataStreamProvider =
 final studentCourseDataStreamProvider =
     Provider<Stream<QuerySnapshot<Object?>>>((ref) {
   String year = ref.watch(selectedYearProvider);
-  String semester = ref.watch(currentSemesterProvider);
+  String semester = ref.watch(selectedSemesterProvider);
 
-  return ref.read(firestoreProvider).studentCourseDataStream(year, 'Fall');
+  return ref.read(firestoreProvider).studentCourseDataStream(year, semester);
 });
 
 final selectedCourseProvider = StateProvider((ref) => '');

@@ -5,55 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:idnyt_revamped/modules/home/widgets/student_course_widget.dart';
-import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
 @RoutePage(name: 'StudentHomePage')
 class StudentHomePage extends HookConsumerWidget {
-  StudentHomePage({Key? key}) : super(key: key);
-
-  final List<CourseModel> courseList = [
-    CourseModel(
-      id: '1',
-      professorEmail: 'johndoe@nyit.edu',
-      professorFullName: 'John Doe',
-      professorPicture: 'https://randomuser.me/api/portraits/men/1.jpg',
-      courseName: 'Introduction to Flutter',
-      courseCode: 'CS123',
-      semester: 'Spring 2022',
-      location: 'Room 101',
-      courseDaysList: ['Monday', 'Wednesday', 'Friday'],
-      courseTime: '9:00 AM - 10:30 AM',
-      studentList: ['Alice', 'Bob', 'Charlie'],
-    ),
-    CourseModel(
-      id: '2',
-      professorEmail: 'janedoe@nyit.edu',
-      professorFullName: 'Jane Doe',
-      professorPicture: 'https://randomuser.me/api/portraits/women/2.jpg',
-      courseName: 'Advanced Android Programming',
-      courseCode: 'CS456',
-      semester: 'Spring 2022',
-      location: 'Room 202',
-      courseDaysList: ['Tuesday', 'Thursday'],
-      courseTime: '11:00 AM - 12:30 PM',
-      studentList: ['David', 'Emma', 'Frank'],
-    ),
-    CourseModel(
-      id: '3',
-      professorEmail: 'johndoe@nyit.edu',
-      professorFullName: 'John Doe',
-      professorPicture: 'https://randomuser.me/api/portraits/men/1.jpg',
-      courseName: 'Database Systems',
-      courseCode: 'CS789',
-      semester: 'Spring 2022',
-      location: 'Room 303',
-      courseDaysList: ['Monday', 'Wednesday', 'Friday'],
-      courseTime: '2:00 PM - 3:30 PM',
-      studentList: ['Grace', 'Harry', 'Isabella'],
-    ),
-  ];
+  const StudentHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -116,12 +73,10 @@ class StudentHomePage extends HookConsumerWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();
               }
-              print(snapshot.data!.docs);
 
               return ListView(
                 children: snapshot.data!.docs
                     .map((DocumentSnapshot document) {
-                      print(document);
                       return StudentCourseWidget(
                         documentSnapshot: document,
                       );
