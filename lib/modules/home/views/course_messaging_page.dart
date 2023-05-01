@@ -20,6 +20,11 @@ class CourseMessagingPage extends HookConsumerWidget {
         ref.watch(courseMessagesCollectionStreamProvider);
     final firestore = ref.read(firestoreProvider);
     final scrollController = useScrollController();
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    final replyColor = isDarkMode ? Colors.grey[900] : const Color(0xFFF3F4F6);
+    final replyMessageColor =
+        isDarkMode ? const Color(0xFFF3F4F6) : Colors.black;
 
     return Scaffold(
       appBar: AppBar(
@@ -59,82 +64,86 @@ class CourseMessagingPage extends HookConsumerWidget {
                           snapshot.data!.docs[index].data()
                               as Map<String, dynamic>);
                       final isMe = message.email == firestore.userData.email;
-                      final color = isMe
-                          ? const Color(0xFF3B82F6)
-                          : const Color(0xFFF3F4F6);
+                      final color = isMe ? const Color(0xFF3B82F6) : replyColor;
                       final maxWidth = MediaQuery.of(context).size.width * 0.7;
-                      return Row(
-                        mainAxisAlignment: isMe
-                            ? MainAxisAlignment.end
-                            : MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 4, horizontal: 8),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 16),
-                            constraints: BoxConstraints(
-                              maxWidth: maxWidth,
-                            ),
-                            decoration: BoxDecoration(
-                              color: color,
-                              borderRadius: BorderRadius.only(
-                                topLeft: isMe
-                                    ? const Radius.circular(12)
-                                    : const Radius.circular(0),
-                                topRight: isMe
-                                    ? const Radius.circular(0)
-                                    : const Radius.circular(12),
-                                bottomLeft: const Radius.circular(12),
-                                bottomRight: const Radius.circular(12),
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 8),
+                        child: Row(
+                          mainAxisAlignment: isMe
+                              ? MainAxisAlignment.end
+                              : MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 16),
+                              constraints: BoxConstraints(
+                                maxWidth: maxWidth,
+                              ),
+                              decoration: BoxDecoration(
+                                color: color,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: isMe
+                                      ? const Radius.circular(12)
+                                      : const Radius.circular(0),
+                                  topRight: isMe
+                                      ? const Radius.circular(0)
+                                      : const Radius.circular(12),
+                                  bottomLeft: const Radius.circular(12),
+                                  bottomRight: const Radius.circular(12),
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            message.profilePicture),
+                                        radius: 16,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Flexible(
+                                        fit: FlexFit.loose,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(message.name,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16)),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              message.message,
+                                              style: TextStyle(
+                                                color: isMe
+                                                    ? Colors.white
+                                                    : replyMessageColor,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    _formatDate(message.time),
+                                    style: TextStyle(
+                                      color: replyMessageColor,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundImage:
-                                          NetworkImage(message.profilePicture),
-                                      radius: 16,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(message.name,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16)),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          message.message,
-                                          style: TextStyle(
-                                            color: isMe
-                                                ? Colors.white
-                                                : Colors.black,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  _formatDate(message.time),
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     },
                   );
