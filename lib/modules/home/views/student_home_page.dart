@@ -1,24 +1,57 @@
-// ignore_for_file: must_be_immutable
-
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:idnyt_revamped/main.dart';
-import 'package:idnyt_revamped/routing/app_router.gr.dart';
-import 'package:idnyt_revamped/shared/models/user.model.dart';
-import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
-import 'dart:typed_data';
+import 'package:idnyt_revamped/modules/home/widgets/course_card_widget.dart';
+import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:nfc_manager/nfc_manager.dart';
-
-import '../../../shared/widgets/course_card_widget.dart';
 
 @RoutePage(name: 'StudentHomePage')
 class StudentHomePage extends HookConsumerWidget {
-  const StudentHomePage({Key? key}) : super(key: key);
+  StudentHomePage({Key? key}) : super(key: key);
+
+  final List<CourseModel> courseList = [
+    CourseModel(
+      id: '1',
+      professorEmail: 'johndoe@nyit.edu',
+      professorFullName: 'John Doe',
+      professorPicture: 'https://randomuser.me/api/portraits/men/1.jpg',
+      courseName: 'Introduction to Flutter',
+      courseCode: 'CS123',
+      semester: 'Spring 2022',
+      location: 'Room 101',
+      courseDaysList: ['Monday', 'Wednesday', 'Friday'],
+      courseTime: '9:00 AM - 10:30 AM',
+      studentList: ['Alice', 'Bob', 'Charlie'],
+    ),
+    CourseModel(
+      id: '2',
+      professorEmail: 'janedoe@nyit.edu',
+      professorFullName: 'Jane Doe',
+      professorPicture: 'https://randomuser.me/api/portraits/women/2.jpg',
+      courseName: 'Advanced Android Programming',
+      courseCode: 'CS456',
+      semester: 'Spring 2022',
+      location: 'Room 202',
+      courseDaysList: ['Tuesday', 'Thursday'],
+      courseTime: '11:00 AM - 12:30 PM',
+      studentList: ['David', 'Emma', 'Frank'],
+    ),
+    CourseModel(
+      id: '3',
+      professorEmail: 'johndoe@nyit.edu',
+      professorFullName: 'John Doe',
+      professorPicture: 'https://randomuser.me/api/portraits/men/1.jpg',
+      courseName: 'Database Systems',
+      courseCode: 'CS789',
+      semester: 'Spring 2022',
+      location: 'Room 303',
+      courseDaysList: ['Monday', 'Wednesday', 'Friday'],
+      courseTime: '2:00 PM - 3:30 PM',
+      studentList: ['Grace', 'Harry', 'Isabella'],
+    ),
+  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,52 +90,64 @@ class StudentHomePage extends HookConsumerWidget {
     //     ],
     //   ),
     // );
-    return SafeArea(
-        child: SingleChildScrollView(
-            child: Container(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const <Widget>[
-          SizedBox(height: 16.0),
-          StudentCourseCard(
-            courseName: 'Introduction to Flutter',
-            professorName: 'John Doe',
-            classTime: '9:00 AM - 10:30 AM',
-            classLocation: 'Room 101',
-            classDay: 'Monday',
-          ),
-          StudentCourseCard(
-            courseName: 'Advanced Android Programming',
-            professorName: 'Jane Doe',
-            classTime: '11:00 AM - 12:30 PM',
-            classLocation: 'Room 202',
-            classDay: 'Tuesday',
-          ),
-          StudentCourseCard(
-            courseName: 'Web Development with React',
-            professorName: 'Bob Smith',
-            classTime: '1:00 PM - 2:30 PM',
-            classLocation: 'Room 303',
-            classDay: 'Wednesday',
-          ),
-          StudentCourseCard(
-            courseName: 'Database Management',
-            professorName: 'Alice Johnson',
-            classTime: '3:00 PM - 4:30 PM',
-            classLocation: 'Room 404',
-            classDay: 'Thursday',
-          ),
-          StudentCourseCard(
-            courseName: 'Intro to Artificial Intelligence',
-            professorName: 'David Lee',
-            classTime: '5:00 PM - 6:30 PM',
-            classLocation: 'Room 505',
-            classDay: 'Friday',
-          ),
-        ],
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    return Scaffold(
+      appBar: AppBar(
+        scrolledUnderElevation: 1,
+        backgroundColor: isDarkMode ? const Color(0x0001d97c) : Colors.amber,
+        title: const Text(
+          'My Courses',
+        ),
       ),
-    )));
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: <Widget>[
+                StudentCourseWidget(
+                  course: courseList[0],
+                ),
+                StudentCourseWidget(
+                  course: courseList[1],
+                ),
+                StudentCourseWidget(
+                  course: courseList[2],
+                ),
+                StudentCourseWidget(
+                  course: courseList[0],
+                ),
+                StudentCourseWidget(
+                  course: courseList[1],
+                ),
+                StudentCourseWidget(
+                  course: courseList[2],
+                ),
+                StudentCourseWidget(
+                  course: courseList[0],
+                ),
+                StudentCourseWidget(
+                  course: courseList[1],
+                ),
+                StudentCourseWidget(
+                  course: courseList[2],
+                ),
+                StudentCourseWidget(
+                  course: courseList[0],
+                ),
+                StudentCourseWidget(
+                  course: courseList[1],
+                ),
+                StudentCourseWidget(
+                  course: courseList[2],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   Future<bool> _checkNfcAvailability() async {
