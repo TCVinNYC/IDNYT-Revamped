@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:idnyt_revamped/modules/home/providers/semester.provider.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'package:idnyt_revamped/shared/services/firebase.service.dart';
@@ -21,12 +22,20 @@ final selectedYearProvider =
 
 final selectedSemesterProvider = StateProvider((ref) => 'Spring');
 
-final courseDataStreamProvider =
+final professorCourseDataStreamProvider =
     Provider<Stream<QuerySnapshot<Object?>>>((ref) {
   String year = ref.watch(selectedYearProvider);
   String semester = ref.watch(selectedSemesterProvider);
 
-  return ref.read(firestoreProvider).courseDataStream(year, semester);
+  return ref.read(firestoreProvider).professorCourseDataStream(year, semester);
+});
+
+final studentCourseDataStreamProvider =
+    Provider<Stream<QuerySnapshot<Object?>>>((ref) {
+  String year = ref.watch(selectedYearProvider);
+  String semester = ref.watch(currentSemesterProvider);
+
+  return ref.read(firestoreProvider).studentCourseDataStream(year, 'Fall');
 });
 
 final selectedCourseProvider = StateProvider((ref) => '');

@@ -1,27 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 
 class StudentCourseWidget extends HookConsumerWidget {
   const StudentCourseWidget({
-    required this.course,
+    required this.documentSnapshot,
     Key? key,
   }) : super(key: key);
 
-  final CourseModel course;
+  final DocumentSnapshot<Object?> documentSnapshot;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return GestureDetector(
-      onTap: () {
-        // Navigate to course details screen
-      },
+    CourseModel course =
+        CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 6),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(12, 16, 4, 0),
           child: Row(
-            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 children: [
@@ -38,7 +38,7 @@ class StudentCourseWidget extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    course.professorFullName,
+                    course.professorFullName.replaceAll(' ', '\n'),
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -63,6 +63,23 @@ class StudentCourseWidget extends HookConsumerWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.school_rounded,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          course.courseCode,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -141,7 +158,7 @@ class StudentCourseWidget extends HookConsumerWidget {
                             // Send email to professor
                           },
                           icon: const Icon(
-                            Icons.tap_and_play_rounded,
+                            Icons.contactless_rounded,
                             size: 20,
                             color: Colors.blue,
                           ),

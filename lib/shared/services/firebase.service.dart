@@ -12,12 +12,22 @@ class FirebaseService {
   FirebaseFirestore get firestore => _db;
   Stream<UserModel> get userDataStream => getUserData();
 
-  Stream<QuerySnapshot> courseDataStream(String year, String semester) {
+  Stream<QuerySnapshot> professorCourseDataStream(
+      String year, String semester) {
     return _db
         .collection('courses')
         .doc(year)
         .collection(semester)
         .where("professorEmail", isEqualTo: userData.email)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> studentCourseDataStream(String year, String semester) {
+    return _db
+        .collection('courses')
+        .doc(year)
+        .collection(semester)
+        .where("studentList", arrayContains: userData.email)
         .snapshots();
   }
 

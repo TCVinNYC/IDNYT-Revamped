@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:idnyt_revamped/modules/home/widgets/course_card_widget.dart';
+import 'package:idnyt_revamped/modules/home/widgets/student_course_widget.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
+import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
 @RoutePage(name: 'StudentHomePage')
@@ -55,6 +57,7 @@ class StudentHomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final courseDataStream = ref.watch(studentCourseDataStreamProvider);
     final nfcAvailable = useState(false);
     final reading = useState(false);
     final writing = useState(false);
@@ -100,53 +103,84 @@ class StudentHomePage extends HookConsumerWidget {
           'My Courses',
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: <Widget>[
-                StudentCourseWidget(
-                  course: courseList[0],
-                ),
-                StudentCourseWidget(
-                  course: courseList[1],
-                ),
-                StudentCourseWidget(
-                  course: courseList[2],
-                ),
-                StudentCourseWidget(
-                  course: courseList[0],
-                ),
-                StudentCourseWidget(
-                  course: courseList[1],
-                ),
-                StudentCourseWidget(
-                  course: courseList[2],
-                ),
-                StudentCourseWidget(
-                  course: courseList[0],
-                ),
-                StudentCourseWidget(
-                  course: courseList[1],
-                ),
-                StudentCourseWidget(
-                  course: courseList[2],
-                ),
-                StudentCourseWidget(
-                  course: courseList[0],
-                ),
-                StudentCourseWidget(
-                  course: courseList[1],
-                ),
-                StudentCourseWidget(
-                  course: courseList[2],
-                ),
-              ],
-            ),
+      body: Center(
+        child: SafeArea(
+          child: StreamBuilder<QuerySnapshot<Object?>>(
+            stream: courseDataStream,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return const Text('Something went wrong');
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              }
+              print(snapshot.data!.docs);
+
+              return ListView(
+                children: snapshot.data!.docs
+                    .map((DocumentSnapshot document) {
+                      print(document);
+                      return StudentCourseWidget(
+                        documentSnapshot: document,
+                      );
+                    })
+                    .toList()
+                    .cast(),
+              );
+            },
           ),
         ),
       ),
+      // body:
+      // SafeArea(
+      //   child: SingleChildScrollView(
+      //     child: Container(
+      //       padding: const EdgeInsets.all(16.0),
+      //       child: Column(
+      //         children: <Widget>[
+      //           StudentCourseWidget(
+      //             course: courseList[0],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[1],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[2],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[0],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[1],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[2],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[0],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[1],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[2],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[0],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[1],
+      //           ),
+      //           StudentCourseWidget(
+      //             course: courseList[2],
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 
@@ -189,6 +223,7 @@ class StudentHomePage extends HookConsumerWidget {
       pollingOptions: {
         NfcPollingOption.iso14443,
         NfcPollingOption.iso15693,
+        NfcPollingOption.iso18092,
       },
     );
   }
@@ -215,6 +250,7 @@ class StudentHomePage extends HookConsumerWidget {
       pollingOptions: {
         NfcPollingOption.iso14443,
         NfcPollingOption.iso15693,
+        NfcPollingOption.iso18092,
       },
     );
   }
