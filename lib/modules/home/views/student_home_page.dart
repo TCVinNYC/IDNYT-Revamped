@@ -16,40 +16,20 @@ class StudentHomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final courseDataStream = ref.watch(studentCourseDataStreamProvider);
     final nfcAvailable = useState(false);
-    final reading = useState(false);
+
     final writing = useState(false);
-    final nfcData = useState('');
 
     useEffect(() {
+      print('useffect');
       _checkNfcAvailability().then((available) {
+        print(available);
         nfcAvailable.value = available;
       });
     }, const []);
 
-    // return Center(
-    //   child: Column(
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     crossAxisAlignment: CrossAxisAlignment.center,
-    //     children: [
-    //       // if (!nfcAvailable.value) ...[
+    final reading = useState(false);
+    final nfcData = useState('');
 
-    //       //   Text("NFC not available"),
-    //       // ] else ...[
-    //       //   ElevatedButton(
-    //       //     onPressed:
-    //       //         reading.value ? null : () => _readNFC(reading, nfcData),
-    //       //     child: Text(reading.value ? "Reading..." : "Read NFC"),
-    //       //   ),
-    //       //   ElevatedButton(
-    //       //     onPressed: writing.value ? null : () => _writeNFC(writing),
-    //       //     child: Text(writing.value ? "Writing..." : "Write NFC"),
-    //       //   ),
-    //       //   Text('NFC Data: ${nfcData.value}'),
-    //       // ],
-
-    //     ],
-    //   ),
-    // );
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
@@ -88,54 +68,6 @@ class StudentHomePage extends HookConsumerWidget {
           ),
         ),
       ),
-      // body:
-      // SafeArea(
-      //   child: SingleChildScrollView(
-      //     child: Container(
-      //       padding: const EdgeInsets.all(16.0),
-      //       child: Column(
-      //         children: <Widget>[
-      //           StudentCourseWidget(
-      //             course: courseList[0],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[1],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[2],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[0],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[1],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[2],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[0],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[1],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[2],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[0],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[1],
-      //           ),
-      //           StudentCourseWidget(
-      //             course: courseList[2],
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
     );
   }
 
@@ -147,66 +79,5 @@ class StudentHomePage extends HookConsumerWidget {
       print("Error checking NFC availability: $e");
     }
     return isAvailable;
-  }
-
-  Future<void> _readNFC(
-      ValueNotifier<bool> reading, ValueNotifier<String> nfcData) async {
-    reading.value = true;
-
-    NfcManager.instance.startSession(
-      onDiscovered: (NfcTag tag) async {
-        final ndefTag = Ndef.from(tag);
-        if (ndefTag != null && ndefTag.cachedMessage != null) {
-          final message = ndefTag.cachedMessage!;
-          if (message.records.isNotEmpty) {
-            final record = message.records.first;
-            if (record.typeNameFormat == NdefTypeNameFormat.nfcWellknown) {
-              if (record.payload.first == 0x02) {
-                final languageCodeAndContentBytes =
-                    record.payload.skip(1).toList();
-                final languageCodeAndContentText =
-                    utf8.decode(languageCodeAndContentBytes);
-                final payload = languageCodeAndContentText.substring(2);
-                nfcData.value = payload;
-              }
-            }
-          }
-        }
-        NfcManager.instance.stopSession();
-        reading.value = false;
-      },
-      pollingOptions: {
-        NfcPollingOption.iso14443,
-        NfcPollingOption.iso15693,
-        NfcPollingOption.iso18092,
-      },
-    );
-  }
-
-  Future<void> _writeNFC(ValueNotifier<bool> writing) async {
-    writing.value = true;
-
-    NfcManager.instance.startSession(
-      onDiscovered: (NfcTag tag) async {
-        final ndefTag = Ndef.from(tag);
-        if (ndefTag != null) {
-          final ndefRecord = NdefRecord.createText('Sample Text');
-          final ndefMessage = NdefMessage([ndefRecord]);
-          try {
-            await ndefTag.write(ndefMessage);
-            debugPrint('Data written to tag');
-          } catch (e) {
-            debugPrint("Writing failed, press 'Write NFC' again");
-          }
-        }
-        NfcManager.instance.stopSession();
-        writing.value = false;
-      },
-      pollingOptions: {
-        NfcPollingOption.iso14443,
-        NfcPollingOption.iso15693,
-        NfcPollingOption.iso18092,
-      },
-    );
   }
 }

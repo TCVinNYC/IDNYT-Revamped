@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 
 class StudentCourseWidget extends HookConsumerWidget {
   const StudentCourseWidget({
@@ -14,10 +18,50 @@ class StudentCourseWidget extends HookConsumerWidget {
 
   final DocumentSnapshot<Object?> documentSnapshot;
 
+  Future<void> _readNFC(
+      ValueNotifier<bool> reading, ValueNotifier<String> nfcData) async {
+    reading.value = true;
+
+    NfcManager.instance.startSession(
+      onError: (error) async {
+        debugPrint(error.message);
+      },
+      onDiscovered: (NfcTag tag) async {
+        final ndefTag = Ndef.from(tag);
+        if (ndefTag != null && ndefTag.cachedMessage != null) {
+          final message = ndefTag.cachedMessage!;
+          if (message.records.isNotEmpty) {
+            final record = message.records.first;
+            if (record.typeNameFormat == NdefTypeNameFormat.nfcWellknown) {
+              if (record.payload.first == 0x02) {
+                final languageCodeAndContentBytes =
+                    record.payload.skip(1).toList();
+                final languageCodeAndContentText =
+                    utf8.decode(languageCodeAndContentBytes);
+                final payload = languageCodeAndContentText.substring(2);
+                nfcData.value = payload;
+              }
+            }
+          }
+        }
+        NfcManager.instance.stopSession();
+        reading.value = false;
+      },
+      pollingOptions: {
+        NfcPollingOption.iso14443,
+        NfcPollingOption.iso15693,
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     CourseModel course =
         CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+
+    final reading = useState(false);
+    final nfcData = useState('');
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
       child: Card(
@@ -158,7 +202,7 @@ class StudentCourseWidget extends HookConsumerWidget {
                       children: [
                         IconButton(
                           onPressed: () {
-                            // Send email to professor
+                            reading.value ? null : _readNFC(reading, nfcData);
                           },
                           icon: const Icon(
                             Icons.contactless_rounded,
