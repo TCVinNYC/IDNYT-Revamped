@@ -9,6 +9,7 @@ import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 import 'package:nfc_manager/nfc_manager.dart';
+// import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 
 class StudentCourseWidget extends HookConsumerWidget {
   const StudentCourseWidget({
@@ -18,49 +19,21 @@ class StudentCourseWidget extends HookConsumerWidget {
 
   final DocumentSnapshot<Object?> documentSnapshot;
 
-  Future<void> _readNFC(
-      ValueNotifier<bool> reading, ValueNotifier<String> nfcData) async {
-    reading.value = true;
-
-    NfcManager.instance.startSession(
-      onError: (error) async {
-        debugPrint(error.message);
-      },
-      onDiscovered: (NfcTag tag) async {
-        final ndefTag = Ndef.from(tag);
-        if (ndefTag != null && ndefTag.cachedMessage != null) {
-          final message = ndefTag.cachedMessage!;
-          if (message.records.isNotEmpty) {
-            final record = message.records.first;
-            if (record.typeNameFormat == NdefTypeNameFormat.nfcWellknown) {
-              if (record.payload.first == 0x02) {
-                final languageCodeAndContentBytes =
-                    record.payload.skip(1).toList();
-                final languageCodeAndContentText =
-                    utf8.decode(languageCodeAndContentBytes);
-                final payload = languageCodeAndContentText.substring(2);
-                nfcData.value = payload;
-              }
-            }
-          }
-        }
-        NfcManager.instance.stopSession();
-        reading.value = false;
-      },
-      pollingOptions: {
-        NfcPollingOption.iso14443,
-        NfcPollingOption.iso15693,
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final nfcAvailable = useState(false);
+    final reading = useState(false);
+    final writing = useState(false);
+    final nfcData = useState('');
+
+    useEffect(() {
+      _checkNfcAvailability().then((available) {
+        nfcAvailable.value = available;
+      });
+    }, const []);
+
     CourseModel course =
         CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
-
-    final reading = useState(false);
-    final nfcData = useState('');
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
@@ -201,8 +174,10 @@ class StudentCourseWidget extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         IconButton(
-                          onPressed: () {
-                            reading.value ? null : _readNFC(reading, nfcData);
+                          onPressed: () async {
+                            if (nfcAvailable.value) {
+                              _readNFC(reading, nfcData);
+                            }
                           },
                           icon: const Icon(
                             Icons.contactless_rounded,
@@ -242,6 +217,56 @@ class StudentCourseWidget extends HookConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Future<bool> _checkNfcAvailability() async {
+    bool isAvailable = false;
+    try {
+      isAvailable = await NfcManager.instance.isAvailable();
+    } catch (e) {
+      debugPrint("Error checking NFC availability: $e");
+    }
+    return isAvailable;
+  }
+
+  Future<void> _readNFC(
+      ValueNotifier<bool> reading, ValueNotifier<String> nfcData) async {
+    reading.value = true;
+
+    NfcManager.instance.startSession(
+      onDiscovered: (NfcTag tag) async {
+        final ndefTag = Ndef.from(tag);
+        if (ndefTag != null && ndefTag.cachedMessage != null) {
+          final message = ndefTag.cachedMessage!;
+          if (message.records.isNotEmpty) {
+            final record = message.records.first;
+            if (record.typeNameFormat == NdefTypeNameFormat.nfcWellknown) {
+              if (record.payload.first == 0x02) {
+                final languageCodeAndContentBytes =
+                    record.payload.skip(1).toList();
+                final languageCodeAndContentText =
+                    utf8.decode(languageCodeAndContentBytes);
+                final payload = languageCodeAndContentText.substring(2);
+                nfcData.value = payload;
+              }
+            }
+          }
+        }
+        NfcManager.instance.stopSession();
+        reading.value = false;
+      },
+      onError: (error) async {
+        debugPrint('Error reading NFC tag: $error');
+
+        // Stop the session and update the reading value
+        NfcManager.instance.stopSession();
+        reading.value = false;
+      },
+      pollingOptions: {
+        NfcPollingOption.iso14443,
+        NfcPollingOption.iso15693,
+      },
     );
   }
 }

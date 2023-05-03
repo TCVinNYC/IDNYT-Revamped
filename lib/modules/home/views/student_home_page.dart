@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:idnyt_revamped/modules/home/widgets/student_course_widget.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
-import 'package:nfc_manager/nfc_manager.dart';
 
 @RoutePage(name: 'StudentHomePage')
 class StudentHomePage extends HookConsumerWidget {
@@ -15,20 +13,6 @@ class StudentHomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final courseDataStream = ref.watch(studentCourseDataStreamProvider);
-    final nfcAvailable = useState(false);
-
-    final writing = useState(false);
-
-    useEffect(() {
-      print('useffect');
-      _checkNfcAvailability().then((available) {
-        print(available);
-        nfcAvailable.value = available;
-      });
-    }, const []);
-
-    final reading = useState(false);
-    final nfcData = useState('');
 
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
@@ -69,15 +53,5 @@ class StudentHomePage extends HookConsumerWidget {
         ),
       ),
     );
-  }
-
-  Future<bool> _checkNfcAvailability() async {
-    bool isAvailable = false;
-    try {
-      isAvailable = await NfcManager.instance.isAvailable();
-    } catch (e) {
-      print("Error checking NFC availability: $e");
-    }
-    return isAvailable;
   }
 }
