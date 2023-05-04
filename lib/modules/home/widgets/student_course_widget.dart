@@ -274,6 +274,7 @@ class StudentCourseWidget extends HookConsumerWidget {
                                 ? Colors.blue
                                 : Colors.grey[400],
                           ),
+                          tooltip: "Scan for Attendance",
                         ),
                         IconButton(
                           onPressed: () {
@@ -287,6 +288,7 @@ class StudentCourseWidget extends HookConsumerWidget {
                             size: 20,
                             color: Colors.blue,
                           ),
+                          tooltip: "Message Class",
                         ),
                         IconButton(
                           onPressed: () async {
@@ -307,6 +309,7 @@ class StudentCourseWidget extends HookConsumerWidget {
                             size: 20,
                             color: Colors.blue,
                           ),
+                          tooltip: "Email Professor",
                         ),
                       ],
                     ),

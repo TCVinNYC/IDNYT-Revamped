@@ -12,7 +12,6 @@ class StudentListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print(student.email);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(12.0),
