@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,6 @@ import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 import 'package:nfc_manager/nfc_manager.dart';
-// import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 
 class StudentCourseWidget extends HookConsumerWidget {
   const StudentCourseWidget({
@@ -23,7 +22,6 @@ class StudentCourseWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final nfcAvailable = useState(false);
     final reading = useState(false);
-    final writing = useState(false);
     final nfcData = useState('');
 
     useEffect(() {
@@ -77,12 +75,23 @@ class StudentCourseWidget extends HookConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      course.courseName,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        if (course.isCourseOngoing())
+                          const Icon(
+                            Icons.circle,
+                            size: 10,
+                            color: Colors.green,
+                          ),
+                        const SizedBox(width: 4),
+                        Text(
+                          course.courseName,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 4),
                     Row(
@@ -175,14 +184,59 @@ class StudentCourseWidget extends HookConsumerWidget {
                       children: [
                         IconButton(
                           onPressed: () async {
+                            if (!course.isCourseOngoing()) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Course has not started yet. Please come back later.'),
+                                ),
+                              );
+                              return;
+                            }
                             if (nfcAvailable.value) {
-                              _readNFC(reading, nfcData);
+                              try {
+                                final nfcResult =
+                                    await _readNFC(reading, nfcData);
+                                debugPrint(nfcResult);
+                                await Future.delayed(
+                                    const Duration(seconds: 3));
+                                if (course.isCourseLocation(nfcResult)) {
+                                  debugPrint(
+                                      'Course location matches the NFC value!');
+                                  // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                          Text('Welcome to class! Enjoy :D'),
+                                    ),
+                                  );
+                                } else {
+                                  debugPrint(
+                                      'Course location does not match the NFC value.');
+                                  // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Wrong Class Room!'),
+                                    ),
+                                  );
+                                }
+                              } catch (e) {
+                                debugPrint('Error during NFC session: $e');
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        'Class scanning session cancelled or failed.'),
+                                  ),
+                                );
+                              }
                             }
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.contactless_rounded,
                             size: 20,
-                            color: Colors.blue,
+                            color: course.isCourseOngoing()
+                                ? Colors.blue
+                                : Colors.grey[400],
                           ),
                         ),
                         IconButton(
@@ -230,9 +284,10 @@ class StudentCourseWidget extends HookConsumerWidget {
     return isAvailable;
   }
 
-  Future<void> _readNFC(
+  Future<String> _readNFC(
       ValueNotifier<bool> reading, ValueNotifier<String> nfcData) async {
     reading.value = true;
+    final completer = Completer<String>();
 
     NfcManager.instance.startSession(
       onDiscovered: (NfcTag tag) async {
@@ -255,6 +310,12 @@ class StudentCourseWidget extends HookConsumerWidget {
         }
         NfcManager.instance.stopSession();
         reading.value = false;
+
+        // Complete the completer with the nfcData value
+        completer.complete(nfcData.value);
+
+        // Reset nfcData value after using it
+        nfcData.value = '';
       },
       onError: (error) async {
         debugPrint('Error reading NFC tag: $error');
@@ -262,11 +323,16 @@ class StudentCourseWidget extends HookConsumerWidget {
         // Stop the session and update the reading value
         NfcManager.instance.stopSession();
         reading.value = false;
+
+        // Complete the completer with an error
+        completer.completeError(error);
       },
       pollingOptions: {
         NfcPollingOption.iso14443,
         NfcPollingOption.iso15693,
       },
     );
+
+    return completer.future;
   }
 }
