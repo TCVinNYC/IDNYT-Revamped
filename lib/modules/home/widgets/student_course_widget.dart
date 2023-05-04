@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:idnyt_revamped/modules/models/student_attendance.model.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
@@ -28,10 +30,15 @@ class StudentCourseWidget extends HookConsumerWidget {
       _checkNfcAvailability().then((available) {
         nfcAvailable.value = available;
       });
+      return null;
     }, const []);
 
     CourseModel course =
         CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+
+    final hasSigned = ref.watch(hasStudentSignedInProvider(course.id));
+
+    final userData = ref.read(firestoreProvider).userData;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
@@ -193,6 +200,17 @@ class StudentCourseWidget extends HookConsumerWidget {
                               );
                               return;
                             }
+                            // Check if the student has already signed in for attendance
+                            if (hasSigned.value!) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'You have already signed in for attendance today!'),
+                                ),
+                              );
+                              return;
+                            }
+
                             if (nfcAvailable.value) {
                               try {
                                 final nfcResult =
@@ -203,6 +221,24 @@ class StudentCourseWidget extends HookConsumerWidget {
                                 if (course.isCourseLocation(nfcResult)) {
                                   debugPrint(
                                       'Course location matches the NFC value!');
+
+                                  final attendance = StudentAttendanceModel(
+                                    name: userData.fullName,
+                                    email: userData.email,
+                                    profilePicture: userData.profilePicture,
+                                    time: DateFormat('h:mm a')
+                                        .format(DateTime.now()),
+                                  );
+
+                                  // Set selected course
+                                  ref
+                                      .read(selectedCourseProvider.notifier)
+                                      .state = course.id;
+
+                                  // Use the provider to mark attendance
+                                  await ref.read(markStudentAttendanceProvider(
+                                      attendance));
+
                                   // ignore: use_build_context_synchronously
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(

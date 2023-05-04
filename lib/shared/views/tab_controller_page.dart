@@ -22,7 +22,7 @@ class TabControllerPage extends HookConsumerWidget {
           EnterIDPage(userData: userData)
         else
           IDCardPage(userData: userData),
-        if (userData.role == 'student') StudentHomePage(),
+        if (userData.role == 'student') const StudentHomePage(),
         if (userData.role == 'professor') const ProfessorHomePage(),
         if (userData.role == 'admin') AdminHomePage(userData: userData),
       ],
