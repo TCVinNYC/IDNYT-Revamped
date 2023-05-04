@@ -39,6 +39,14 @@
 	<true/>
 	<key>NFCReaderUsageDescription</key>
 	<string>Enable NFC Capabilities for class check in</string>
+	<key>com.apple.developer.nfc.readersession.felica.systemcodes</key>
+	<array>
+    		<string>*</string>
+	</array>
+	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+	<array>
+    		<string>*</string>
+	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

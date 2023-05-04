@@ -37,8 +37,7 @@ class StudentCourseWidget extends HookConsumerWidget {
     CourseModel course =
         CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
 
-    final hasSigned = ref.watch(hasStudentSignedInProvider(course.id));
-
+    final hasSigned = ref.watch(hasStudentSignedInStreamProvider(course.id));
     final userData = ref.read(firestoreProvider).userData;
 
     return Padding(
