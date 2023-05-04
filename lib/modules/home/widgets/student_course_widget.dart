@@ -11,6 +11,7 @@ import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 import 'package:nfc_manager/nfc_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StudentCourseWidget extends HookConsumerWidget {
   const StudentCourseWidget({
@@ -289,8 +290,18 @@ class StudentCourseWidget extends HookConsumerWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {
-                            // Send email to professor
+                          onPressed: () async {
+                            bool result =
+                                await _launchEmail(course.professorEmail);
+                            if (!result) {
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Class scanning session cancelled or failed.'),
+                                ),
+                              );
+                            }
                           },
                           icon: const Icon(
                             Icons.email,
@@ -308,6 +319,21 @@ class StudentCourseWidget extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<bool> _launchEmail(email) async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: email,
+    );
+
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+      return true;
+    } else {
+      debugPrint('Could not launch email app');
+      return false;
+    }
   }
 
   Future<bool> _checkNfcAvailability() async {
