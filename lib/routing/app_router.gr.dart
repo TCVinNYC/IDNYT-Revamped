@@ -61,7 +61,7 @@ abstract class $AppRouter extends _i16.RootStackRouter {
     StudentHomePage.name: (routeData) {
       return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.StudentHomePage(),
+        child: _i4.StudentHomePage(),
       );
     },
     StudentCourseDetailPage.name: (routeData) {
@@ -142,13 +142,9 @@ abstract class $AppRouter extends _i16.RootStackRouter {
       );
     },
     ProfessorHomePage.name: (routeData) {
-      final args = routeData.argsAs<ProfessorHomePageArgs>();
       return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i13.ProfessorHomePage(
-          key: args.key,
-          userData: args.userData,
-        ),
+        child: const _i13.ProfessorHomePage(),
       );
     },
     ErrorPage.name: (routeData) {
@@ -510,40 +506,16 @@ class IDCardPageArgs {
 
 /// generated route for
 /// [_i13.ProfessorHomePage]
-class ProfessorHomePage extends _i16.PageRouteInfo<ProfessorHomePageArgs> {
-  ProfessorHomePage({
-    _i17.Key? key,
-    required _i19.UserModel userData,
-    List<_i16.PageRouteInfo>? children,
-  }) : super(
+class ProfessorHomePage extends _i16.PageRouteInfo<void> {
+  const ProfessorHomePage({List<_i16.PageRouteInfo>? children})
+      : super(
           ProfessorHomePage.name,
-          args: ProfessorHomePageArgs(
-            key: key,
-            userData: userData,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'ProfessorHomePage';
 
-  static const _i16.PageInfo<ProfessorHomePageArgs> page =
-      _i16.PageInfo<ProfessorHomePageArgs>(name);
-}
-
-class ProfessorHomePageArgs {
-  const ProfessorHomePageArgs({
-    this.key,
-    required this.userData,
-  });
-
-  final _i17.Key? key;
-
-  final _i19.UserModel userData;
-
-  @override
-  String toString() {
-    return 'ProfessorHomePageArgs{key: $key, userData: $userData}';
-  }
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for

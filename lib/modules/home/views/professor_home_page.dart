@@ -1,24 +1,20 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/home/widgets/professor_class_widget.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
-import 'package:idnyt_revamped/shared/models/user.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
 
 @RoutePage(name: 'ProfessorHomePage')
 class ProfessorHomePage extends HookConsumerWidget {
-  UserModel userData;
-  ProfessorHomePage({Key? key, required this.userData}) : super(key: key);
+  const ProfessorHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<String> semesters = ['Fall', 'Spring', 'Summer', 'Winter'];
     List<String> yearData = ref.read(firestoreProvider).yearDataStream();
-    final courseDataStream = ref.watch(courseDataStreamProvider);
+    final courseDataStream = ref.watch(professorCourseDataStreamProvider);
     final selectedYear = ref.watch(selectedYearProvider);
     final selectedSemester = ref.watch(selectedSemesterProvider);
 

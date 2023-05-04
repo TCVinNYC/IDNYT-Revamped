@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-// import 'package:idnyt_revamped/modules/home/views/student_course_detail_page.dart';
 import 'app_router.gr.dart';
 
 // RUN AUTO ROUTER COMMAND

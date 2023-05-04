@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:idnyt_revamped/modules/models/student_attendance.model.dart';
 import 'package:idnyt_revamped/shared/models/user.model.dart';
 
 class FirebaseService {
@@ -12,12 +13,22 @@ class FirebaseService {
   FirebaseFirestore get firestore => _db;
   Stream<UserModel> get userDataStream => getUserData();
 
-  Stream<QuerySnapshot> courseDataStream(String year, String semester) {
+  Stream<QuerySnapshot> professorCourseDataStream(
+      String year, String semester) {
     return _db
         .collection('courses')
         .doc(year)
         .collection(semester)
         .where("professorEmail", isEqualTo: userData.email)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> studentCourseDataStream(String year, String semester) {
+    return _db
+        .collection('courses')
+        .doc(year)
+        .collection(semester)
+        .where("studentList", arrayContains: userData.email)
         .snapshots();
   }
 
@@ -104,6 +115,46 @@ class FirebaseService {
         debugPrint("something went wrong when checking for your document");
       }
     }
+  }
+
+  Future<bool> hasStudentSignedIn(
+      String year, String semester, String course, String date) async {
+    String userEmailWithoutDomain = userData.email.split('@')[0];
+
+    final docSnapshot = await firestore
+        .collection('courses')
+        .doc(year)
+        .collection(semester)
+        .doc(course)
+        .collection('attendance')
+        .doc(date)
+        .get();
+
+    if (docSnapshot.exists) {
+      Map<String, dynamic>? attendedStudentsMap = docSnapshot.data();
+      if (attendedStudentsMap != null) {
+        return attendedStudentsMap.containsKey(userEmailWithoutDomain);
+      }
+    }
+    return false;
+  }
+
+  Future<void> markStudentAttendance(String year, String semester,
+      String course, String date, StudentAttendanceModel attendance) async {
+    String studentEmail = attendance.email.split('@')[0];
+
+    await _db
+        .collection('courses')
+        .doc(year)
+        .collection(semester)
+        .doc(course)
+        .collection('attendance')
+        .doc(date)
+        .set(
+      {studentEmail: attendance.toJson()},
+      SetOptions(merge: true),
+    );
+    debugPrint('Uploaded Attendance for ${attendance.email}!');
   }
 
   Future<UserModel?> createAccount() async {
