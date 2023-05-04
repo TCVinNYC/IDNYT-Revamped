@@ -85,18 +85,14 @@ class AttendanceDetailPage extends HookConsumerWidget {
                                     onPressed: () async {
                                       students.removeAt(index);
 
-                                      final updatedStudentData =
-                                          <String, dynamic>{};
-
-                                      updatedStudentData[student.email] =
-                                          student.toJson();
+                                      String studentEmail =
+                                          student.email.split('@')[0];
 
                                       debugPrint(
                                           "Deleting student from attendance");
 
                                       await docRef.update({
-                                        updatedStudentData.keys.first
-                                            .toString(): FieldValue.delete(),
+                                        studentEmail: FieldValue.delete(),
                                       });
 
                                       // ignore: use_build_context_synchronously
@@ -114,8 +110,12 @@ class AttendanceDetailPage extends HookConsumerWidget {
                                               debugPrint(
                                                   "Adding student back to attendance");
                                               students.add(student);
-                                              await documentSnapshot.reference
-                                                  .update(updatedStudentData);
+                                              await docRef.set(
+                                                {
+                                                  studentEmail: student.toJson()
+                                                },
+                                                SetOptions(merge: true),
+                                              );
                                             },
                                           ),
                                         ),

@@ -37,17 +37,6 @@ final professorCourseDataStreamProvider =
   return ref.read(firestoreProvider).professorCourseDataStream(year, semester);
 });
 
-// final hasStudentSignedInProvider =
-//     FutureProvider.family<bool, String>((ref, courseId) {
-//   String year = ref.watch(selectedYearProvider);
-//   String semester = ref.watch(currentSemesterProvider);
-//   String date = DateFormat('M-d-yyyy').format(DateTime.now());
-
-//   return ref
-//       .read(firestoreProvider)
-//       .hasStudentSignedIn(year, semester, courseId, date);
-// });
-
 final hasStudentSignedInStreamProvider =
     StreamProvider.family<bool, String>((ref, courseId) {
   String year = ref.watch(selectedYearProvider);

@@ -117,32 +117,10 @@ class FirebaseService {
     }
   }
 
-  // Future<bool> hasStudentSignedIn(
-  //     String year, String semester, String course, String date) async {
-  //   String userEmailWithoutDomain = userData.email.split('@')[0];
-
-  //   final docSnapshot = await firestore
-  //       .collection('courses')
-  //       .doc(year)
-  //       .collection(semester)
-  //       .doc(course)
-  //       .collection('attendance')
-  //       .doc(date)
-  //       .get();
-
-  //   if (docSnapshot.exists) {
-  //     Map<String, dynamic>? attendedStudentsMap = docSnapshot.data();
-  //     if (attendedStudentsMap != null) {
-  //       return attendedStudentsMap.containsKey(userEmailWithoutDomain);
-  //     }
-  //   }
-  //   return false;
-  // }
-
   Stream<bool> hasStudentSignedInStream(
       String year, String semester, String course, String date) {
     String userEmailWithoutDomain = userData.email.split('@')[0];
-    return firestore
+    return _db
         .collection('courses')
         .doc(year)
         .collection(semester)
