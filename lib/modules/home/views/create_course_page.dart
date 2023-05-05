@@ -212,23 +212,6 @@ class CreateCoursePage extends HookConsumerWidget {
                     ),
                   ],
                 ),
-
-                // TextFormField(
-                //   decoration: const InputDecoration(
-                //     labelText: 'Location',
-                //     hintText: 'Enter class room location',
-                //     border: OutlineInputBorder(),
-                //   ),
-                //   textInputAction: TextInputAction.done,
-                //   maxLines: 1,
-                //   style: const TextStyle(
-                //     fontSize: 14,
-                //     fontWeight: FontWeight.w500,
-                //   ),
-                //   onChanged: (value) {
-                //     ref.read(classLocationProvider.notifier).state = value;
-                //   },
-                // ),
                 const SizedBox(height: 10.0),
                 const Divider(),
                 const SizedBox(height: 10.0),
