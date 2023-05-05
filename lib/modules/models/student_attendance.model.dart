@@ -15,7 +15,7 @@ class StudentAttendanceModel {
       Map<String, dynamic> json, String email) {
     return StudentAttendanceModel(
       name: json['name'] ?? '',
-      email: email,
+      email: json['email'] ?? '',
       profilePicture: json['profilePicture'] ?? '',
       time: json['time'] ?? '',
     );

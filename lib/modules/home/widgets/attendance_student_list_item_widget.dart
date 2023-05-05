@@ -45,7 +45,7 @@ class StudentListItem extends ConsumerWidget {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        '${student.email}@nyit.edu',
+                        student.email,
                         style: const TextStyle(
                           fontSize: 16.0,
                         ),

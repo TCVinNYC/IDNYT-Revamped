@@ -37,8 +37,7 @@ class StudentCourseWidget extends HookConsumerWidget {
     CourseModel course =
         CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
 
-    final hasSigned = ref.watch(hasStudentSignedInProvider(course.id));
-
+    final hasSigned = ref.watch(hasStudentSignedInStreamProvider(course.id));
     final userData = ref.read(firestoreProvider).userData;
 
     return Padding(
@@ -275,6 +274,7 @@ class StudentCourseWidget extends HookConsumerWidget {
                                 ? Colors.blue
                                 : Colors.grey[400],
                           ),
+                          tooltip: "Scan for Attendance",
                         ),
                         IconButton(
                           onPressed: () {
@@ -288,6 +288,7 @@ class StudentCourseWidget extends HookConsumerWidget {
                             size: 20,
                             color: Colors.blue,
                           ),
+                          tooltip: "Message Class",
                         ),
                         IconButton(
                           onPressed: () async {
@@ -308,6 +309,7 @@ class StudentCourseWidget extends HookConsumerWidget {
                             size: 20,
                             color: Colors.blue,
                           ),
+                          tooltip: "Email Professor",
                         ),
                       ],
                     ),
