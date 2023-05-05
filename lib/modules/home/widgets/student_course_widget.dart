@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -10,7 +9,7 @@ import 'package:idnyt_revamped/modules/models/student_attendance.model.dart';
 import 'package:idnyt_revamped/routing/app_router.gr.dart';
 import 'package:idnyt_revamped/shared/models/course.model.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
-import 'package:nfc_manager/nfc_manager.dart';
+import 'package:idnyt_revamped/shared/providers/nfc.provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StudentCourseWidget extends HookConsumerWidget {
@@ -23,22 +22,23 @@ class StudentCourseWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nfcAvailable = useState(false);
-    final reading = useState(false);
-    final nfcData = useState('');
-
-    useEffect(() {
-      _checkNfcAvailability().then((available) {
-        nfcAvailable.value = available;
-      });
-      return null;
-    }, const []);
-
     CourseModel course =
         CourseModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
 
     final hasSigned = ref.watch(hasStudentSignedInStreamProvider(course.id));
     final userData = ref.read(firestoreProvider).userData;
+
+    final nfc = ref.read(nfcProvider);
+    final nfcAvailable = useState(false);
+    final nfcReading = useState(false);
+    final nfcData = useState('');
+
+    useEffect(() {
+      nfc.checkNfcAvailability().then((available) {
+        nfcAvailable.value = available;
+      });
+      return null;
+    }, const []);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
@@ -214,7 +214,7 @@ class StudentCourseWidget extends HookConsumerWidget {
                             if (nfcAvailable.value) {
                               try {
                                 final nfcResult =
-                                    await _readNFC(reading, nfcData);
+                                    await nfc.readNFC(nfcReading, nfcData);
                                 debugPrint(nfcResult);
                                 await Future.delayed(
                                     const Duration(seconds: 3));
@@ -336,67 +336,5 @@ class StudentCourseWidget extends HookConsumerWidget {
       debugPrint('Could not launch email app');
       return false;
     }
-  }
-
-  Future<bool> _checkNfcAvailability() async {
-    bool isAvailable = false;
-    try {
-      isAvailable = await NfcManager.instance.isAvailable();
-    } catch (e) {
-      debugPrint("Error checking NFC availability: $e");
-    }
-    return isAvailable;
-  }
-
-  Future<String> _readNFC(
-      ValueNotifier<bool> reading, ValueNotifier<String> nfcData) async {
-    reading.value = true;
-    final completer = Completer<String>();
-
-    NfcManager.instance.startSession(
-      onDiscovered: (NfcTag tag) async {
-        final ndefTag = Ndef.from(tag);
-        if (ndefTag != null && ndefTag.cachedMessage != null) {
-          final message = ndefTag.cachedMessage!;
-          if (message.records.isNotEmpty) {
-            final record = message.records.first;
-            if (record.typeNameFormat == NdefTypeNameFormat.nfcWellknown) {
-              if (record.payload.first == 0x02) {
-                final languageCodeAndContentBytes =
-                    record.payload.skip(1).toList();
-                final languageCodeAndContentText =
-                    utf8.decode(languageCodeAndContentBytes);
-                final payload = languageCodeAndContentText.substring(2);
-                nfcData.value = payload;
-              }
-            }
-          }
-        }
-        NfcManager.instance.stopSession();
-        reading.value = false;
-
-        // Complete the completer with the nfcData value
-        completer.complete(nfcData.value);
-
-        // Reset nfcData value after using it
-        nfcData.value = '';
-      },
-      onError: (error) async {
-        debugPrint('Error reading NFC tag: $error');
-
-        // Stop the session and update the reading value
-        NfcManager.instance.stopSession();
-        reading.value = false;
-
-        // Complete the completer with an error
-        completer.completeError(error);
-      },
-      pollingOptions: {
-        NfcPollingOption.iso14443,
-        NfcPollingOption.iso15693,
-      },
-    );
-
-    return completer.future;
   }
 }
