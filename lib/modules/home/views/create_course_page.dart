@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:idnyt_revamped/modules/home/providers/create_course.provider.dart';
 import 'package:idnyt_revamped/shared/providers/auth.provider.dart';
 import 'package:idnyt_revamped/shared/providers/firebase.provider.dart';
+import 'package:idnyt_revamped/shared/providers/nfc.provider.dart';
 import 'package:idnyt_revamped/shared/widgets/regular_button_widget.dart';
 import 'package:time_range/time_range.dart';
 import 'package:chips_choice/chips_choice.dart';
@@ -42,6 +44,18 @@ class CreateCoursePage extends HookConsumerWidget {
 
     final firebaseService = ref.read(firestoreProvider);
     final authService = ref.read(authServiceProvider);
+
+    final nfc = ref.read(nfcProvider);
+    final nfcAvailable = useState(false);
+    final nfcReading = useState(false);
+    final nfcData = useState('');
+
+    useEffect(() {
+      nfc.checkNfcAvailability().then((available) {
+        nfcAvailable.value = available;
+      });
+      return null;
+    }, const []);
 
     return Scaffold(
       appBar: AppBar(
@@ -150,22 +164,71 @@ class CreateCoursePage extends HookConsumerWidget {
                 const SizedBox(height: 10.0),
                 const Divider(),
                 const SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Location',
-                    hintText: 'Enter class room location',
-                    border: OutlineInputBorder(),
-                  ),
-                  textInputAction: TextInputAction.done,
-                  maxLines: 1,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  onChanged: (value) {
-                    ref.read(classLocationProvider.notifier).state = value;
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (nfcAvailable.value) {
+                          try {
+                            final nfcResult =
+                                await nfc.readNFC(nfcReading, nfcData);
+                            debugPrint(nfcResult);
+                            await Future.delayed(const Duration(seconds: 3));
+                            ref.read(classLocationProvider.notifier).state =
+                                nfcResult;
+                          } catch (e) {
+                            debugPrint('Error during NFC session: $e');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Class scanning session cancelled or failed.'),
+                              ),
+                            );
+                          }
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        backgroundColor: Colors.blue,
+                        padding: const EdgeInsets.all(5),
+                      ),
+                      child: const Icon(
+                        Icons.contactless_rounded,
+                        color: Colors.white,
+                        size: 26,
+                      ),
+                    ),
+                    const SizedBox(width: 10.0),
+                    Text(
+                      classLocation.isNotEmpty
+                          ? classLocation
+                          : 'Scan tag for Class Room',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ],
                 ),
+
+                // TextFormField(
+                //   decoration: const InputDecoration(
+                //     labelText: 'Location',
+                //     hintText: 'Enter class room location',
+                //     border: OutlineInputBorder(),
+                //   ),
+                //   textInputAction: TextInputAction.done,
+                //   maxLines: 1,
+                //   style: const TextStyle(
+                //     fontSize: 14,
+                //     fontWeight: FontWeight.w500,
+                //   ),
+                //   onChanged: (value) {
+                //     ref.read(classLocationProvider.notifier).state = value;
+                //   },
+                // ),
                 const SizedBox(height: 10.0),
                 const Divider(),
                 const SizedBox(height: 10.0),
