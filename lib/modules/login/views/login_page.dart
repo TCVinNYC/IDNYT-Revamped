@@ -84,27 +84,26 @@ class LoginPage extends HookConsumerWidget {
                 ),
               ),
               RegularButtonWidget(
-                  text: "Get Started",
-                  onPressed: () async {
-                    await auth.signInWithGoogle();
-                    if (auth.currentUser != null) {
+                text: "Get Started",
+                onPressed: () async {
+                  await auth.signInWithGoogle();
+                  if (auth.currentUser != null) {
+                    debugPrint('Auth is vaild for ${auth.currentUser?.email}');
+                    if (auth.currentUser!.email!.endsWith("@nyit.edu")) {
                       debugPrint(
-                          'Auth is vaild for ${auth.currentUser?.email}');
-                      if (auth.currentUser!.email!.endsWith("@nyit.edu")) {
-                        debugPrint(
-                            'Auth ends in @NYIT.edu :D\nGoing to Tab Navigation Page');
-                        await ref.read(firestoreProvider).checkUserData();
-                        // ignore: use_build_context_synchronously
-                        AutoRouter.of(context)
-                            .replace(const TabControllerPage());
-                      } else {
-                        debugPrint(
-                            'Error during auth for ${auth.currentUser!.email}');
-                        // ignore: use_build_context_synchronously
-                        AutoRouter.of(context).push(const ErrorPage());
-                      }
+                          'Auth ends in @NYIT.edu :D\nGoing to Tab Navigation Page');
+                      await ref.read(firestoreProvider).checkUserData();
+                      // ignore: use_build_context_synchronously
+                      AutoRouter.of(context).replace(const TabControllerPage());
+                    } else {
+                      debugPrint(
+                          'Error during auth for ${auth.currentUser!.email}');
+                      // ignore: use_build_context_synchronously
+                      AutoRouter.of(context).push(const ErrorPage());
                     }
-                  })
+                  }
+                },
+              )
             ],
           ),
         ),
